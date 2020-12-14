@@ -2,6 +2,24 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation
+
+Open your terminal, navigate to the correct directory and type:
+
+`git clone {url for this GitHub repo}`
+
+This will clone the repo onto your machine.
+
+`cd` into the new folder and run:
+
+`npm install`
+
+This will install dependencies and create a `node_modules` folder locally.
+
+## Collaboration
+
+Every time you pull this repo to work on it, remember to run `npm install` first so you have the latest dependencies!
+
 ## Available Scripts
 
 In the project directory, you can run:
