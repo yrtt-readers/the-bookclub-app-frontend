@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Open your terminal, navigate to the correct directory and type:
 
-`git clone {url for this GitHub repo}`
+`git clone https://github.com/yrtt-readers/the-bookclub-app-frontend.git`
 
 This will clone the repo onto your machine.
 
