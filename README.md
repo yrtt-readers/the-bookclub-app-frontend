@@ -20,6 +20,8 @@ This will install dependencies and create a `node_modules` folder locally.
 
 Every time you pull this repo to work on it, remember to run `npm install` first so you have the latest dependencies!
 
+Please remember to create separate branches for new features, and to pull from `master` before pushing.
+
 ## Available Scripts
 
 In the project directory, you can run:
