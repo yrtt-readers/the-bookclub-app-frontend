@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -36,3 +36,66 @@
     transform: rotate(360deg);
   }
 }
+*/
+* {
+  margin: 0px;
+}
+
+img {
+    width: 50%;
+}
+
+/**
+ * Header CSS
+ */
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+
+header a {
+  color: rgb(34, 71, 126);
+}
+
+/**
+ * Content CSS
+ */
+.container-margin {
+    margin-top: 5rem;
+}
+
+p .text-center {
+    padding: 5%;
+}
+
+.booklist {
+  background-color: grey;
+  padding: 1%
+}
+
+.book {
+  background-color: rgb(202, 202, 202);
+  padding: 5%;
+}
+
+footer {
+  display: block;
+}
+
+img.img-thumbnail {
+  float: left;
+  margin-right: 2%;
+}
+
+p.book-description {
+  margin-bottom: 0px;
+  padding-left: 2%;
+}
+
+button.request {
+  margin-top: 2%;
+}
+
