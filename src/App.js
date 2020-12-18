@@ -101,7 +101,7 @@ function App() {
               <strong>Author names</strong>{' '}
             </p>
             <p className='book-description'>
-              Look out the window--everything&apos;s white...
+              "Look out the window--everything's white..."
             </p>
             <p className='book-description'>Book Quantity</p>
             <p className='book-description'>Post Code</p>
@@ -123,7 +123,7 @@ function App() {
               <strong>Author names</strong>{' '}
             </p>
             <p className='book-description'>
-              It&apos;s math with a Puzzlemania twist!...
+              It's math with a Puzzlemania twist!...
             </p>
             <p className='book-description'>Book Quantity</p>
             <p className='book-description'>Post Code</p>
