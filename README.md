@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Installation
+## First-Time Installation
 
 Open your terminal, navigate to the correct directory and type:
 
@@ -20,7 +20,19 @@ This will install dependencies and create a `node_modules` folder locally.
 
 Every time you pull this repo to work on it, remember to run `npm install` first so you have the latest dependencies!
 
-Please remember to create separate branches for new features, and to pull from `master` before pushing.
+**Please remember to create separate branches for new features, and to pull from `master` before pushing.**
+
+### Tips on React components
+
+- Components live in `src/components`
+- You need to have `import React from 'react';` at the top of every component page
+- Formatting is very strict, so it may be easier to copy and paste old components into new component files, and modify from there.
+
+## ESLint
+
+Run ESLint from the terminal with `npm run lint`
+
+ES Lint has been configured. If you find a rule you want to implement, please inform the group before implementing.
 
 ## Available Scripts
 
