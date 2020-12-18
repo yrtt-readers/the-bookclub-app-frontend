@@ -106,9 +106,7 @@ function App() {
           </div>
 
           <div className='col-auto'>
-            <button type='submit' className='btn btn-primary'>
-              Search
-            </button>
+            <Button variant="primary">Search</Button>
           </div>
         </div>
         <div className='row booklist'>
@@ -167,7 +165,7 @@ function App() {
               <strong>Author names</strong>{' '}
             </p>
             <p className='book-description'>
-              Look out the window--everything's white...
+              Look out the window--everything&apos;s white...
             </p>
             <p className='book-description'>Book Quantity</p>
             <p className='book-description'>Post Code</p>
@@ -189,7 +187,7 @@ function App() {
               <strong>Author names</strong>{' '}
             </p>
             <p className='book-description'>
-              It's math with a Puzzlemania twist!...
+              It&apos;s math with a Puzzlemania twist!...
             </p>
             <p className='book-description'>Book Quantity</p>
             <p className='book-description'>Post Code</p>
@@ -306,7 +304,7 @@ function App() {
           </div>
         </div>
       </section>
-      <footer class='footer mt-auto py-3 bg-light'>The Book Club!</footer>
+      <footer className='footer mt-auto py-3 bg-light'>The Book Club!</footer>
     </div>
   );
 }
