@@ -42,13 +42,13 @@
 }
 
 img {
-    width: 50%;
+  width: 50%;
 }
 
 /**
  * Header CSS
  */
-header {
+/* header {
   position: fixed;
   top: 0;
   right: 0;
@@ -58,22 +58,22 @@ header {
 
 header a {
   color: rgb(34, 71, 126);
-}
+} */
 
 /**
  * Content CSS
  */
 .container-margin {
-    margin-top: 5rem;
+  margin-top: 5rem;
 }
 
 p .text-center {
-    padding: 5%;
+  padding: 5%;
 }
 
 .booklist {
   background-color: grey;
-  padding: 1%
+  padding: 1%;
 }
 
 .book {
@@ -98,4 +98,3 @@ p.book-description {
 button.request {
   margin-top: 2%;
 }
-
