@@ -8,9 +8,9 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const IsbnList = ['9780060217860']
+  const isbnList = ['9780060217860']
 
-  const [Stocks] = useState([
+  const [stocks, setStocks] = useState([
     { isbn: '9780789411464', qty: 1 },
     { isbn: '9780789411464', qty: 2 },
     { isbn: '9780789411464', qty: 1 },
@@ -72,7 +72,7 @@ function App() {
             </p>
             <p className='book-description'>N/A</p>
             <p className='book-description'>Book Quantity :
-            {Stocks.filter(stock => stock.isbn === '9780789411464').reduce((sum, stock) => sum + stock.qty, 0)}
+            {stocks.filter(stock => stock.isbn === '9780789411464').reduce((sum, stock) => sum + stock.qty, 0)}
             </p>
             <p className='book-description'>Post Code</p>
             <p className='book-description'>
@@ -80,7 +80,7 @@ function App() {
             </p>
             <button className='btn btn-primary request'>Request</button>
           </div>
-          <BookList Isbn={IsbnList[0]} Stocks={Stocks}/>
+          <BookList isbn={isbnList[0]} stocks={stocks.filter(stock => stock.isbn === isbnList[0])} setStocks={setStocks}/>
           <div className='col-lg-4 col-sm-6 book'>
             <img
               className='img-thumbnail'
