@@ -1,18 +1,21 @@
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Header from './components/Header/Header';
+import BookList from './components/Book/Book';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 
 function App() {
 
-  const [books] = useState([
+  const IsbnList = ['9780060217860']
+
+  const [Stocks] = useState([
     { isbn: '9780789411464', qty: 1 },
+    { isbn: '9780789411464', qty: 2 },
     { isbn: '9780789411464', qty: 1 },
-    { isbn: '9780789411464', qty: 1 },
-    { isbn: '9780816741342', qty: 1 },
-    { isbn: '9780816741342', qty: 1 },
+    { isbn: '9780060217860', qty: 2 },
+    { isbn: '9780060217860', qty: 3 },
   ])
 
   return (
@@ -67,8 +70,9 @@ function App() {
             <p className='book-description'>
               <strong>Author names</strong>
             </p>
-            <p className='book-description'>Book Quantity : 
-            {books.filter(book => book.isbn === '9780789411464').reduce((sum,book)=>sum+book.qty,0)}
+            <p className='book-description'>N/A</p>
+            <p className='book-description'>Book Quantity :
+            {Stocks.filter(stock => stock.isbn === '9780789411464').reduce((sum, stock) => sum + stock.qty, 0)}
             </p>
             <p className='book-description'>Post Code</p>
             <p className='book-description'>
@@ -76,28 +80,7 @@ function App() {
             </p>
             <button className='btn btn-primary request'>Request</button>
           </div>
-          <div className='col-lg-4 col-sm-6 book'>
-            <img
-              className='img-thumbnail'
-              src='https://covers.openlibrary.org/b/id/9943475-L.jpg'
-              alt='book-image-not-found'
-            />
-            <p className='book-description'>
-              <strong>Wider Than the Sky</strong>
-            </p>
-            <p className='book-description'>
-              <strong>Author names</strong>{' '}
-            </p>
-            <p className='book-description'>
-              A diverse anthology of poems by William Shakespeare...
-            </p>
-            <p className='book-description'>Book Quantity</p>
-            <p className='book-description'>Post Code</p>
-            <p className='book-description'>
-              <a href='#'>More info</a>
-            </p>
-            <button className='btn btn-primary request'>Request</button>
-          </div>
+          <BookList Isbn={IsbnList[0]} Stocks={Stocks}/>
           <div className='col-lg-4 col-sm-6 book'>
             <img
               className='img-thumbnail'
