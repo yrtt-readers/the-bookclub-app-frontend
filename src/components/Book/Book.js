@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Book.css';
+import {booksData} from './BooksData.js';
 
-function Book({isbn,stocks,setStocks}) {
+function Book({ isbn, stocks, setStocks }) {
 
-  function setBookToStocks(e){
+  const bookData = booksData.filter(book => book.isbn === isbn);
+  console.log(bookData)
+
+  function setBookToStocks(e) {
     if (e.target.className === 'btn btn-primary request')
-      setStocks(stocks => [...stocks, {isbn:isbn,qty:-1}])
+      setStocks(stocks => [...stocks, { isbn: isbn, qty: -1 }])
     else if (e.target.className === 'btn btn-primary donate')
-      setStocks(stocks => [...stocks, {isbn:isbn,qty:+1}])
-    
+      setStocks(stocks => [...stocks, { isbn: isbn, qty: +1 }])
   }
 
   return (
