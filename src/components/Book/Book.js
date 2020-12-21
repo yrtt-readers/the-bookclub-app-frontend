@@ -1,7 +1,8 @@
-import React from 'react';
+// /* eslint-disable */
 import PropTypes from 'prop-types';
+import React from 'react';
 import './Book.css';
-import {booksData} from './BooksData.js';
+import { booksData } from './BooksData.js';
 
 function Book({ isbn, stocks, setStocks }) {
 
