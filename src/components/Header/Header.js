@@ -8,9 +8,7 @@ function Header() {
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
           <img className="small-logo" src="assets/images/book-icon.png" alt="bookclub logo" />
-          <a className='navbar-brand' href='#'>
-            The BookClub
-          </a>
+          <Link className='navbar-brand' to="/">The BookClub</Link>
           <button
             className='navbar-toggler'
             type='button'
@@ -25,25 +23,25 @@ function Header() {
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0 d-flex'>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined">Home</button></Link>
+                <Link className='nav-link' to="/">Home</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined">About</button></Link>
+                <Link className='nav-link' to="/">About</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/donate"><button className='nav-link' variant="outlined">Donate Book</button></Link>
+                <Link className='nav-link' to="/donate">Donate Book</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined">Request Book</button></Link>
+                <Link className='nav-link' to="/">Request Book</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined">Find Event</button></Link>
+                <Link className='nav-link' to="/">Find Event</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined">Contact us</button></Link>
+                <Link className='nav-link' to="/">Contact us</Link>
               </li>
               <li className='nav-item'>
-                <Link to="/"><button className='nav-link' variant="outlined"> Log in / Sign up</button></Link>
+                <Link className='nav-link' to="/login">Log in / Sign up</Link>
               </li>
             </ul>
           </div>

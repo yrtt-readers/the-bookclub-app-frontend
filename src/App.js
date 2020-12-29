@@ -10,7 +10,10 @@ function App() {
   return (
     <div>
       <Header />
-      <Main />
+      <div className="App">
+        <Main />
+      </div>
+        
       <section className='container container-margin'>
         <div className='row g-3'>
           <h1 className='text-center'>Books available</h1>
