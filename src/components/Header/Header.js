@@ -1,11 +1,13 @@
 import React from 'react';
 import './Header.css';
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <header className='header'>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
+          <img className="small-logo" src="assets/images/book-icon.png" alt="bookclub logo" />
           <a className='navbar-brand' href='#'>
             The BookClub
           </a>
@@ -23,39 +25,25 @@ function Header() {
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0 d-flex'>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Home
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined">Home</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  About us
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined">About</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='/index.html'>
-                  Donate Books
-                </a>
+                <Link to="/donate"><button className='nav-link' variant="outlined">Donate Book</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link activate' aria-current='page' href='#'>
-                  Request Book
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined">Request Book</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Find Event
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined">Find Event</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Contact us
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined">Contact us</button></Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Log in / Sign up
-                </a>
+                <Link to="/"><button className='nav-link' variant="outlined"> Log in / Sign up</button></Link>
               </li>
             </ul>
           </div>

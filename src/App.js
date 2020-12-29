@@ -1,14 +1,16 @@
-import Button from 'react-bootstrap/Button';
-import Dropdown from 'react-bootstrap/Dropdown';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Header from './components/Header/Header';
+import Main from './components/Main/Main';
 
 function App() {
   return (
     <div>
       <Header />
+      <Main />
       <section className='container container-margin'>
         <div className='row g-3'>
           <h1 className='text-center'>Books available</h1>
@@ -240,7 +242,7 @@ function App() {
           </div>
         </div>
       </section>
-      <footer className='footer mt-auto py-3 bg-light'>The Book Club!</footer>
+      <footer className='text-center footer mt-auto py-3 bg-light'>The BookClub!</footer>
     </div>
   );
 }
