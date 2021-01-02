@@ -57,7 +57,7 @@ return (
 }
 
 Book.propTypes = {
-  isbn: PropTypes.string,
+  isbn: PropTypes.number,
   stocks: PropTypes.array,
   setStocks: PropTypes.func,
 };
