@@ -48,7 +48,7 @@ function Login() {
     //     props.history.push('/');
     // }
     const redirectToRegister = () => {
-        // props.history.push('/signup'); 
+        //props.history.push('/signup'); 
         // props.updateTitle('Sign up');
         
     }

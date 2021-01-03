@@ -26,19 +26,19 @@ function Header() {
                 <Link className='nav-link' to="/">Home</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="/">About</Link>
+                <Link className='nav-link' to="#">About</Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to="/donate">Donate Book</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="/">Request Book</Link>
+                <Link className='nav-link' to="#">Request Book</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="/">Find Event</Link>
+                <Link className='nav-link' to="#">Find Event</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="/">Contact us</Link>
+                <Link className='nav-link' to="#">Contact us</Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to="/login">Log in / Sign up</Link>
