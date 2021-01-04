@@ -1,14 +1,22 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { screen, render, cleanup } from '@testing-library/react';
 
-test('renders learn react link', () => {
- render(<BrowserRouter> <App /> </BrowserRouter>);
-  //render(<App />);
-  //const brandElement = screen.getByText(/The BookClub/i);
-  const brandElement = screen.getAllByText(/The BookClub/i);
-  console.log(brandElement);
-  //expect(brandElement).toBeInTheDocument();
-  //expect(brandElement).length.toBe(1)
+let container = null;
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+  render(<App />, container);
+});
 
+afterEach(() => { cleanup });
+
+describe('App', () => {
+
+  test('renders heading component', () => {
+    expect(screen.getByRole('heading').textContent).toBe('Books available')
+  });
+
+  test('renders footer component', () => {
+    expect(screen.getByRole('contentinfo').textContent).toBe('The Book Club!')
+  });
 });
