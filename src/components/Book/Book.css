@@ -1,11 +1,4 @@
-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 2;
-}
-
-header a {
-  color: rgb(34, 71, 126);
+.btn {
+  padding: 2%;
+  margin: 1%;
 }
