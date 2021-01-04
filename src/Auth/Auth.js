@@ -5,7 +5,7 @@ export default class Auth {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'process.env.REACT_APP_AUTH0_DOMAIN',
-      audience: 'https://<AUTH0_DOMAIN>/userinfo',
+      audience: 'https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo',
       clientID: 'process.env.REACT_APP_AUTH0_CLIENT_ID',
       redirectUri: 'http://localhost:3000/callback',
       responseType: 'token id_token',
