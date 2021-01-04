@@ -19,5 +19,4 @@ describe('App', () => {
   test('renders footer component', () => {
     expect(screen.getByRole('contentinfo').textContent).toBe('The Book Club!')
   });
-
 });

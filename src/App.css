@@ -1,7 +1,4 @@
-/*.App {
-  text-align: center;
-}
-
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -80,4 +77,10 @@ p.book-description {
   padding-left: 2%;
 }
 
+button.request {
+  margin-top: 2%;
+}
 
+.App {
+  text-align: center;
+}
