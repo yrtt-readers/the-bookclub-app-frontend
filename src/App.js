@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function App() {
 
-  const isbnList = [9780060217860,9780789411464]
+  const isbnList = [9780060217860, 9780789411464]
 
   const [stocks, setStocks] = useState([
     { isbn: 9780789411464, qty: 1 },
@@ -59,7 +59,9 @@ function App() {
           </div>
         </div>
         <div className='row booklist'>
-        <Book isbn={isbnList[0]} stocks={stocks.filter(stock => stock.isbn === isbnList[0])} setStocks={setStocks} />
+          <Book mode={0} isbn={isbnList[0]}
+        stocks={stocks.filter(stock => stock.isbn === isbnList[0])}
+        setStocks={setStocks} />
         </div>
       </section>
       <footer className='footer mt-auto py-3 bg-light'>The Book Club!</footer>
