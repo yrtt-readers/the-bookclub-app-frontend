@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import $ from 'jquery';
 import './Book.css';
-// import { booksData } from './BooksData.js';
 
 function Book({ isbn, stocks, setStocks }) {
-
-  // const bookData = booksData.filter(book => book.isbn === isbn);
-  //  console.log(bookData)
 
 $.ajax({
   url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books.json',
@@ -50,8 +46,10 @@ return (
     <p className='book-description'>
       <a href='#'>More info</a>
     </p>
-    <button onClick={setBookToStocks} className='btn btn-primary request'>Request</button>
-    <button onClick={setBookToStocks} className='btn btn-primary donate'>Donate</button>
+    <button onClick={setBookToStocks} 
+            className='btn btn-primary request'>Request</button>
+    <button onClick={setBookToStocks} 
+            className='btn btn-primary donate'>Donate</button>
   </div>
 );
 }
