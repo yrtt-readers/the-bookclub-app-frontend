@@ -10,7 +10,15 @@ import { useState } from 'react';
 
 function App() {
 
-  const isbnList = [9780060217860, 9780789411464]
+  const isbnList = [9780060217860, 
+                    9780789411464,
+                    9780806919317,
+                    9780875349343,
+                    9780893751159,
+                    9780689853944,
+                    9780866228312,
+                    9780911981568,
+                    9780816741342]
 
   const [stocks, setStocks] = useState([
     { isbn: 9780789411464, qty: 1 },
@@ -64,9 +72,11 @@ function App() {
           </div>
         </div>
         <div className='row booklist'>
-          <Book mode={0} isbn={isbnList[0]}
-        stocks={stocks.filter(stock => stock.isbn === isbnList[0])}
-        setStocks={setStocks} />
+          {isbnList.map(v =>
+            <Book key={v} mode={0}
+              isbn={v}
+              stocks={stocks.filter(stock => stock.isbn === v)}
+              setStocks={setStocks} />)}
         </div>
       </section>
       <footer className='text-center footer mt-auto py-3 bg-light'>The BookClub!</footer>
