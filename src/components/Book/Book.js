@@ -4,7 +4,15 @@ import React from 'react';
 import $ from 'jquery';
 import './Book.css';
 
+const bookComponentList = [
+  { mode: -1, label: null, className: 'none' },
+  { mode: 0, label: 'Request', className: 'btn btn-primary request' },
+  { mode: 1, label: 'Donate', className: 'btn btn-primary donate' },
+]
+
 function Book({ mode, isbn, stocks, setStocks }) {
+
+  const bookComponent = bookComponentList.find(v => v.mode == mode)
 
   $.ajax({
     url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books.json',
@@ -45,9 +53,9 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <a href='#'>More info</a>
       </p>
       <button onClick={setBookToStocks}
-        className={mode==0?'btn btn-primary request':'hide'}>Request</button>
-      <button onClick={setBookToStocks}
-        className={mode==1?'btn btn-primary donate':'hide'}>Donate</button>
+        className={bookComponent.className}>
+        {bookComponent.label}
+      </button>
     </div>
   )
 
