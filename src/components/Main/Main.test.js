@@ -1,23 +1,19 @@
-import Book from './Book';
+import Main from './Main';
 import { screen, render, cleanup } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 let container = null;
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
-  render(<Book 
-    mode={0}
-    isbn={0}
-    stocks={[]}
-    setStocks={()=>{}}
-  />, container);
+  render(<Router><Main /></Router>, container);
 });
 
 afterEach(() => { cleanup });
 
-describe('Book', () => {
+describe('Main', () => {
 
-  test('renders book component', () => {
+  test('renders main component', () => {
     expect(true).toBe(true)
   });
 });
