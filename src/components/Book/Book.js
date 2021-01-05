@@ -19,11 +19,10 @@ function Book({ mode, isbn, stocks, setStocks }) {
 
   function setBookToStocks(e) {
     if (e.target.className === 'btn btn-primary request')
-      setStocks(stocks => [...stocks, { isbn: isbn, qty: -1 }])
+      setStocks(stock => [...stock, { isbn: isbn, qty: -1 }])
     else if (e.target.className === 'btn btn-primary donate')
-      setStocks(stocks => [...stocks, { isbn: isbn, qty: +1 }])
+      setStocks(stock => [...stock, { isbn: isbn, qty: +1 }])
   }
-
 
   return (
     <div className='col-lg-4 col-sm-6 book'>
@@ -39,8 +38,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <strong>Author names</strong>{' '}
       </p>
       <p className='book-description'>{sessionStorage.getItem(isbn + '-' + 'description')}</p>
-      <p className='book-description'>Book Quantity :
-    {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
+      <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
       </p>
       <p className='book-description'>Post Code</p>
       <p className='book-description'>

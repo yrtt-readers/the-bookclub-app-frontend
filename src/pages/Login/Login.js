@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from "react-router-dom";
 //import PropTypes from 'prop-types';
 import './Login.css';
 
@@ -47,11 +48,11 @@ function Login() {
     //     props.updateTitle('Home')
     //     props.history.push('/');
     // }
-    const redirectToRegister = () => {
-        //props.history.push('/signup'); 
-        // props.updateTitle('Sign up');
+    // const redirectToRegister = () => {
+    //     //props.history.push('/signup'); 
+    //     // props.updateTitle('Sign up');
         
-    }
+    // }
     return(
         <div className="container container-margin text-center">
             <h1 className="text-center">Log in</h1>
@@ -92,7 +93,9 @@ function Login() {
                 </div>
                 <div className="registerMessage">
                     <span>Don't have an account? </span>
-                    <span className="loginText" onClick={() => redirectToRegister()}>Sign up</span> 
+                    <Link className='loginText' to="/signup">Sign up</Link>
+                    
+                    {/* <span className="loginText" onClick={() => redirectToRegister()}>Sign up</span>  */}
                 </div>
             </div>
         </div>

@@ -45,23 +45,6 @@ img {
 /**
  * Content CSS
  */
-.container-margin {
-  margin-top: 5rem;
-}
-
-p .text-center {
-  padding: 5%;
-}
-
-.booklist {
-  background-color: grey;
-  padding: 1%;
-}
-
-.book {
-  background-color: rgb(202, 202, 202);
-  padding: 5%;
-}
 
 footer {
   display: block;
