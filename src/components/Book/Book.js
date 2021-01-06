@@ -7,6 +7,8 @@ const bookComponent = new Map()
 bookComponent.set(-1, { label: null, className: 'none' })
 bookComponent.set(0, { label: 'Request', className: 'btn btn-primary request' })
 bookComponent.set(1, { label: 'Donate', className: 'btn btn-primary donate' })
+bookComponent.set(2, { label: null, className: 'none' })
+bookComponent.set(3, { label: null, className: 'none' })
 
 
 function Book({ mode, isbn, stocks, setStocks }) {
@@ -26,11 +28,36 @@ function Book({ mode, isbn, stocks, setStocks }) {
 
   const bookData = JSON.parse(sessionStorage.getItem('book.' + isbn))
 
-  function setBookToStocks(e) {
-    if (e.target.className === 'btn btn-primary request')
-      setStocks(stock => [...stock, { isbn: isbn, qty: -1 }])
-    else if (e.target.className === 'btn btn-primary donate')
-      setStocks(stock => [...stock, { isbn: isbn, qty: +1 }])
+  function onClickListener(e) {
+
+    let key = ''
+    let item = {}
+    let cart = []
+
+    if (e.target.className === 'btn btn-primary request') {
+      key = 'cart.request'
+      item = 
+        stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
+          null : { isbn: isbn, qty: -1 }
+    }
+    else if (e.target.className === 'btn btn-primary donate') {
+      key = 'cart.donate'
+      item = { isbn: isbn, qty: +1 }
+    }
+
+    item === null?null:
+      setStocks(stock => [...stock, item])
+
+    sessionStorage.getItem(key) === null ?
+      sessionStorage.setItem(key, JSON.stringify(cart)) : null
+
+    cart = JSON.parse(sessionStorage.getItem(key))
+
+    item === null?null:
+      cart.push(item)
+
+    sessionStorage.setItem(key, JSON.stringify(cart))
+
   }
 
   return (
@@ -53,7 +80,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
       <p className='book-description'>
         <a href='#'>More info</a>
       </p>
-      <button onClick={setBookToStocks}
+      <button onClick={onClickListener}
         className={bookComponent.get(mode).className}>
         {bookComponent.get(mode).label}
       </button>

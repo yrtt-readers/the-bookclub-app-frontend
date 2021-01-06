@@ -6,38 +6,68 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
 
-const isbnList = [9780060217860,
-  9780789411464,
-  9780806919317,
-  9780875349343,
-  9780893751159,
-  9780689853944,
-  9780866228312,
-  9780911981568,
-  9780816741342]
+const bookListComponent = new Map()
+bookListComponent.set(-1, { label: null})
+bookListComponent.set(0, { label: 'Books available to request'})
+bookListComponent.set(1, { label: 'Books available to donate'})
+bookListComponent.set(2, { label: 'You\'ve requested the following books'})
+bookListComponent.set(3, { label: 'You\'ve donated the following books'})
 
-  let initialState = []
 
-  $.ajax({
-    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
-    async: false,
-    dataType: 'json',
-    success: data => {
-      try {
-        initialState = data
-      } catch (e) { console.log(e) }
-    }
-  })
+let key = ''
+let initialState, isbnList = []
+
+$.ajax({
+  url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
+  async: false,
+  dataType: 'json',
+  success: data => {
+    try {
+      initialState = data
+    } catch (e) { console.log(e) }
+  }
+})
+
+$.ajax({
+  url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/availableStocks.json',
+  async: false,
+  dataType: 'json',
+  success: data => {
+    try {
+      isbnList = data
+    } catch (e) { console.log(e) }
+  }
+})
 
 function BookList({ mode }) {
 
-  const [stocks, setStocks] = useState(initialState)
+  const getInitialState = () => {
+
+    switch (mode) {
+      case 2:
+        key = 'cart.request';
+        return JSON.parse(sessionStorage.getItem(key));
+      case 3:
+        key = 'cart.donate';
+        return JSON.parse(sessionStorage.getItem(key));
+      default: return initialState
+    }
+  }
+  const [stocks, setStocks] = useState(getInitialState)
+
+  if (mode == 2) {
+    isbnList = []
+    stocks.forEach(element => {
+      !isbnList.includes(element.isbn) ?
+        isbnList.push(element.isbn) : null
+    })
+  }
 
   return (
 
     <section className='container container-margin'>
       <div className='row g-3'>
-        <h1 className='text-center'>Books available</h1>
+        <h1 className='text-center'>{bookListComponent.get(mode).label}</h1>
       </div>
       <div className='row g-3 align-items-center'>
         <Dropdown className='col-auto'>
