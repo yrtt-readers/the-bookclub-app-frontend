@@ -13,7 +13,6 @@ bookListComponent.set(1, { label: 'Books available to donate'})
 bookListComponent.set(2, { label: 'You\'ve requested the following books'})
 bookListComponent.set(3, { label: 'You\'ve donated the following books'})
 
-
 let key = ''
 let initialState, isbnList = []
 
@@ -55,7 +54,7 @@ function BookList({ mode }) {
   }
   const [stocks, setStocks] = useState(getInitialState)
 
-  if (mode == 2) {
+  if (mode >= 2) {
     isbnList = []
     stocks.forEach(element => {
       !isbnList.includes(element.isbn) ?
