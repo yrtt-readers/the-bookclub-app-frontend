@@ -7,13 +7,10 @@ import React from 'react';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Header />
-      <div className="App">
-        <Main />
-      </div>
-
-      <footer className='text-center footer mt-auto py-3 bg-light'>The BookClub!</footer>
+      <Main />
+      <footer className='text-center mt-auto py-3 bg-light'>The BookClub!</footer>
     </div>
   );
 }
