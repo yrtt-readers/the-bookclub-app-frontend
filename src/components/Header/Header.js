@@ -26,7 +26,7 @@ function Header() {
                 <Link className='nav-link' to="/">Home</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="#">About</Link>
+                <Link className='nav-link' to="/about">About</Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to="/donate">Donate Book</Link>
@@ -38,7 +38,7 @@ function Header() {
                 <Link className='nav-link' to="#">Find Event</Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to="#">Contact us</Link>
+                <Link className='nav-link' to="/contact">Contact us</Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to="/login">Log in / Sign up</Link>
