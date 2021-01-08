@@ -26,7 +26,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
       }
     }) : null
 
-  const bookData = JSON.parse(sessionStorage.getItem('book.' + isbn))
+  const bookData = sessionStorage.getItem('book.' + isbn)
 
   function onClickListener(e) {
 

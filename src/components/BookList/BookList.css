@@ -1,3 +1,6 @@
+.hide {
+  display: none;
+}
 .container-margin {
     margin-top: 5rem;
   }
