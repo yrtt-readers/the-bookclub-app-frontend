@@ -120,8 +120,6 @@ function BookList({ mode }) {
           <Dropdown.Menu>
             <Dropdown.Item href='#/action-1'>Title</Dropdown.Item>
             <Dropdown.Item href='#/action-2'>Author</Dropdown.Item>
-            <Dropdown.Item href='#/action-3'>Date-newest</Dropdown.Item>
-            <Dropdown.Item href='#/action-3'>Date-oldest</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>
