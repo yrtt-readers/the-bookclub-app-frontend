@@ -6,12 +6,55 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
 
-const bookListComponent = new Map()
-bookListComponent.set(-1, { label: null})
-bookListComponent.set(0, { label: 'Books available to request'})
-bookListComponent.set(1, { label: 'Books available to donate'})
-bookListComponent.set(2, { label: 'You\'ve requested the following books'})
-bookListComponent.set(3, { label: 'You\'ve donated the following books'})
+const element = new Map()
+element.set(0,
+  {
+    header: {
+      label: 'Books available to request',
+      className: 'text-center'
+    },
+    sortNsearch: {
+      label: null,
+      className: 'row g-3 align-items-center'
+    }
+  }
+)
+element.set(1,
+  {
+    header: {
+      label: 'Books available to donate',
+      className: 'text-center'
+    },
+    sortNsearch: {
+      label: null,
+      className: 'row g-3 align-items-center'
+    }
+  }
+)
+element.set(2,
+  {
+    header: {
+      label: 'You\'ve requested the following books',
+      className: 'text-center'
+    },
+    sortNsearch: {
+      label: null,
+      className: 'none'
+    }
+  }
+)
+element.set(3,
+  {
+    header: {
+      label: 'You\'ve donated the following books',
+      className: 'text-center'
+    },
+    sortNsearch: {
+      label: null,
+      className: 'none'
+    }
+  }
+)
 
 let key = ''
 let initialState, isbnList = []
@@ -66,9 +109,9 @@ function BookList({ mode }) {
 
     <section className='container container-margin'>
       <div className='row g-3'>
-        <h1 className='text-center'>{bookListComponent.get(mode).label}</h1>
+        <h1 className='text-center'>{element.get(mode).header.label}</h1>
       </div>
-      <div className='row g-3 align-items-center'>
+      <div className={element.get(mode).sortNsearch.className}>
         <Dropdown className='col-auto'>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
