@@ -1,12 +1,22 @@
 import App from './App';
 import { screen, render, cleanup } from '@testing-library/react';
+import { Router } from 'react-router-dom'
 
 let container = null;
+let history = createMemoryHistory()
+
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
-  render(<App />, container);
+ // render(<App />, container);
+ render(
+  <Router history={history}>
+    <App />
+  </Router>, container
+);
 });
+
+
 
 afterEach(() => { cleanup });
 
