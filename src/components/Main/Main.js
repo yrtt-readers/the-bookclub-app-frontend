@@ -6,6 +6,7 @@ import Donate from '../../pages/Donate/Donate';
 import Request from '../../pages/Request/Request';
 import Checkout from '../../pages/Checkout/Checkout';
 import Signup from '../../pages/Signup/Signup';
+import Shipping from '../../pages/Shipping/Shipping';
 import Login from '../../pages/Login/Login';
 
 function Main() {
@@ -17,6 +18,7 @@ function Main() {
             <Route exact path='/donate' component={Donate}></Route>
             <Route exact path='/request' component={Request}></Route>
             <Route exact path='/checkout' component={Checkout}></Route>
+            <Route exact path='/shipping' component={Shipping}></Route>
         </Switch>
     );
 }

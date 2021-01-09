@@ -10,7 +10,7 @@ import Book from '../Book/Book';
 const element = new Map()
 let key = ''
 let initialState = sessionStorage.getItem('stocks')
-let isbnList = []
+let initList = []
 
 element.set(0,
   {
@@ -93,11 +93,11 @@ function BookList({ mode }) {
   }
   const [stocks, setStocks] = useState(getInitialState)
 
-  isbnList = []
+  initList = []
   if (stocks != null)
     stocks.forEach(element => {
-      !isbnList.includes(element.isbn) ?
-        isbnList.push(element.isbn) : null
+      !initList.includes(element.isbn) ?
+        initList.push(element.isbn) : null
     })
   else if (stocks == null || stocks.length == 0)
     element.get(mode).header.className = 'hide'
@@ -114,7 +114,7 @@ function BookList({ mode }) {
         <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
       </div>
       <div className={element.get(mode).operation.className}>
-        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+      <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         <Dropdown className='col-auto'>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
@@ -147,7 +147,7 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {isbnList.map(v =>
+        {initList.map(v =>
           <Book key={v} mode={mode}
             isbn={v}
             stocks={stocks.filter(stock => stock.isbn === v)}
