@@ -14,7 +14,7 @@ function Home() {
           />
           <Carousel.Caption>
             <h3>Donate books to children</h3>
-            <p>Sign up to donate to local organisations</p>
+            <p className="legend">Sign up to donate to local organisations</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>

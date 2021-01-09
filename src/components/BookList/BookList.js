@@ -107,6 +107,18 @@ function BookList({ mode }) {
       history.push('/checkout');
   }
 
+  const [sortType, setValue]=useState('');
+
+  const handleSortBy=(e)=>{
+      console.log(e);
+      setValue(e);
+  
+      if (sortType === 'title-AZ') {
+        // TODO function to sort book title
+      }
+  
+  }
+  
   return (
 
     <section className='container container-margin'>
@@ -115,16 +127,19 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown className='col-auto'>
+        <Dropdown className='col-auto' onSelect={handleSortBy}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
-            </Dropdown.Toggle>
+          </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item href='#/action-1'>Title</Dropdown.Item>
-            <Dropdown.Item href='#/action-2'>Author</Dropdown.Item>
+          <Dropdown.Menu >
+            <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
+            <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
+            <Dropdown.Item eventKey="author-ZA">Author A-Z</Dropdown.Item>
+            <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+        <h4>You selected {sortType}</h4>
         <div className='col-auto'>
           <label htmlFor='inputSearch' className='col-form-label'>
             Search book
