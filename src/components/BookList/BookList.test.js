@@ -1,4 +1,4 @@
-import Book from './Book';
+import BookList from './BookList';
 import { screen, render, cleanup } from '@testing-library/react';
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
@@ -6,16 +6,13 @@ import { Router } from 'react-router-dom'
 let container = null;
 let history = createMemoryHistory()
 let mode=0
-let isbn=0
-let stocks=[]
-let func = ()=>{};
 
 beforeEach(() => {
   container = document.createElement("div")
   document.body.appendChild(container);
   render(
     <Router history={history}>
-      <Book mode={mode} isbn={isbn} stocks={stocks} setStocks={func}/>
+      <BookList mode={mode}/>
     </Router>, container
   )
 })
@@ -25,7 +22,7 @@ afterEach(() => { cleanup });
 describe('Book', () => {
 
   test('renders heading component', () => {
-    expect(screen.getByRole('heading').textContent).toBe('Books available')
+    expect(screen.getByRole('operation').textContent).toBe('Sort by')
   })
 
 })

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
@@ -7,13 +8,17 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
+let key = ''
+let initialState = sessionStorage.getItem('stocks')
+let isbnList = []
+
 element.set(0,
   {
     header: {
       label: 'Books available to request',
       className: 'text-center'
     },
-    sortNsearch: {
+    operation: {
       label: null,
       className: 'row g-3 align-items-center'
     }
@@ -25,7 +30,7 @@ element.set(1,
       label: 'Books available to donate',
       className: 'text-center'
     },
-    sortNsearch: {
+    operation: {
       label: null,
       className: 'row g-3 align-items-center'
     }
@@ -37,9 +42,9 @@ element.set(2,
       label: 'You\'ve requested the following books',
       className: 'text-center'
     },
-    sortNsearch: {
+    operation: {
       label: null,
-      className: 'none'
+      className: 'hide'
     }
   }
 )
@@ -49,39 +54,30 @@ element.set(3,
       label: 'You\'ve donated the following books',
       className: 'text-center'
     },
-    sortNsearch: {
+    operation: {
       label: null,
-      className: 'none'
+      className: 'hide'
     }
   }
 )
 
-let key = ''
-let initialState, isbnList = []
-
-$.ajax({
-  url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
-  async: false,
-  dataType: 'json',
-  success: data => {
-    try {
-      initialState = data
-    } catch (e) { console.log(e) }
-  }
-})
-
-$.ajax({
-  url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/availableStocks.json',
-  async: false,
-  dataType: 'json',
-  success: data => {
-    try {
-      isbnList = data
-    } catch (e) { console.log(e) }
-  }
-})
+if (initialState === null)
+  $.ajax({
+    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
+    async: false,
+    dataType: 'json',
+    success: data => {
+      try {
+        sessionStorage.setItem('stocks', JSON.stringify(data))
+        initialState = sessionStorage.getItem('stocks')
+      } catch (e) { console.log(e) }
+    }
+  })
+initialState = JSON.parse(initialState)
 
 function BookList({ mode }) {
+
+  const history = useHistory()
 
   const getInitialState = () => {
 
@@ -97,21 +93,28 @@ function BookList({ mode }) {
   }
   const [stocks, setStocks] = useState(getInitialState)
 
-  if (mode >= 2) {
-    isbnList = []
+  isbnList = []
+  if (stocks != null)
     stocks.forEach(element => {
       !isbnList.includes(element.isbn) ?
         isbnList.push(element.isbn) : null
     })
+  else if (stocks == null || stocks.length == 0)
+    element.get(mode).header.className = 'hide'
+
+  function onClickListener(e) {
+    if (e.target.className === 'btn btn-primary checkout')
+      history.push('/checkout');
   }
 
   return (
 
     <section className='container container-margin'>
       <div className='row g-3'>
-        <h1 className='text-center'>{element.get(mode).header.label}</h1>
+        <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
       </div>
-      <div className={element.get(mode).sortNsearch.className}>
+      <div className={element.get(mode).operation.className}>
+        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         <Dropdown className='col-auto'>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
@@ -148,7 +151,7 @@ function BookList({ mode }) {
             stocks={stocks.filter(stock => stock.isbn === v)}
             setStocks={setStocks} />)}
       </div>
-    </section>
+    </section >
   );
 }
 

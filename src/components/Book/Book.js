@@ -3,17 +3,68 @@ import React from 'react';
 import $ from 'jquery';
 import './Book.css';
 
-const bookComponent = new Map()
-bookComponent.set(-1, { label: null, className: 'none' })
-bookComponent.set(0, { label: 'Request', className: 'btn btn-primary request' })
-bookComponent.set(1, { label: 'Donate', className: 'btn btn-primary donate' })
-bookComponent.set(2, { label: null, className: 'none' })
-bookComponent.set(3, { label: null, className: 'none' })
-
-
+const element = new Map()
+element.set(0,
+  {
+    button: {
+      label: 'Request',
+      className: 'btn btn-primary request'
+    },
+    storage: {
+      key: 'cart.request'
+    },
+    description: {
+      className: 'book-description'
+    }
+  }
+)
+element.set(1,
+  {
+    button: {
+      label: 'Donate',
+      className: 'btn btn-primary donate'
+    },
+    storage: {
+      key: 'cart.donate'
+    },
+    description: {
+      className: 'book-description'
+    }
+  }
+)
+element.set(2,
+  {
+    button: {
+      label: null,
+      className: 'hide'
+    },
+    storage: {
+      key: 'cart.request'
+    },
+    description: {
+      className: 'hide'
+    }
+  }
+)
+element.set(3,
+  {
+    button: {
+      label: null,
+      className: 'hide'
+    },
+    storage: {
+      key: 'cart.donate'
+    },
+    description: {
+      className: 'hide'
+    }
+  }
+)
 function Book({ mode, isbn, stocks, setStocks }) {
 
-  (sessionStorage.getItem('book.' + isbn) === null) ?
+  let bookData = sessionStorage.getItem('book.' + isbn)
+
+  if (bookData === null)
     $.ajax({
       url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books.json',
       async: false,
@@ -22,41 +73,41 @@ function Book({ mode, isbn, stocks, setStocks }) {
           sessionStorage
             .setItem('book.' + isbn,
               JSON.stringify(data.filter(book => book.isbn === isbn)[0]))
+
+          bookData = sessionStorage.getItem('book.' + isbn)
         } catch (e) { console.log(e) }
       }
-    }) : null
+    })
 
-  const bookData = sessionStorage.getItem('book.' + isbn)
+  bookData = JSON.parse(bookData)
 
   function onClickListener(e) {
 
-    let key = ''
     let item = {}
     let cart = []
 
     if (e.target.className === 'btn btn-primary request') {
-      key = 'cart.request'
-      item = 
+      item =
         stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
           null : { isbn: isbn, qty: -1 }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      key = 'cart.donate'
       item = { isbn: isbn, qty: +1 }
     }
 
-    item === null?null:
+    item === null ? null :
       setStocks(stock => [...stock, item])
 
-    sessionStorage.getItem(key) === null ?
-      sessionStorage.setItem(key, JSON.stringify(cart)) : null
+    sessionStorage.getItem(element.get(mode).storage.key) === null ?
+      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
 
-    cart = JSON.parse(sessionStorage.getItem(key))
+    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key))
 
-    item === null?null:
+    item === null ? null :
       cart.push(item)
 
-    sessionStorage.setItem(key, JSON.stringify(cart))
+    sessionStorage.setItem(element.get(mode).storage.key,
+      JSON.stringify(cart))
 
   }
 
@@ -73,7 +124,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
       <p className='book-description'>
         <strong>Author names</strong>{' '}
       </p>
-      <p className='book-description'>{bookData.description}</p>
+      <p className={element.get(mode).description.className}>{bookData.description}</p>
       <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
       </p>
       <p className='book-description'>Post Code</p>
@@ -81,8 +132,8 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <a href='#'>More info</a>
       </p>
       <button onClick={onClickListener}
-        className={bookComponent.get(mode).className}>
-        {bookComponent.get(mode).label}
+        className={element.get(mode).button.className}>
+        {element.get(mode).button.label}
       </button>
     </div>
   )
