@@ -14,7 +14,7 @@ function Home() {
           />
           <Carousel.Caption>
             <h3>Donate books to children</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <p>Sign up to donate to local organisations</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -26,7 +26,7 @@ function Home() {
 
           <Carousel.Caption>
             <h3>Request a book</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Sign up to see what’s available in your local area</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -38,7 +38,7 @@ function Home() {
 
           <Carousel.Caption>
             <h3>Find nearest events</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            <p>Making reading fun for everyone</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
