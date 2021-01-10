@@ -8,9 +8,9 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
-let key = ''
-let initialState = sessionStorage.getItem('stocks')
-let isbnList = []
+let key = '';
+let initialState = sessionStorage.getItem('stocks');
+let isbnList;
 
 element.set(0,
   {
@@ -19,7 +19,7 @@ element.set(0,
       className: 'text-center'
     },
     operation: {
-      label: null,
+      //label: null,
       className: 'row g-3 align-items-center'
     }
   }
@@ -75,6 +75,21 @@ if (initialState === null)
   })
 initialState = JSON.parse(initialState)
 
+// if (initialState === null) {
+
+//   initialState = async () => {
+//     try {
+//       let response = await fetch('https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json');
+//       console.log(response)
+//       let data = await response.json();
+//       sessionStorage.setItem('stocks', data.stocks)
+//       return data.stocks;
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
+// }
+
 function BookList({ mode }) {
 
   const history = useHistory()
@@ -93,31 +108,61 @@ function BookList({ mode }) {
   }
   const [stocks, setStocks] = useState(getInitialState)
 
-  isbnList = []
-  if (stocks != null)
-    stocks.forEach(element => {
-      !isbnList.includes(element.isbn) ?
-        isbnList.push(element.isbn) : null
-    })
-  else if (stocks == null || stocks.length == 0)
-    element.get(mode).header.className = 'hide'
+  // if (stocks != null) {
+  //   stocks.forEach(book => {
+  //     if (!isbnList.includes(book.isbn)) {
+  //       isbnList.push(book.isbn);
+  //     } 
+  //   })
+  // }
+  // if (stocks != null)
+  //   stocks.forEach(element => {
+  //     !isbnList.includes(element.isbn) ?
+  //       isbnList.push(element.isbn) : null
+  //   })
+  function getIsbnList() {
+    let isbnL = new Set();
+    if (stocks != null) {
+      stocks.forEach(book => {
+        isbnL.add(book.isbn);
+      });  
+    }
+    else if (stocks === null || stocks.length === 0) {
+      element.get(mode).header.className = 'hide';
+    }
+    isbnL = Array.from(isbnL);
+
+    return isbnL;
+  }
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
       history.push('/checkout');
   }
 
-  const [sortType, setValue]=useState('');
+  const [sortType, setSortType] = useState('');
+
+  function GetSortOrder(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }    
+        return 0;    
+    }    
+  }    
 
   const handleSortBy=(e)=>{
-      console.log(e);
-      setValue(e);
+      setSortType(e);
   
       if (sortType === 'title-AZ') {
-        // TODO function to sort book title
+        stocks.sort(GetSortOrder("book_name"));
+        getIsbnList();
       }
-  
   }
+
+  isbnList = getIsbnList();
   
   return (
 
@@ -139,7 +184,6 @@ function BookList({ mode }) {
             <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <h4>You selected {sortType}</h4>
         <div className='col-auto'>
           <label htmlFor='inputSearch' className='col-form-label'>
             Search book

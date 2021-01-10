@@ -7,7 +7,7 @@ function Header() {
     <header className='header'>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
-          <img className="small-logo" src="assets/images/book-icon.png" alt="bookclub logo" />
+          <img className="small-logo" src="assets/images/book-icon.jpg" alt="bookclub logo" />
           <Link className='navbar-brand' to="/">The BookClub</Link>
           <button
             className='navbar-toggler'

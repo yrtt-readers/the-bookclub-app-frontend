@@ -95,16 +95,27 @@ function Book({ mode, isbn, stocks, setStocks }) {
       item = { isbn: isbn, qty: +1 }
     }
 
-    item === null ? null :
-      setStocks(stock => [...stock, item])
+    if (item != null) {
+      setStocks(stock => [...stock, item]);
+    }
 
-    sessionStorage.getItem(element.get(mode).storage.key) === null ?
-      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
+    // item === null ? null :
+    //   setStocks(stock => [...stock, item])
 
-    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key))
+    if (sessionStorage.getItem(element.get(mode).storage.key) === null)
+      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
+    
 
-    item === null ? null :
+    // sessionStorage.getItem(element.get(mode).storage.key) === null ?
+    //   sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
+
+    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
+
+    if (item != null)
       cart.push(item)
+
+    // item === null ? null :
+    //   cart.push(item)
 
     sessionStorage.setItem(element.get(mode).storage.key,
       JSON.stringify(cart))
@@ -122,7 +133,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <strong>{bookData.book_name}</strong>
       </p>
       <p className='book-description'>
-        <strong>Author names</strong>{' '}
+        <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
       <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
