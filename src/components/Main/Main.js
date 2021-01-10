@@ -8,6 +8,7 @@ import Request from '../../pages/Request/Request';
 import Checkout from '../../pages/Checkout/Checkout';
 import Contact from '../../pages/Contact/Contact';
 import Signup from '../../pages/Signup/Signup';
+import Shipping from '../../pages/Shipping/Shipping';
 import Login from '../../pages/Login/Login';
 
 function Main() {
@@ -21,7 +22,7 @@ function Main() {
             <Route exact path='/signup' component={Signup}></Route>
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/checkout' component={Checkout}></Route>
-            
+            <Route exact path='/shipping' component={Shipping}></Route>
         </Switch>
     );
 }
