@@ -10,7 +10,7 @@ import Book from '../Book/Book';
 const element = new Map()
 let key = '';
 let initialState = sessionStorage.getItem('stocks');
-let isbnList;
+//let isbnList;
 
 element.set(0,
   {
@@ -63,25 +63,28 @@ element.set(3,
 
 if (initialState === null)
   $.ajax({
-    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
+    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
     async: false,
     dataType: 'json',
     success: data => {
       try {
-        sessionStorage.setItem('stocks', JSON.stringify(data))
+        sessionStorage.setItem('stocks', JSON.stringify(data.stocks))
         initialState = sessionStorage.getItem('stocks')
       } catch (e) { console.log(e) }
     }
   })
-initialState = JSON.parse(initialState)
+initialState = JSON.parse(initialState);
 
 // if (initialState === null) {
 
 //   initialState = async () => {
 //     try {
-//       let response = await fetch('https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json');
-//       console.log(response)
+  
+//       let response = fetch('https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json');
+//       console.log("a resposta");
+//       console.log(response);
 //       let data = await response.json();
+      
 //       sessionStorage.setItem('stocks', data.stocks)
 //       return data.stocks;
 //     } catch (e) {
@@ -92,7 +95,7 @@ initialState = JSON.parse(initialState)
 
 function BookList({ mode }) {
 
-  const history = useHistory()
+  const history = useHistory();
 
   const getInitialState = () => {
 
@@ -106,7 +109,7 @@ function BookList({ mode }) {
       default: return initialState
     }
   }
-  const [stocks, setStocks] = useState(getInitialState)
+  const [stocks, setStocks] = useState(getInitialState);
 
   // if (stocks != null) {
   //   stocks.forEach(book => {
@@ -120,20 +123,20 @@ function BookList({ mode }) {
   //     !isbnList.includes(element.isbn) ?
   //       isbnList.push(element.isbn) : null
   //   })
-  function getIsbnList() {
-    let isbnL = new Set();
-    if (stocks != null) {
-      stocks.forEach(book => {
-        isbnL.add(book.isbn);
-      });  
-    }
-    else if (stocks === null || stocks.length === 0) {
-      element.get(mode).header.className = 'hide';
-    }
-    isbnL = Array.from(isbnL);
+  // function getIsbnList() {
+  //   let isbnL = new Set();
+  //   if (stocks != null) {
+  //     stocks.forEach(book => {
+  //       isbnL.add(book.isbn);
+  //     });  
+  //   }
+  //   else if (stocks === null || stocks.length === 0) {
+  //     element.get(mode).header.className = 'hide';
+  //   }
+  //   isbnL = Array.from(isbnL);
 
-    return isbnL;
-  }
+  //   return isbnL;
+  // }
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
@@ -142,27 +145,43 @@ function BookList({ mode }) {
 
   const [sortType, setSortType] = useState('');
 
-  function GetSortOrder(prop) {    
-    return function(a, b) {    
+  function GetSortOrder(prop, order) {    
+    return function(a, b) { 
+      if (order === "desc") {   
         if (a[prop] > b[prop]) {    
             return 1;    
         } else if (a[prop] < b[prop]) {    
             return -1;    
-        }    
+        }
+      } else if (order === "asc") {
+          if (a[prop] < b[prop]) {    
+            return 1;    
+        } else if (a[prop] > b[prop]) {    
+            return -1;    
+        }
+      }    
         return 0;    
     }    
   }    
 
   const handleSortBy=(e)=>{
       setSortType(e);
-  
-      if (sortType === 'title-AZ') {
-        stocks.sort(GetSortOrder("book_name"));
-        getIsbnList();
+
+      switch (sortType) {
+        case 'title-AZ':
+          setStocks(stocks.sort(GetSortOrder("book_name", "asc")));
+          break;
+        case 'title-ZA':
+          setStocks(stocks.sort(GetSortOrder("book_name", "desc")));
+          break;
+        case 'author-AZ':
+          setStocks(stocks.sort(GetSortOrder("book_author", "asc")));
+          break;
+        case 'author-ZA':
+          setStocks(stocks.sort(GetSortOrder("book_author", "desc")));
+          break;
       }
   }
-
-  isbnList = getIsbnList();
   
   return (
 
@@ -180,7 +199,7 @@ function BookList({ mode }) {
           <Dropdown.Menu >
             <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
             <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
-            <Dropdown.Item eventKey="author-ZA">Author A-Z</Dropdown.Item>
+            <Dropdown.Item eventKey="author-AZ">Author A-Z</Dropdown.Item>
             <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -204,11 +223,18 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {isbnList.map(v =>
+        {
+          stocks.map(b =>
+            <Book key={b.isbn} mode={mode}
+              isbn={b.isbn}
+              stocks={[b]}
+              setStocks={setStocks} />)
+        }
+        {/* {isbnList.map(v =>
           <Book key={v} mode={mode}
             isbn={v}
             stocks={stocks.filter(stock => stock.isbn === v)}
-            setStocks={setStocks} />)}
+            setStocks={setStocks} />)} */}
       </div>
     </section >
   );

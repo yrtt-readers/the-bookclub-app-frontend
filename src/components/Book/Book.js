@@ -66,13 +66,13 @@ function Book({ mode, isbn, stocks, setStocks }) {
 
   if (bookData === null)
     $.ajax({
-      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books.json',
+      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
       async: false,
       success: data => {
         try {
           sessionStorage
             .setItem('book.' + isbn,
-              JSON.stringify(data.filter(book => book.isbn === isbn)[0]))
+              JSON.stringify(data.books.filter(book => book.isbn === isbn)[0]))
 
           bookData = sessionStorage.getItem('book.' + isbn)
         } catch (e) { console.log(e) }
@@ -82,22 +82,26 @@ function Book({ mode, isbn, stocks, setStocks }) {
   bookData = JSON.parse(bookData)
 
   function onClickListener(e) {
-
     let item = {}
     let cart = []
 
-    if (e.target.className === 'btn btn-primary request') {
-      item =
-        stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
-          null : { isbn: isbn, qty: -1 }
+    if (e.target.className === 'btn btn-primary request') {  
+      if (stocks.reduce((sum, stock) => sum + stock.qty, 0) != 0) {
+        item = stocks[0];
+        item.qty -= 1;
+      }
+      // item =
+      //   stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
+      //     null : { isbn: isbn, qty: -1 }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      item = { isbn: isbn, qty: +1 }
+      item = stocks[0];
+      item.qty += 1;
+      //item = { isbn: isbn, qty: +1 }
+      
     }
-
-    if (item != null) {
+    if (item != null)
       setStocks(stock => [...stock, item]);
-    }
 
     // item === null ? null :
     //   setStocks(stock => [...stock, item])
@@ -108,6 +112,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
 
     // sessionStorage.getItem(element.get(mode).storage.key) === null ?
     //   sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
+    //  
 
     cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
@@ -137,6 +142,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
       <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
+    
       </p>
       <p className='book-description'>Post Code</p>
       <p className='book-description'>
