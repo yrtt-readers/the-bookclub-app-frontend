@@ -8,7 +8,6 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
-let initList = []
 
 element.set(0,
   {
@@ -66,7 +65,7 @@ element.set(3,
 function BookList({ mode }) {
 
   const history = useHistory()
-
+  
   const getInitialState = () => {
 
     if (sessionStorage.getItem(element.get(mode).key) != null)
@@ -87,15 +86,12 @@ function BookList({ mode }) {
   }
 
   const [stocks, setStocks] = useState(getInitialState)
+  let initList = []
 
-  initList = []
-  if (stocks != null)
-    stocks.forEach(element => {
-      !initList.includes(element.isbn) ?
-        initList.push(element.isbn) : null
-    })
-  else if (stocks == null || stocks.length == 0)
+  if (stocks == null)
     element.get(mode).header.className = 'hide'
+  else
+    initList = [... new Set(stocks.map(v => { return v.isbn }))]
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
@@ -111,21 +107,15 @@ function BookList({ mode }) {
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         <Dropdown className='col-auto'>
-          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
-            Sort by
-            </Dropdown.Toggle>
-
+          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'> Sort by</Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item href='#/action-1'>Title</Dropdown.Item>
             <Dropdown.Item href='#/action-2'>Author</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>
-          <label htmlFor='inputSearch' className='col-form-label'>
-            Search book
-            </label>
+          <label htmlFor='inputSearch' className='col-form-label'>Search book</label>
         </div>
-
         <div className='col-auto'>
           <input
             type='input'
