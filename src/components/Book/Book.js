@@ -60,9 +60,9 @@ element.set(3,
     }
   }
 )
-function Book({ mode, isbn, stocks, setStocks }) {
+function Book({ mode, stock, stocks, setStocks }) {
 
-  let bookData = sessionStorage.getItem('book.' + isbn)
+  let bookData = sessionStorage.getItem('book.' + stock.isbn)
 
   if (bookData === null)
     $.ajax({
@@ -71,10 +71,10 @@ function Book({ mode, isbn, stocks, setStocks }) {
       success: data => {
         try {
           sessionStorage
-            .setItem('book.' + isbn,
-              JSON.stringify(data.books.filter(book => book.isbn === isbn)[0]))
+            .setItem('book.' + stock.isbn,
+              JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
 
-          bookData = sessionStorage.getItem('book.' + isbn)
+          bookData = sessionStorage.getItem('book.' + stock.isbn)
         } catch (e) { console.log(e) }
       }
     })
@@ -82,26 +82,57 @@ function Book({ mode, isbn, stocks, setStocks }) {
   bookData = JSON.parse(bookData)
 
   function onClickListener(e) {
-    let item = {}
-    let cart = []
+    let item = {};
+    let cart = [];
+    let new_stock;
 
-    if (e.target.className === 'btn btn-primary request') {  
-      if (stocks.reduce((sum, stock) => sum + stock.qty, 0) != 0) {
-        item = stocks[0];
-        item.qty -= 1;
-      }
+    if (e.target.className === 'btn btn-primary request') {
+
+      //if (stock.qty >= 0) {
+        item = stock;
+        item.qty = 1;
+
+        new_stock = stocks.map((book) => {
+          if (book.isbn === stock.isbn) {
+            return {...book, qty: book.qty - 1} 
+          } else {
+            return book;
+          }
+        });
+
+        setStocks(new_stock);
+
+     // }
+
+      
+      // stocks.map(el => (
+      //   el.isbn===stock.isbn? {...el, qty: el.qty - 1}: el
+      // ))
+      //setStocks(stocks);
+
       // item =
       //   stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
       //     null : { isbn: isbn, qty: -1 }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      item = stocks[0];
-      item.qty += 1;
+      item = stock;
+      item.qty = 1;
+      //item.qty += 1;
+
+      new_stock = stocks.map((book) => {
+        if (book.isbn === stock.isbn) {
+          return {...book, qty: book.qty + 1} 
+        } else {
+          return book;
+        }
+      });
+
+      setStocks(new_stock);
       //item = { isbn: isbn, qty: +1 }
       
     }
-    if (item != null)
-      setStocks(stock => [...stock, item]);
+            
+      
 
     // item === null ? null :
     //   setStocks(stock => [...stock, item])
@@ -116,8 +147,22 @@ function Book({ mode, isbn, stocks, setStocks }) {
 
     cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
-    if (item != null)
-      cart.push(item)
+    if (item != null) { 
+      let bookInCart = cart.filter(b => b.isbn === stock.isbn);
+      console.log(bookInCart);
+
+      if (bookInCart.length === 0) {
+        cart.push(item);
+      } else {
+        cart = cart.map((b) => {
+          if (b.isbn === stock.isbn) {
+            return {...b, qty: b.qty + 1} 
+          } else {
+            return b;
+          }
+        });
+      }
+    }
 
     // item === null ? null :
     //   cart.push(item)
@@ -141,10 +186,9 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
-      <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
+      <p className='book-description'>Book Quantity: {stock.qty}
     
       </p>
-      <p className='book-description'>Post Code</p>
       <p className='book-description'>
         <a href='#'>More info</a>
       </p>

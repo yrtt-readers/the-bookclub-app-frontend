@@ -7,7 +7,7 @@ function Header() {
     <header className='header'>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
-          <img className="small-logo" src="assets/images/book-icon.jpg" alt="bookclub logo" />
+          <Link to="/"><img className="small-logo" src="assets/images/book-icon.jpg" alt="bookclub logo" /></Link>
           <Link className='navbar-brand' to="/">The BookClub</Link>
           <button
             className='navbar-toggler'
@@ -18,7 +18,7 @@ function Header() {
             aria-expanded='false'
             aria-label='Toggle navigation'
           >
-            <span className='navbar-toggler-icon'></span>
+          <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0 d-flex'>

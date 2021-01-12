@@ -109,7 +109,15 @@ function BookList({ mode }) {
       default: return initialState
     }
   }
+
+  console.log(mode);
   const [stocks, setStocks] = useState(getInitialState);
+
+  console.log(stocks);
+
+  if (stocks === null || stocks.length === 0) {
+    element.get(mode).header.className = 'hide';
+  }
 
   // if (stocks != null) {
   //   stocks.forEach(book => {
@@ -130,9 +138,7 @@ function BookList({ mode }) {
   //       isbnL.add(book.isbn);
   //     });  
   //   }
-  //   else if (stocks === null || stocks.length === 0) {
-  //     element.get(mode).header.className = 'hide';
-  //   }
+   
   //   isbnL = Array.from(isbnL);
 
   //   return isbnL;
@@ -223,12 +229,11 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {
+        { stocks != null &&
           stocks.map(b =>
-            <Book key={b.isbn} mode={mode}
-              isbn={b.isbn}
-              stocks={[b]}
-              setStocks={setStocks} />)
+          <Book key={b.isbn} mode={mode}
+            stock={b} stocks={stocks}
+            setStocks={setStocks} />)
         }
         {/* {isbnList.map(v =>
           <Book key={v} mode={mode}
