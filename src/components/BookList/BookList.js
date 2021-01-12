@@ -8,12 +8,11 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
-let key = ''
-let initialState = sessionStorage.getItem('stocks')
-let isbnList = []
+let initList = []
 
 element.set(0,
   {
+    key: 'stocks',
     header: {
       label: 'Books available to request',
       className: 'text-center'
@@ -26,6 +25,7 @@ element.set(0,
 )
 element.set(1,
   {
+    key: 'stocks',
     header: {
       label: 'Books available to donate',
       className: 'text-center'
@@ -38,6 +38,7 @@ element.set(1,
 )
 element.set(2,
   {
+    key: 'cart.request',
     header: {
       label: 'You\'ve requested the following books',
       className: 'text-center'
@@ -50,6 +51,7 @@ element.set(2,
 )
 element.set(3,
   {
+    key: 'cart.donate',
     header: {
       label: 'You\'ve donated the following books',
       className: 'text-center'
@@ -61,43 +63,36 @@ element.set(3,
   }
 )
 
-if (initialState === null)
-  $.ajax({
-    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
-    async: false,
-    dataType: 'json',
-    success: data => {
-      try {
-        sessionStorage.setItem('stocks', JSON.stringify(data))
-        initialState = sessionStorage.getItem('stocks')
-      } catch (e) { console.log(e) }
-    }
-  })
-initialState = JSON.parse(initialState)
-
 function BookList({ mode }) {
 
   const history = useHistory()
 
   const getInitialState = () => {
 
-    switch (mode) {
-      case 2:
-        key = 'cart.request';
-        return JSON.parse(sessionStorage.getItem(key));
-      case 3:
-        key = 'cart.donate';
-        return JSON.parse(sessionStorage.getItem(key));
-      default: return initialState
+    if (sessionStorage.getItem(element.get(mode).key) != null)
+      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+    if (mode < 2) {
+      $.ajax({
+        url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
+        async: false,
+        dataType: 'json',
+        success: data => {
+          try {
+            sessionStorage.setItem(element.get(mode).key, JSON.stringify(data))
+          } catch (e) { console.log(e) }
+        }
+      })
+      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
     }
   }
+
   const [stocks, setStocks] = useState(getInitialState)
 
-  isbnList = []
+  initList = []
   if (stocks != null)
     stocks.forEach(element => {
-      !isbnList.includes(element.isbn) ?
-        isbnList.push(element.isbn) : null
+      !initList.includes(element.isbn) ?
+        initList.push(element.isbn) : null
     })
   else if (stocks == null || stocks.length == 0)
     element.get(mode).header.className = 'hide'
@@ -145,7 +140,7 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {isbnList.map(v =>
+        {initList.map(v =>
           <Book key={v} mode={mode}
             isbn={v}
             stocks={stocks.filter(stock => stock.isbn === v)}
