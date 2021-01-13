@@ -110,39 +110,11 @@ function BookList({ mode }) {
     }
   }
 
-  console.log(mode);
   const [stocks, setStocks] = useState(getInitialState);
-
-  console.log(stocks);
 
   if (stocks === null || stocks.length === 0) {
     element.get(mode).header.className = 'hide';
   }
-
-  // if (stocks != null) {
-  //   stocks.forEach(book => {
-  //     if (!isbnList.includes(book.isbn)) {
-  //       isbnList.push(book.isbn);
-  //     } 
-  //   })
-  // }
-  // if (stocks != null)
-  //   stocks.forEach(element => {
-  //     !isbnList.includes(element.isbn) ?
-  //       isbnList.push(element.isbn) : null
-  //   })
-  // function getIsbnList() {
-  //   let isbnL = new Set();
-  //   if (stocks != null) {
-  //     stocks.forEach(book => {
-  //       isbnL.add(book.isbn);
-  //     });  
-  //   }
-   
-  //   isbnL = Array.from(isbnL);
-
-  //   return isbnL;
-  // }
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
@@ -197,7 +169,7 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown className='col-auto' onSelect={handleSortBy}>
+        <Dropdown className='col-auto' onMouseOut={handleSortBy}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
           </Dropdown.Toggle>
@@ -235,11 +207,6 @@ function BookList({ mode }) {
             stock={b} stocks={stocks}
             setStocks={setStocks} />)
         }
-        {/* {isbnList.map(v =>
-          <Book key={v} mode={mode}
-            isbn={v}
-            stocks={stocks.filter(stock => stock.isbn === v)}
-            setStocks={setStocks} />)} */}
       </div>
     </section >
   );

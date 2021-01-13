@@ -62,7 +62,7 @@ element.set(3,
 )
 function Book({ mode, stock, stocks, setStocks }) {
 
-  let bookData = sessionStorage.getItem('book.' + stock.isbn)
+  let bookData = sessionStorage.getItem('book.' + stock.isbn);
 
   if (bookData === null)
     $.ajax({
@@ -88,12 +88,10 @@ function Book({ mode, stock, stocks, setStocks }) {
 
     if (e.target.className === 'btn btn-primary request') {
 
-      //if (stock.qty >= 0) {
-        item = stock;
-        item.qty = 1;
-
+      if (stock.qty > 0) {
         new_stock = stocks.map((book) => {
           if (book.isbn === stock.isbn) {
+            
             return {...book, qty: book.qty - 1} 
           } else {
             return book;
@@ -102,55 +100,34 @@ function Book({ mode, stock, stocks, setStocks }) {
 
         setStocks(new_stock);
 
-     // }
-
-      
-      // stocks.map(el => (
-      //   el.isbn===stock.isbn? {...el, qty: el.qty - 1}: el
-      // ))
-      //setStocks(stocks);
-
-      // item =
-      //   stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
-      //     null : { isbn: isbn, qty: -1 }
+        item = stock;
+        item.qty = 1;
+      }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      item = stock;
-      item.qty = 1;
-      //item.qty += 1;
-
       new_stock = stocks.map((book) => {
         if (book.isbn === stock.isbn) {
-          return {...book, qty: book.qty + 1} 
+          return {...book, qty: stock.qty + 1} 
         } else {
           return book;
         }
       });
 
       setStocks(new_stock);
-      //item = { isbn: isbn, qty: +1 }
+
+      item = stock;
+      item.qty = 1;
       
     }
-            
-      
-
-    // item === null ? null :
-    //   setStocks(stock => [...stock, item])
 
     if (sessionStorage.getItem(element.get(mode).storage.key) === null)
       sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
     
-
-    // sessionStorage.getItem(element.get(mode).storage.key) === null ?
-    //   sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
-    //  
-
     cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
     if (item != null) { 
       let bookInCart = cart.filter(b => b.isbn === stock.isbn);
-      console.log(bookInCart);
-
+      
       if (bookInCart.length === 0) {
         cart.push(item);
       } else {
@@ -163,9 +140,6 @@ function Book({ mode, stock, stocks, setStocks }) {
         });
       }
     }
-
-    // item === null ? null :
-    //   cart.push(item)
 
     sessionStorage.setItem(element.get(mode).storage.key,
       JSON.stringify(cart))
