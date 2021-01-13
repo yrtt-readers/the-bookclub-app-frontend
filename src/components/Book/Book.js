@@ -118,7 +118,7 @@ function Book({ mode, isbn, stocks, setStocks }) {
         <strong>{bookData.book_name}</strong>
       </p>
       <p className='book-description'>
-        <strong>Author names</strong>{' '}
+        <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
       <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
