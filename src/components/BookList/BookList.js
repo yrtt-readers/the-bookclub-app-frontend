@@ -91,24 +91,24 @@ function BookList({ mode }) {
   if (stocks == null)
     element.get(mode).header.className = 'hide'
 
-
-  const sortedList = (key) => {
+    function onClickListener(e) {
+      if (e.target.className === 'btn btn-primary checkout')
+        history.push('/checkout');
+    }
+  
+    const sortedList = (key) => {
 
     let sortList = []
 
     bookList.forEach(v => {sortList.push([v,
-      document.getElementById(v+'.'+key).innerText])
-    })
-    
-    return [... new Set(sortList
-                      .sort((a,b)=> a[1]
-                      .localeCompare(b[1]))
-                      .map(v => { return v[0] }))]
-  }
+      document.getElementById(v+'.'+key).innerText
+      // JSON.parse(sessionStorage.getItem('book.'+v))[key]
+    ])})
 
-  function onClickListener(e) {
-    if (e.target.className === 'btn btn-primary checkout')
-      history.push('/checkout');
+    return [... new Set(sortList
+                      .sort((a,b)=> a[1].localeCompare(b[1]))
+                      // .sort((a,b)=> a[1] - b[1])
+                      .map(v => { return v[0] }))]
   }
 
   function onSortListener(e) {
