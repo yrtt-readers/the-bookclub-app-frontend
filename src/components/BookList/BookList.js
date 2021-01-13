@@ -92,19 +92,18 @@ function BookList({ mode }) {
     element.get(mode).header.className = 'hide'
 
 
-  function GetSortOrder(key, order) {
+  const sortedList = (key) => {
 
-    let sortList = [], sortList2
+    let sortList = []
 
-    bookList.forEach(v => sortList.push([v,JSON.parse(sessionStorage.getItem('book.'+v))[key]]))
-
-    sortList2 = [... new Set(sortList
-                              .sort((a,b)=> a[1]
-                              .localeCompare(b[1]))
-                              .map(v => { return v[0] }))]
-
-    order<0?sortList2 = sortList2.reverse():null
-    setBookList(sortList2)    
+    bookList.forEach(v => {sortList.push([v,
+      document.getElementById(v+'.'+key).innerText])
+    })
+    
+    return [... new Set(sortList
+                      .sort((a,b)=> a[1]
+                      .localeCompare(b[1]))
+                      .map(v => { return v[0] }))]
   }
 
   function onClickListener(e) {
@@ -118,16 +117,16 @@ function BookList({ mode }) {
 
     switch (sortType) {
       case 'title-AZ':
-        GetSortOrder("book_name", 1)
+        setBookList(sortedList("book_name"))
         break
       case 'title-ZA':
-        GetSortOrder("book_name", -1)
+        setBookList(sortedList("book_name").reverse())
         break
       case 'author-AZ':
-        GetSortOrder("book_author", 1)
+        setBookList(sortedList("book_author"))
         break
       case 'author-ZA':
-        GetSortOrder("book_author", -1)
+        setBookList(sortedList("book_author").reverse())
         break
     }
 
