@@ -91,24 +91,26 @@ function BookList({ mode }) {
   if (stocks == null)
     element.get(mode).header.className = 'hide'
 
-    function onClickListener(e) {
-      if (e.target.className === 'btn btn-primary checkout')
-        history.push('/checkout');
-    }
-  
-    const sortedList = (key) => {
+  function onClickListener(e) {
+    if (e.target.className === 'btn btn-primary checkout')
+      history.push('/checkout');
+  }
+
+  const sortedList = (key) => {
 
     let sortList = []
 
-    bookList.forEach(v => {sortList.push([v,
-      document.getElementById(v+'.'+key).innerText
-      // JSON.parse(sessionStorage.getItem('book.'+v))[key]
-    ])})
+    bookList.forEach(v => {
+      sortList.push([v,
+        document.getElementById(v + '.' + key).innerText
+        // JSON.parse(sessionStorage.getItem('book.'+v))[key]
+      ])
+    })
 
     return [... new Set(sortList
-                      .sort((a,b)=> a[1].localeCompare(b[1]))
-                      // .sort((a,b)=> a[1] - b[1])
-                      .map(v => { return v[0] }))]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      // .sort((a,b)=> a[1] - b[1])
+      .map(v => { return v[0] }))]
   }
 
   function onSortListener(e) {
@@ -140,7 +142,7 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown className='col-auto' onMouseOut={onSortListener} onSelect={setSortType}>
+        <Dropdown data-testid='sort' className='col-auto' onMouseOut={onSortListener} onSelect={setSortType}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
             Sort by
           </Dropdown.Toggle>

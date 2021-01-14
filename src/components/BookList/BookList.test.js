@@ -1,5 +1,5 @@
 import BookList from './BookList';
-import { screen, render, cleanup } from '@testing-library/react';
+import { screen, render, cleanup, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
 
@@ -19,10 +19,12 @@ beforeEach(() => {
 
 afterEach(() => { cleanup });
 
-describe('Book', () => {
+describe('BookList', () => {
 
-  test('renders heading component', () => {
-    expect(screen.getByRole('operation').textContent).toBe('Sort by')
+  test('renders sorting dropdown', () => {
+    expect(screen.getByTestId('sort').textContent).toBe('Sort by')
+    // expect(screen.queryByTestId('book_name').textContent).toBe('Mad Jack')
+
   })
 
 })
