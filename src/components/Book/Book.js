@@ -114,11 +114,11 @@ function Book({ mode, isbn, stocks, setStocks }) {
         src={bookData.thumbnail}
         alt='book-image-not-found'
       />
-      <p className='book-description'>
+      <p className='book-description' data-testid='book_name' id={bookData.isbn+'.book_name'}>
         <strong>{bookData.book_name}</strong>
       </p>
-      <p className='book-description'>
-        <strong>Author names</strong>{' '}
+      <p className='book-description' data-testid='book_author' id={bookData.isbn+'.book_author'}>
+        <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
       <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}

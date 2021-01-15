@@ -65,9 +65,8 @@ element.set(3,
 function BookList({ mode }) {
 
   const history = useHistory()
-  
-  const getInitialState = () => {
 
+  const getInitialStock = () => {
     if (sessionStorage.getItem(element.get(mode).key) != null)
       return JSON.parse(sessionStorage.getItem(element.get(mode).key))
     if (mode < 2) {
@@ -85,17 +84,54 @@ function BookList({ mode }) {
     }
   }
 
-  const [stocks, setStocks] = useState(getInitialState)
-  let initList = []
+  const [stocks, setStocks] = useState(getInitialStock)
+  const [sortType, setSortType] = useState('')
+  const [bookList, setBookList] = useState([... new Set(stocks.map(v => { return v.isbn }))])
 
   if (stocks == null)
     element.get(mode).header.className = 'hide'
-  else
-    initList = [... new Set(stocks.map(v => { return v.isbn }))]
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
       history.push('/checkout');
+  }
+
+  const sortedList = (key) => {
+
+    let sortList = []
+
+    bookList.forEach(v => {
+      sortList.push([v,
+        document.getElementById(v + '.' + key).innerText
+        // JSON.parse(sessionStorage.getItem('book.'+v))[key]
+      ])
+    })
+
+    return [... new Set(sortList
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      // .sort((a,b)=> a[1] - b[1])
+      .map(v => { return v[0] }))]
+  }
+
+  function onSortListener(e) {
+
+    setSortType(e)
+
+    switch (sortType) {
+      case 'title-AZ':
+        setBookList(sortedList("book_name"))
+        break
+      case 'title-ZA':
+        setBookList(sortedList("book_name").reverse())
+        break
+      case 'author-AZ':
+        setBookList(sortedList("book_author"))
+        break
+      case 'author-ZA':
+        setBookList(sortedList("book_author").reverse())
+        break
+    }
+
   }
 
   return (
@@ -106,11 +142,16 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown className='col-auto'>
-          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'> Sort by</Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href='#/action-1'>Title</Dropdown.Item>
-            <Dropdown.Item href='#/action-2'>Author</Dropdown.Item>
+        <Dropdown data-testid='sort' className='col-auto' onMouseOut={onSortListener} onSelect={setSortType}>
+          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
+            Sort by
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu >
+            <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
+            <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
+            <Dropdown.Item eventKey="author-AZ">Author A-Z</Dropdown.Item>
+            <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>
@@ -130,7 +171,7 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {initList.map(v =>
+        {bookList.map(v =>
           <Book key={v} mode={mode}
             isbn={v}
             stocks={stocks.filter(stock => stock.isbn === v)}
