@@ -8,8 +8,6 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
-//let key = '';
-//let initialState = sessionStorage.getItem('stocks');
 
 element.set(0,
   {
@@ -64,40 +62,9 @@ element.set(3,
   }
 )
 
-// if (initialState === null)
-//   $.ajax({
-//     url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
-//     async: false,
-//     dataType: 'json',
-//     success: data => {
-//       try {
-//         sessionStorage.setItem('stocks', JSON.stringify(data.stocks))
-//         initialState = sessionStorage.getItem('stocks')
-//       } catch (e) { console.log(e) }
-//     }
-//   })
-// initialState = JSON.parse(initialState);
-
-// if (initialState === null) {
-
-//   initialState = async () => {
-//     try {
-  
-//       let response = fetch('https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json');
-//       console.log("a resposta");
-//       console.log(response);
-//       let data = await response.json();
-      
-//       sessionStorage.setItem('stocks', data.stocks)
-//       return data.stocks;
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
-// }
 function BookList({ mode }) {
 
-  const history = useHistory();
+  const history = useHistory()
 
   const getInitialStock = () => {
     if (sessionStorage.getItem(element.get(mode).key) != null)
@@ -122,8 +89,8 @@ function BookList({ mode }) {
   const [stocks, setStocks] = useState(getInitialStock);
   const [sortType, setSortType] = useState('');
 
-  if (stocks === null || stocks.length === 0)
-    element.get(mode).header.className = 'hide';
+  if (stocks === null)
+    element.get(mode).header.className = 'hide'
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
@@ -187,11 +154,8 @@ function BookList({ mode }) {
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>
-          <label htmlFor='inputSearch' className='col-form-label'>
-            Search book
-            </label>
+          <label htmlFor='inputSearch' className='col-form-label'>Search book</label>
         </div>
-
         <div className='col-auto'>
           <input
             type='input'

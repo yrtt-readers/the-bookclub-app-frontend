@@ -153,12 +153,12 @@ function Book({ mode, stock, stocks, setStocks }) {
         className='img-thumbnail'
         src={bookData.thumbnail}
         alt='book-image-not-found'
-      />
-      
+      />      
       <p className='book-description'>
         <strong>{bookData.book_name}</strong>
       </p>
       <p className='book-description'>
+
         <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
