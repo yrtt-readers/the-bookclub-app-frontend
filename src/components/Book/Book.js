@@ -60,47 +60,87 @@ element.set(3,
     }
   }
 )
-function Book({ mode, isbn, stocks, setStocks }) {
+function Book({ mode, stock, stocks, setStocks }) {
 
-  if (sessionStorage.getItem('book.' + isbn) === null)
+  let bookData = sessionStorage.getItem('book.' + stock.isbn);
+
+  if (bookData === null) {
     $.ajax({
-      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books.json',
+      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
       async: false,
       success: data => {
         try {
           sessionStorage
-            .setItem('book.' + isbn,
-              JSON.stringify(data.filter(book => book.isbn === isbn)[0]))
+            .setItem('book.' + stock.isbn,
+              JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
+
+          bookData = sessionStorage.getItem('book.' + stock.isbn)
         } catch (e) { console.log(e) }
       }
     })
-
-  const bookData = JSON.parse(sessionStorage.getItem('book.' + isbn))
+  }
+  
+  bookData = JSON.parse(bookData)
 
   function onClickListener(e) {
-
-    let item = {}
-    let cart = []
+    let item = {};
+    let cart = [];
+    let new_stock;
 
     if (e.target.className === 'btn btn-primary request') {
-      item =
-        stocks.reduce((sum, stock) => sum + stock.qty, 0) == 0 ?
-          null : { isbn: isbn, qty: -1 }
+
+      if (stock.qty > 0) {
+        new_stock = stocks.map((book) => {
+          if (book.isbn === stock.isbn) {
+            
+            return {...book, qty: book.qty - 1} 
+          } else {
+            return book;
+          }
+        });
+
+        setStocks(new_stock);
+
+        item = stock;
+        item.qty = 1;
+      }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      item = { isbn: isbn, qty: +1 }
+      new_stock = stocks.map((book) => {
+        if (book.isbn === stock.isbn) {
+          return {...book, qty: stock.qty + 1} 
+        } else {
+          return book;
+        }
+      });
+
+      setStocks(new_stock);
+
+      item = stock;
+      item.qty = 1;
+      
     }
 
-    item === null ? null :
-      setStocks(stock => [...stock, item])
+    if (sessionStorage.getItem(element.get(mode).storage.key) === null)
+      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
+    
+    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
-    sessionStorage.getItem(element.get(mode).storage.key) === null ?
-      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart)) : null
-
-    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key))
-
-    item === null ? null :
-      cart.push(item)
+    if (item != null) { 
+      let bookInCart = cart.filter(b => b.isbn === stock.isbn);
+      
+      if (bookInCart.length === 0) {
+        cart.push(item);
+      } else {
+        cart = cart.map((b) => {
+          if (b.isbn === stock.isbn) {
+            return {...b, qty: b.qty + 1} 
+          } else {
+            return b;
+          }
+        });
+      }
+    }
 
     sessionStorage.setItem(element.get(mode).storage.key,
       JSON.stringify(cart))
@@ -113,17 +153,18 @@ function Book({ mode, isbn, stocks, setStocks }) {
         className='img-thumbnail'
         src={bookData.thumbnail}
         alt='book-image-not-found'
-      />
-      <p className='book-description' data-testid='book_name' id={bookData.isbn+'.book_name'}>
+      />      
+      <p className='book-description'>
         <strong>{bookData.book_name}</strong>
       </p>
-      <p className='book-description' data-testid='book_author' id={bookData.isbn+'.book_author'}>
+      <p className='book-description'>
+
         <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
-      <p className='book-description'>Book Quantity: {stocks.reduce((sum, stock) => sum + stock.qty, 0)}
+      <p className='book-description'>Book Quantity: {stock.qty}
+    
       </p>
-      <p className='book-description'>Post Code</p>
       <p className='book-description'>
         <a href='#'>More info</a>
       </p>

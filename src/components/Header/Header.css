@@ -13,3 +13,7 @@ header a {
 .small-logo {
   width: 75px;
 }
+
+.expand {
+  z-index: 9999;
+}

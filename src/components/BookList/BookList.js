@@ -69,26 +69,27 @@ function BookList({ mode }) {
   const getInitialStock = () => {
     if (sessionStorage.getItem(element.get(mode).key) != null)
       return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-    if (mode < 2) {
-      $.ajax({
-        url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
-        async: false,
-        dataType: 'json',
-        success: data => {
-          try {
-            sessionStorage.setItem(element.get(mode).key, JSON.stringify(data))
-          } catch (e) { console.log(e) }
-        }
-      })
-      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+    else {
+      if (mode < 2) {
+        $.ajax({
+          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
+          async: false,
+          dataType: 'json',
+          success: data => {
+            try {
+              sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
+            } catch (e) { console.log(e) }
+          }
+        })
+        return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+      }
     }
   }
 
-  const [stocks, setStocks] = useState(getInitialStock)
-  const [sortType, setSortType] = useState('')
-  const [bookList, setBookList] = useState([... new Set(stocks.map(v => { return v.isbn }))])
+  const [stocks, setStocks] = useState(getInitialStock);
+  const [sortType, setSortType] = useState('');
 
-  if (stocks == null)
+  if (stocks === null)
     element.get(mode).header.className = 'hide'
 
   function onClickListener(e) {
@@ -96,42 +97,42 @@ function BookList({ mode }) {
       history.push('/checkout');
   }
 
-  const sortedList = (key) => {
+  function GetSortOrder(prop, order) {    
+    return function(a, b) { 
+      if (order === "asc") {   
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }
+      } else if (order === "desc") {
+          if (a[prop] < b[prop]) {    
+            return 1;    
+        } else if (a[prop] > b[prop]) {    
+            return -1;    
+        }
+      }    
+        return 0;    
+    }    
+  }    
 
-    let sortList = []
+  const onSortListener = e => {
+      setSortType(e);
 
-    bookList.forEach(v => {
-      sortList.push([v,
-        document.getElementById(v + '.' + key).innerText
-        // JSON.parse(sessionStorage.getItem('book.'+v))[key]
-      ])
-    })
-
-    return [... new Set(sortList
-      .sort((a, b) => a[1].localeCompare(b[1]))
-      // .sort((a,b)=> a[1] - b[1])
-      .map(v => { return v[0] }))]
-  }
-
-  function onSortListener(e) {
-
-    setSortType(e)
-
-    switch (sortType) {
-      case 'title-AZ':
-        setBookList(sortedList("book_name"))
-        break
-      case 'title-ZA':
-        setBookList(sortedList("book_name").reverse())
-        break
-      case 'author-AZ':
-        setBookList(sortedList("book_author"))
-        break
-      case 'author-ZA':
-        setBookList(sortedList("book_author").reverse())
-        break
-    }
-
+      switch (sortType) {
+        case 'title-AZ':
+          setStocks(stocks.sort(GetSortOrder("book_name", "asc")));
+          break;
+        case 'title-ZA':
+          setStocks(stocks.sort(GetSortOrder("book_name", "desc")));
+          break;
+        case 'author-AZ':
+          setStocks(stocks.sort(GetSortOrder("book_author", "asc")));
+          break;
+        case 'author-ZA':
+          setStocks(stocks.sort(GetSortOrder("book_author", "desc")));
+          break;
+      }
   }
 
   return (
@@ -142,16 +143,14 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown data-testid='sort' className='col-auto' onMouseOut={onSortListener} onSelect={setSortType}>
-          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
-            Sort by
-          </Dropdown.Toggle>
+        <Dropdown className='col-auto' onSelect={setSortType}>
+          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
 
           <Dropdown.Menu >
-            <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
-            <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
-            <Dropdown.Item eventKey="author-AZ">Author A-Z</Dropdown.Item>
-            <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>
@@ -171,11 +170,12 @@ function BookList({ mode }) {
         </div>
       </div>
       <div className='row booklist'>
-        {bookList.map(v =>
-          <Book key={v} mode={mode}
-            isbn={v}
-            stocks={stocks.filter(stock => stock.isbn === v)}
-            setStocks={setStocks} />)}
+        { stocks != null &&
+          stocks.map(b =>
+          <Book key={b.isbn} mode={mode}
+            stock={b} stocks={stocks}
+            setStocks={setStocks} />)
+        }
       </div>
     </section >
   );
