@@ -8,8 +8,9 @@ import Request from '../../pages/Request/Request';
 import Checkout from '../../pages/Checkout/Checkout';
 import Contact from '../../pages/Contact/Contact';
 import Signup from '../../pages/Signup/Signup';
-import Shipping from '../../pages/Shipping/Shipping';
 import Login from '../../pages/Login/Login';
+import DonateConfirm from '../../pages/DonateConfirm/DonateConfirm';
+//import Shipping from '../../pages/Shipping/Shipping';
 
 function Main() {
     return (
@@ -22,7 +23,8 @@ function Main() {
             <Route exact path='/signup' component={Signup}></Route>
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/checkout' component={Checkout}></Route>
-            <Route exact path='/shipping' component={Shipping}></Route>
+            <Route exact path='/confirm-donation' component={DonateConfirm}></Route>
+            {/* <Route exact path='/shipping' component={Shipping}></Route> */}
         </Switch>
     );
 }
