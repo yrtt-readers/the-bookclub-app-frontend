@@ -8,24 +8,25 @@ import './BookList.css';
 import Book from '../Book/Book';
 
 const element = new Map()
-let key = '';
-let initialState = sessionStorage.getItem('stocks');
-//let isbnList;
+//let key = '';
+//let initialState = sessionStorage.getItem('stocks');
 
 element.set(0,
   {
+    key: 'stocks',
     header: {
       label: 'Books available to request',
       className: 'text-center'
     },
     operation: {
-      //label: null,
+      label: null,
       className: 'row g-3 align-items-center'
     }
   }
 )
 element.set(1,
   {
+    key: 'stocks',
     header: {
       label: 'Books available to donate',
       className: 'text-center'
@@ -38,6 +39,7 @@ element.set(1,
 )
 element.set(2,
   {
+    key: 'cart.request',
     header: {
       label: 'You\'ve requested the following books',
       className: 'text-center'
@@ -50,6 +52,7 @@ element.set(2,
 )
 element.set(3,
   {
+    key: 'cart.donate',
     header: {
       label: 'You\'ve donated the following books',
       className: 'text-center'
@@ -61,19 +64,19 @@ element.set(3,
   }
 )
 
-if (initialState === null)
-  $.ajax({
-    url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
-    async: false,
-    dataType: 'json',
-    success: data => {
-      try {
-        sessionStorage.setItem('stocks', JSON.stringify(data.stocks))
-        initialState = sessionStorage.getItem('stocks')
-      } catch (e) { console.log(e) }
-    }
-  })
-initialState = JSON.parse(initialState);
+// if (initialState === null)
+//   $.ajax({
+//     url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
+//     async: false,
+//     dataType: 'json',
+//     success: data => {
+//       try {
+//         sessionStorage.setItem('stocks', JSON.stringify(data.stocks))
+//         initialState = sessionStorage.getItem('stocks')
+//       } catch (e) { console.log(e) }
+//     }
+//   })
+// initialState = JSON.parse(initialState);
 
 // if (initialState === null) {
 
@@ -92,46 +95,50 @@ initialState = JSON.parse(initialState);
 //     }
 //   };
 // }
-
 function BookList({ mode }) {
 
   const history = useHistory();
 
-  const getInitialState = () => {
-
-    switch (mode) {
-      case 2:
-        key = 'cart.request';
-        return JSON.parse(sessionStorage.getItem(key));
-      case 3:
-        key = 'cart.donate';
-        return JSON.parse(sessionStorage.getItem(key));
-      default: return initialState
+  const getInitialStock = () => {
+    if (sessionStorage.getItem(element.get(mode).key) != null)
+      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+    else {
+      if (mode < 2) {
+        $.ajax({
+          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
+          async: false,
+          dataType: 'json',
+          success: data => {
+            try {
+              sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
+            } catch (e) { console.log(e) }
+          }
+        })
+        return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+      }
     }
   }
 
-  const [stocks, setStocks] = useState(getInitialState);
+  const [stocks, setStocks] = useState(getInitialStock);
+  const [sortType, setSortType] = useState('');
 
-  if (stocks === null || stocks.length === 0) {
+  if (stocks === null || stocks.length === 0)
     element.get(mode).header.className = 'hide';
-  }
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
       history.push('/checkout');
   }
 
-  const [sortType, setSortType] = useState('');
-
   function GetSortOrder(prop, order) {    
     return function(a, b) { 
-      if (order === "desc") {   
+      if (order === "asc") {   
         if (a[prop] > b[prop]) {    
             return 1;    
         } else if (a[prop] < b[prop]) {    
             return -1;    
         }
-      } else if (order === "asc") {
+      } else if (order === "desc") {
           if (a[prop] < b[prop]) {    
             return 1;    
         } else if (a[prop] > b[prop]) {    
@@ -142,7 +149,7 @@ function BookList({ mode }) {
     }    
   }    
 
-  const handleSortBy=(e)=>{
+  const onSortListener = e => {
       setSortType(e);
 
       switch (sortType) {
@@ -160,7 +167,7 @@ function BookList({ mode }) {
           break;
       }
   }
-  
+
   return (
 
     <section className='container container-margin'>
@@ -169,16 +176,14 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-        <Dropdown className='col-auto' onMouseOut={handleSortBy}>
-          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
-            Sort by
-          </Dropdown.Toggle>
+        <Dropdown className='col-auto' onSelect={setSortType}>
+          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
 
           <Dropdown.Menu >
-            <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
-            <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
-            <Dropdown.Item eventKey="author-AZ">Author A-Z</Dropdown.Item>
-            <Dropdown.Item eventKey="author-ZA">Author Z-A</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
+            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className='col-auto'>

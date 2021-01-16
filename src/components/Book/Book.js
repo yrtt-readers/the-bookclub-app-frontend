@@ -64,7 +64,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
   let bookData = sessionStorage.getItem('book.' + stock.isbn);
 
-  if (bookData === null)
+  if (bookData === null) {
     $.ajax({
       url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
       async: false,
@@ -78,7 +78,8 @@ function Book({ mode, stock, stocks, setStocks }) {
         } catch (e) { console.log(e) }
       }
     })
-
+  }
+  
   bookData = JSON.parse(bookData)
 
   function onClickListener(e) {
@@ -153,6 +154,7 @@ function Book({ mode, stock, stocks, setStocks }) {
         src={bookData.thumbnail}
         alt='book-image-not-found'
       />
+      
       <p className='book-description'>
         <strong>{bookData.book_name}</strong>
       </p>
