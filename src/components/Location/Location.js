@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Shipping({ locationData }) {
+function Location({ locationData }) {
 
     return (
         <div className='col-lg-4 col-sm-6 location'>
@@ -17,4 +17,4 @@ function Shipping({ locationData }) {
     )
 }
 
-export default Shipping;
+export default Location;

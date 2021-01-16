@@ -18,4 +18,14 @@
     background-color: rgb(202, 202, 202);
     padding: 5%;
   }
+
+  .left {
+    float: left;
+    text-align: left;
+    margin: auto;
+  }
+
+  .right {
+    float: right;
+  }
   

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
@@ -26,7 +26,7 @@ element.set(1,
   {
     key: 'stocks',
     header: {
-      label: 'Books available to donate',
+      label: 'Select a book from the list',
       className: 'text-center'
     },
     operation: {
@@ -93,8 +93,12 @@ function BookList({ mode }) {
     element.get(mode).header.className = 'hide'
 
   function onClickListener(e) {
-    if (e.target.className === 'btn btn-primary checkout')
-      history.push('/checkout');
+    if (e.target.className === 'btn btn-primary checkout') {
+      const cart = sessionStorage.getItem(element.get(mode).key);
+
+      if (cart.length > 0)
+        history.push('/checkout');
+    }
   }
 
   function GetSortOrder(prop, order) {    
@@ -141,8 +145,12 @@ function BookList({ mode }) {
       <div className='row g-3'>
         <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
       </div>
+    
+      { mode === 1 &&
+        <p>If your book is not listed below <Link to="/">click here</Link> to enter the book details</p>
+      }
+      
       <div className={element.get(mode).operation.className}>
-        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         <Dropdown className='col-auto' onSelect={setSortType}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
 
@@ -153,21 +161,23 @@ function BookList({ mode }) {
             <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <div className='col-auto'>
-          <label htmlFor='inputSearch' className='col-form-label'>Search book</label>
-        </div>
-        <div className='col-auto'>
-          <input
-            type='input'
-            id='inputSearch'
-            className='form-control'
-            aria-describedby='searchHelpInline'
-          />
-        </div>
 
-        <div className='col-auto'>
-          <Button variant='primary'>Search</Button>
+        <div className='left'>
+          <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         </div>
+        
+        <div className='right'>
+            <input
+              type='input'
+              id='inputSearch'
+              className='form-control'
+              aria-describedby='searchHelpInline'
+              placeholder='Search book'
+            />
+            <Button variant='primary'>Search</Button>
+        </div>
+         
+    
       </div>
       <div className='row booklist'>
         { stocks != null &&
@@ -177,6 +187,8 @@ function BookList({ mode }) {
             setStocks={setStocks} />)
         }
       </div>
+
+      <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
     </section >
   );
 }

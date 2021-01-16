@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import Location from './Location';
+import Location from '../../components/Location/Location';
 
 const key = 'locations'
 
