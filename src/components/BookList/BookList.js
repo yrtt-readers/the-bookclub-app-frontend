@@ -113,9 +113,7 @@ function BookList({ mode }) {
       .map(v => { return v[0] }))]
   }
 
-  function onSortListener(e) {
-
-    setSortType(e)
+  function onSortListener() {
 
     switch (sortType) {
       case 'title-AZ':
@@ -131,7 +129,6 @@ function BookList({ mode }) {
         setBookList(sortedList("book_author").reverse())
         break
     }
-
   }
 
   return (
@@ -147,7 +144,7 @@ function BookList({ mode }) {
             Sort by
           </Dropdown.Toggle>
 
-          <Dropdown.Menu >
+          <Dropdown.Menu>
             <Dropdown.Item eventKey="title-AZ">Title A-Z</Dropdown.Item>
             <Dropdown.Item eventKey="title-ZA">Title Z-A</Dropdown.Item>
             <Dropdown.Item eventKey="author-AZ">Author A-Z</Dropdown.Item>
