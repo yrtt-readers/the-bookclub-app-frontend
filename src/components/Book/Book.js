@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ShowMore from '../ShowMore/ShowMore';
 import $ from 'jquery';
 import './Book.css';
 
@@ -161,12 +162,8 @@ function Book({ mode, stock, stocks, setStocks }) {
 
         <strong>{bookData.book_author}</strong>
       </p>
-      <p className={element.get(mode).description.className}>{bookData.description}</p>
+      <p className={element.get(mode).description.className}><ShowMore text={bookData.description} /></p>
       <p className='book-description'>Book Quantity: {stock.qty}
-    
-      </p>
-      <p className='book-description'>
-        <a href='#'>More info</a>
       </p>
       <button onClick={onClickListener}
         className={element.get(mode).button.className}>
