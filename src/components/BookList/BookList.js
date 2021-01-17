@@ -94,10 +94,8 @@ function BookList({ mode }) {
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout') {
-      const cart = sessionStorage.getItem(element.get(mode).key);
-
-      if (cart.length > 0)
-        history.push('/checkout');
+      if (mode === 1 && sessionStorage.getItem('cart.donate') != null)
+        history.push('/checkout-donation');
     }
   }
 
@@ -175,9 +173,7 @@ function BookList({ mode }) {
               placeholder='Search book'
             />
             <Button variant='primary'>Search</Button>
-        </div>
-         
-    
+        </div>    
       </div>
       <div className='row booklist'>
         { stocks != null &&
@@ -187,8 +183,9 @@ function BookList({ mode }) {
             setStocks={setStocks} />)
         }
       </div>
-
-      <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+      <div className={element.get(mode).operation.className}>
+        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+      </div>
     </section >
   );
 }

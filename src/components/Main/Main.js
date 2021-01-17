@@ -22,7 +22,7 @@ function Main() {
             <Route exact path='/contact' component={Contact}></Route>
             <Route exact path='/signup' component={Signup}></Route>
             <Route exact path='/login' component={Login}></Route>
-            <Route exact path='/checkout' component={Checkout}></Route>
+            <Route exact path='/checkout-donation' component={Checkout}></Route>
             <Route exact path='/confirm-donation' component={DonateConfirm}></Route>
             {/* <Route exact path='/shipping' component={Shipping}></Route> */}
         </Switch>
