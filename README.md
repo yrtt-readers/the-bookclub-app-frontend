@@ -1,20 +1,11 @@
-# Getting Started with Create React App
+# Welcome to the `dev` branch!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Please merge all branches to be pushed to our dev bucket like this:
 
-## First-Time Installation
+- `git checkout dev`
+- `git merge <name-of-branch>`
 
-Open your terminal, navigate to the correct directory and type:
-
-`git clone https://github.com/yrtt-readers/the-bookclub-app-frontend.git`
-
-This will clone the repo onto your machine.
-
-`cd` into the new folder and run:
-
-`npm install`
-
-This will install dependencies and create a `node_modules` folder locally.
+This should trigger the GitHub Action workflow. If not, try `git push` to the dev branch.
 
 ## Collaboration
 

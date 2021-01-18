@@ -102,7 +102,7 @@ function BookList({ mode }) {
 
     bookList.forEach(v => {
       sortList.push([v,
-        document.getElementById(v + '.' + key).innerText
+        document.getElementById(key + '.' + v).innerText
         // JSON.parse(sessionStorage.getItem('book.'+v))[key]
       ])
     })

@@ -114,10 +114,10 @@ function Book({ mode, isbn, stocks, setStocks }) {
         src={bookData.thumbnail}
         alt='book-image-not-found'
       />
-      <p className='book-description' data-testid='book_name' id={bookData.isbn+'.book_name'}>
+      <p className='book-description' data-testid='book_name' id={'book_name.'+bookData.isbn}>
         <strong>{bookData.book_name}</strong>
       </p>
-      <p className='book-description' data-testid='book_author' id={bookData.isbn+'.book_author'}>
+      <p className='book-description' data-testid='book_author' id={'book_author.'+bookData.isbn}>
         <strong>{bookData.book_author}</strong>
       </p>
       <p className={element.get(mode).description.className}>{bookData.description}</p>
