@@ -1,3 +1,4 @@
+/* eslint-disable */
 import BookList from './BookList';
 import { render, cleanup, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history'
