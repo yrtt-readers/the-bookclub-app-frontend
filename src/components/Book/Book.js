@@ -89,21 +89,24 @@ function Book({ mode, stock, stocks, setStocks }) {
     let new_stock;
 
     if (e.target.className === 'btn btn-primary request') {
+      cart = sessionStorage.getItem(element.get(mode).storage.key)
+      if (cart === null) {
+        
+          new_stock = stocks.map((book) => {
+            if (book.isbn === stock.isbn) {
+              
+              return {...book, qty: book.qty - 1} 
+            } else {
+              return book;
+            }
+          });
 
-      if (stock.qty > 0) {
-        new_stock = stocks.map((book) => {
-          if (book.isbn === stock.isbn) {
-            
-            return {...book, qty: book.qty - 1} 
-          } else {
-            return book;
-          }
-        });
+          setStocks(new_stock);
 
-        setStocks(new_stock);
-
-        item = stock;
-        item.qty = 1;
+          item = stock;
+          item.qty = 1;
+          cart = [item];
+          sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
       }
     }
     else if (e.target.className === 'btn btn-primary donate') {
@@ -120,14 +123,12 @@ function Book({ mode, stock, stocks, setStocks }) {
       item = stock;
       item.qty = 1;
       
-    }
 
-    if (sessionStorage.getItem(element.get(mode).storage.key) === null)
-      sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
-    
-    cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
+      if (sessionStorage.getItem(element.get(mode).storage.key) === null)
+        sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
+      
+      cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
-    if (item != null) { 
       let bookInCart = cart.filter(b => b.isbn === stock.isbn);
       
       if (bookInCart.length === 0) {
@@ -141,10 +142,10 @@ function Book({ mode, stock, stocks, setStocks }) {
           }
         });
       }
-    }
 
-    sessionStorage.setItem(element.get(mode).storage.key,
-      JSON.stringify(cart))
+      sessionStorage.setItem(element.get(mode).storage.key,
+        JSON.stringify(cart))
+    }
 
   }
 
@@ -163,8 +164,8 @@ function Book({ mode, stock, stocks, setStocks }) {
         <strong>{bookData.book_author}</strong>
       </p>
       <ShowMore text={bookData.description} className={element.get(mode).description.className} />
-      <p className='book-description'>Book Quantity: {stock.qty}
-      </p>
+      <p className='book-description'>Book Quantity: {stock.qty} </p>
+      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.post_code}</strong></p> }
       <button onClick={onClickListener}
         className={element.get(mode).button.className}>
         {element.get(mode).button.label}

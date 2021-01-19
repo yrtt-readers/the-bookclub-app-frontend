@@ -94,8 +94,11 @@ function BookList({ mode }) {
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout') {
+      if (mode === 0 && sessionStorage.getItem('cart.request') != null)
+        history.push('/checkout-request');
       if (mode === 1 && sessionStorage.getItem('cart.donate') != null)
         history.push('/checkout-donation');
+      
     }
   }
 
@@ -143,11 +146,15 @@ function BookList({ mode }) {
       <div className='row g-3'>
         <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
       </div>
+
+      { mode === 0 &&
+        <p>You can only request a book at a time.</p>
+      }
     
       { mode === 1 &&
         <p>If your book is not listed below <Link to="/">click here</Link> to enter the book details</p>
       }
-      
+    
       <div className={element.get(mode).operation.className}>
         <Dropdown className='col-auto' onSelect={setSortType}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
