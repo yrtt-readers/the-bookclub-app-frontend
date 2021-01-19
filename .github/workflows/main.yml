@@ -4,7 +4,7 @@ name: S3 Dev Deploy
 on:
   push:
     branches:
-      - dev-wf
+      - test-jest
 
 jobs:
   build:
