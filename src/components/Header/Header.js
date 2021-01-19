@@ -22,25 +22,25 @@ function Header() {
           </button>
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0 d-flex'>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/">Home</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/about">About</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/donate">Donate Book</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/request">Request Book</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="#">Find Event</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/contact">Contact us</Link>
               </li>
-              <li className='nav-item'>
+              <li className='nav-item' data-toggle="collapse" data-target=".navbar-collapse.show">
                 <Link className='nav-link' to="/login">Log in / Sign up</Link>
               </li>
             </ul>

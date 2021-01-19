@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useHistory, Link } from "react-router-dom";
-import $ from 'jquery';
+//import $ from 'jquery';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
+//import { data } from 'jquery';
 
 const element = new Map()
 
@@ -64,31 +64,85 @@ element.set(3,
 
 function BookList({ mode }) {
 
-  const history = useHistory()
+  const history = useHistory();
 
-  const getInitialStock = () => {
-    if (sessionStorage.getItem(element.get(mode).key) != null)
-      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-    else {
-      if (mode < 2) {
-        $.ajax({
-          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
-          async: false,
-          dataType: 'json',
-          success: data => {
-            try {
-              sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
-            } catch (e) { console.log(e) }
-          }
-        })
-        return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-      }
-    }
-  }
+  // componentDidAmount() {
+  //   const response = await fetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json");
+  //   const stock = await response.json();
 
-  const [stocks, setStocks] = useState(getInitialStock);
-  const [sortType, setSortType] = useState('');
+  //   return stock.map(s => s.stocks);
+  // }
 
+  // const getInitialStock = async () => {
+    
+
+  //   const storedData = sessionStorage.getItem(element.get(mode).key);
+
+  //   if (storedData != null)
+  //     return JSON.parse(storedData);
+    
+  //   if (mode < 2) {
+  //     return fetchData();
+  //   }
+  // }
+    
+        // $.ajax({
+        //   url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
+        //   async: false,
+        //   dataType: 'json',
+        //   success: data => {
+        //     try {
+        //       sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
+        //     } catch (e) { console.log(e) }
+        //   }
+        // })
+        // return JSON.parse(sessionStorage.getItem(element.get(mode).key))
+ 
+  //const [stocks, setStocks] = useState([]);
+  const cache = {};
+
+  const useFetch = (url) => {
+    const [status, setStatus] = useState('idle');
+    const [stocks, setStocks] = useState([]);
+
+    useEffect(() => {
+        if (!url) return;
+
+        const fetchData = async () => {
+            setStatus('fetching');
+            if (cache[url]) {
+                const d = cache[url];
+                setStocks(d);
+                setStatus('fetched');
+            } else {
+                const response = await fetch(url);
+                const json = await response.json();
+                cache[url] = json; // set response in cache;
+                setStocks(json);
+                setStatus('fetched');
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    return { stocks };
+  };
+
+  const stocks = useFetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json");
+
+  // useEffect(() => {
+  //   if (sessionStorage.getItem(element.get(mode).key) != null)
+  //     setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)))
+  //   else {
+  //     fetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json").then(
+  //         res => setStocks(res.stocks)
+  //     )
+  //   }
+  // }, [])
+
+  // const [sortType, setSortType] = useState('');
+  
   if (stocks === null)
     element.get(mode).header.className = 'hide'
 
@@ -172,9 +226,10 @@ function BookList({ mode }) {
               aria-describedby='searchHelpInline'
               placeholder='Search book'
             />
-            <Button variant='primary'>Search</Button>
+            <button className='btn btn-primary'>Search</button>
         </div>    
       </div>
+      {/* {loading ? <div>Loading...</div> : (hasError ? <div>Error occured.</div> : (stocks.map(data => <div>{data}</div>)))} */}
       <div className='row booklist'>
         { stocks != null &&
           stocks.map(b =>

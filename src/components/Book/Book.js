@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ShowMore from '../ShowMore/ShowMore';
-import $ from 'jquery';
+//import $ from 'jquery';
 import './Book.css';
 
 const element = new Map()
@@ -61,27 +61,39 @@ element.set(3,
     }
   }
 )
+
+
 function Book({ mode, stock, stocks, setStocks }) {
 
   let bookData = sessionStorage.getItem('book.' + stock.isbn);
 
-  if (bookData === null) {
-    $.ajax({
-      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
-      async: false,
-      success: data => {
-        try {
-          sessionStorage
-            .setItem('book.' + stock.isbn,
-              JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
+  // if (bookData === null) {
+  //   $.ajax({
+  //     url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
+  //     async: false,
+  //     success: data => {
+  //       try {
+  //         sessionStorage
+  //           .setItem('book.' + stock.isbn,
+  //             JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
 
-          bookData = sessionStorage.getItem('book.' + stock.isbn)
-        } catch (e) { console.log(e) }
-      }
-    })
-  }
+  //         bookData = sessionStorage.getItem('book.' + stock.isbn)
+  //       } catch (e) { console.log(e) }
+  //     }
+  //   })
+  // }
+
+
+  // if (bookData === null) {
+  //   bookData = getBookData().then();
+
+  //   console.log(bookData);
+
+  //   //sessionStorage.setItem('book.' + stock.isbn, JSON.stringify(bookData.books.filter(book => book.isbn === stock.isbn)[0]))
+  //   //bookData = JSON.parse(bookData)
+  // }
   
-  bookData = JSON.parse(bookData)
+  
 
   function onClickListener(e) {
     let item = {};
