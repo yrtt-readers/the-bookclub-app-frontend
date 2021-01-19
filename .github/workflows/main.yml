@@ -1,6 +1,6 @@
 # PLEASE DO NOT MERGE THIS FILE INTO THE MASTER BRANCH!
 
-name: S3 Dev Deploy
+name: Jest auto
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@master
+        uses: actions/checkout@dev-wf
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -24,19 +24,5 @@ jobs:
       - name: Install
         run: npm install
 
-      # Toggle this code to run your tests, remembering that YAML indentation is *very* strict
       - name: Test
         run: npm run test
-
-      # - name: Build
-      #   run: npm run build
-
-      # - name: Deploy
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #   run: |
-      #     aws s3 cp \
-      #       --recursive \
-      #       --region eu-west-2 \
-      #       build s3://dev-env-readers
