@@ -28,7 +28,7 @@ const bookAuthors = [
   "James Buckley Jr. and Michael S. Teitelbaum"
 ]
 
-let mode=0, container, btnSort, divBookName, divAuthor
+let mode=0, container, divBookName, divAuthor
 let history = createMemoryHistory()
 
 beforeEach(() => {
@@ -39,7 +39,6 @@ beforeEach(() => {
       <BookList mode={mode} />
     </Router>, container
   )
-  btnSort = screen.getByTestId('sort')
   divBookName = screen.queryAllByTestId('book_name')
   divAuthor = screen.queryAllByTestId('book_author')
 })

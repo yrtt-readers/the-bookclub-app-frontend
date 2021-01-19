@@ -28,15 +28,15 @@ jobs:
       - name: Test
         run: npm run test
 
-      - name: Build
-        run: npm run build
+      # - name: Build
+      #   run: npm run build
 
-      - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
-            --recursive \
-            --region eu-west-2 \
-            build s3://dev-env-readers
+      # - name: Deploy
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: |
+      #     aws s3 cp \
+      #       --recursive \
+      #       --region eu-west-2 \
+      #       build s3://dev-env-readers
