@@ -1,13 +1,11 @@
-# PLEASE DO NOT MERGE THIS FILE INTO THE MASTER BRANCH!
-
-name: Jest auto
+name: Jest - unsorted book names and authors
 on:
   push:
     branches:
       - test-jest
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -21,8 +19,5 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: Install
-        run: npm install
-
       - name: Test
         run: npm run test
