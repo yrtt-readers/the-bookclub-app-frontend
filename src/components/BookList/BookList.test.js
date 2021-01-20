@@ -20,7 +20,7 @@ const bookAuthors = [
   "Susan Mayes",
   "Anne Leblanc",
   "Highlights",
-  "Andrej Dugin (Author), Olga Dugina",
+  "Andrej Dugin, Olga Dugina",
   "Bill Wallace",
   "Percy Parslow",
   "USA",
