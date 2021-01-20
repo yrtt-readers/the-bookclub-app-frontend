@@ -5,3 +5,22 @@
 .hide {
   display: none;
 }
+
+img.img-thumbnail {
+  float: left;
+  margin-right: 2%;
+}
+
+p.book-description {
+  margin-bottom: 0px;
+  padding-left: 2%;
+}
+
+button.request {
+  margin-top: 2%;
+}
+  
+.book {
+  background-color: rgb(202, 202, 202);
+  padding: 5%;
+}

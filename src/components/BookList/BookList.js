@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import $ from 'jquery';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
@@ -18,7 +17,7 @@ element.set(0,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center'
+      className: 'row g-3 align-items-center space'
     }
   }
 )
@@ -31,7 +30,7 @@ element.set(1,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center'
+      className: 'row g-3 align-items-center space'
     }
   }
 )
@@ -39,7 +38,7 @@ element.set(2,
   {
     key: 'cart.request',
     header: {
-      label: 'You\'ve requested the following books',
+      label: 'You\'ve requested the following book',
       className: 'text-center'
     },
     operation: {
@@ -142,9 +141,9 @@ function BookList({ mode }) {
 
   return (
 
-    <section className='container container-margin'>
+    <div>
       <div className='row g-3'>
-        <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
+        <h3 className={element.get(mode).header.className}>{element.get(mode).header.label}</h3>
       </div>
 
       { mode === 0 &&
@@ -171,7 +170,8 @@ function BookList({ mode }) {
           <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         </div>
         
-        <div className='right'>
+        <div className='right row g-3 align-items-center'>
+          <div className='col-auto'>
             <input
               type='input'
               id='inputSearch'
@@ -179,10 +179,13 @@ function BookList({ mode }) {
               aria-describedby='searchHelpInline'
               placeholder='Search book'
             />
-            <Button variant='primary'>Search</Button>
+          </div>
+          <div className='col-auto'>
+            <button className='btn btn-primary'>Search</button>
+          </div>
         </div>    
       </div>
-      <div className='row booklist'>
+      <div className='row booklist shadow-sm p-3 mb-5 rounded'>
         { stocks != null &&
           stocks.map(b =>
           <Book key={b.isbn} mode={mode}
@@ -193,7 +196,7 @@ function BookList({ mode }) {
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
       </div>
-    </section >
+    </div>
   );
 }
 

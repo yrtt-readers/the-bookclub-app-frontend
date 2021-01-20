@@ -21,23 +21,21 @@ function About() {
                 </p>
                 <p>
                     With The BookClub,<br/>
-
-                    <strong>An individual can:</strong>
-                    <ul className="functionalities">
-                        <li>Request a book for their child from an organisation in their area</li>
-                        <li>Donate their unwanted children’s books to local organisations for redistribution</li>
-                        <li>See local events aimed at children and families</li>
-                    </ul>
-                    
-
-                    <strong>Organisations can:</strong>
-                    <ul className="functionalities">
-                        <li>Display books available</li>
-                        <li>Create a profile for handling inquiries from individuals</li>
-                        <li>Add their events to our events page</li>
-                    </ul>
-                        
                 </p>
+                <strong>An individual can:</strong>
+                <ul className="functionalities">
+                    <li>Request a book for their child from an organisation in their area</li>
+                    <li>Donate their unwanted children’s books to local organisations for redistribution</li>
+                    <li>See local events aimed at children and families</li>
+                </ul>
+                
+
+                <strong>Organisations can:</strong>
+                <ul className="functionalities">
+                    <li>Display books available</li>
+                    <li>Create a profile for handling inquiries from individuals</li>
+                    <li>Add their events to our events page</li>
+                </ul>
           </div>        
         </section>
       </div>
