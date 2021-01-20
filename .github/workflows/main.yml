@@ -22,18 +22,18 @@ jobs:
       - name: Install
         run: npm install
 
-      # - name: Test
-      #   run: npm run test
+      - name: Test BookList component
+        run: npm run test --BookList.test.js
 
       - name: Build
         run: npm run build
 
-      - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
-            --recursive \
-            --region eu-west-2 \
-            build s3://thebookclub.tk
+#       - name: Deploy
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         run: |
+#           aws s3 cp \
+#             --recursive \
+#             --region eu-west-2 \
+#             build s3://thebookclub.tk
