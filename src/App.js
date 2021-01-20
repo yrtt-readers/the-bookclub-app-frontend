@@ -10,7 +10,11 @@ function App() {
     <div className="App">
       <Header />
       <Main />
-      <footer className='text-center mt-auto py-3 bg-light'>The BookClub!</footer>
+      <footer className='footer'>
+        <div className='container'>
+          <span className='text-body'>  © 2021 Copyright The BookClub!</span>
+        </div>    
+      </footer>
     </div>
   );
 }

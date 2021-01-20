@@ -5,7 +5,7 @@ import './Home.css';
 
 function Home() {
     return (      
-    <section className="container">
+    <div className="container-xl">
       <Carousel className="carousel-position">
         <Carousel.Item>
           <Link to="/donate">
@@ -63,7 +63,7 @@ function Home() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-    </section>
+    </div>
     );
   }
   

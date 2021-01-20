@@ -6,9 +6,11 @@ header {
   z-index: 9999;
 }
 
-header a {
-  color: rgb(34, 71, 126);
+.text-color {
+  color: #215e9b;
+  
 }
+
 
 .small-logo {
   width: 75px;

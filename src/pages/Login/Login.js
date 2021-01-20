@@ -59,17 +59,6 @@ function Login() {
             <div className="card col-12 login-card hv-center">
                 <form>
                     <div className="form-group text-left">
-                        <label htmlFor="exampleInputName">Name</label>
-                        <input type="name" 
-                            className="form-control" 
-                            id="name" 
-                            aria-describedby="nameHelp" 
-                            placeholder="Enter name" 
-                            value={state.name}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group text-left">
                         <label htmlFor="exampleInputEmail1">Email address</label>
                         <input type="email" 
                             className="form-control" 
