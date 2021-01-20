@@ -1,4 +1,4 @@
-name: S3 Deploy
+name: Jest - unsorted book names and authors
 on:
   push:
     branches:
