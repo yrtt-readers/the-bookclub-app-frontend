@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'; 
 import { useHistory, Link } from "react-router-dom";
-//import $ from 'jquery';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
-//import { data } from 'jquery';
 
 const element = new Map()
 
@@ -65,83 +64,21 @@ element.set(3,
 function BookList({ mode }) {
 
   const history = useHistory();
-
-  // componentDidAmount() {
-  //   const response = await fetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json");
-  //   const stock = await response.json();
-
-  //   return stock.map(s => s.stocks);
-  // }
-
-  // const getInitialStock = async () => {
-    
-
-  //   const storedData = sessionStorage.getItem(element.get(mode).key);
-
-  //   if (storedData != null)
-  //     return JSON.parse(storedData);
-    
-  //   if (mode < 2) {
-  //     return fetchData();
-  //   }
-  // }
-    
-        // $.ajax({
-        //   url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
-        //   async: false,
-        //   dataType: 'json',
-        //   success: data => {
-        //     try {
-        //       sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
-        //     } catch (e) { console.log(e) }
-        //   }
-        // })
-        // return JSON.parse(sessionStorage.getItem(element.get(mode).key))
- 
-  //const [stocks, setStocks] = useState([]);
-  const cache = {};
-
-  const useFetch = (url) => {
-    const [status, setStatus] = useState('idle');
-    const [stocks, setStocks] = useState([]);
-
-    useEffect(() => {
-        if (!url) return;
-
-        const fetchData = async () => {
-            setStatus('fetching');
-            if (cache[url]) {
-                const d = cache[url];
-                setStocks(d);
-                setStatus('fetched');
-            } else {
-                const response = await fetch(url);
-                const json = await response.json();
-                cache[url] = json; // set response in cache;
-                setStocks(json);
-                setStatus('fetched');
-            }
-        };
-
-        fetchData();
-    }, [url]);
-
-    return { stocks };
-  };
-
-  const stocks = useFetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json");
-
-  // useEffect(() => {
-  //   if (sessionStorage.getItem(element.get(mode).key) != null)
-  //     setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)))
-  //   else {
-  //     fetch("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json").then(
-  //         res => setStocks(res.stocks)
-  //     )
-  //   }
-  // }, [])
-
-  // const [sortType, setSortType] = useState('');
+  
+  const [ stocks, setStocks ] = useState([]);
+  useEffect(() => {
+    if (mode < 2) {
+      axios
+      .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json")
+      .then(response => setStocks(response.data.stocks))
+      .catch(error => console.log(error))
+    }else {
+      setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)));
+    }
+  }, [])
+   
+  
+  const [sortType, setSortType] = useState('');
   
   if (stocks === null)
     element.get(mode).header.className = 'hide'
@@ -195,7 +132,9 @@ function BookList({ mode }) {
 
     <section className='container container-margin'>
       <div className='row g-3'>
-        <h1 className={element.get(mode).header.className}>{element.get(mode).header.label}</h1>
+        { mode === 0 && <h1 className="text-center">Books available to request</h1> }
+        { mode === 1 && <h1 className="text-center">Select the books from the list</h1> }
+        
       </div>
     
       { mode === 1 &&
@@ -229,11 +168,11 @@ function BookList({ mode }) {
             <button className='btn btn-primary'>Search</button>
         </div>    
       </div>
-      {/* {loading ? <div>Loading...</div> : (hasError ? <div>Error occured.</div> : (stocks.map(data => <div>{data}</div>)))} */}
+    
       <div className='row booklist'>
         { stocks != null &&
           stocks.map(b =>
-          <Book key={b.isbn} mode={mode}
+          <Book key={b.isbn} mode={mode} 
             stock={b} stocks={stocks}
             setStocks={setStocks} />)
         }

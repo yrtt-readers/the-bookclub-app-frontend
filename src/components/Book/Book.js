@@ -63,37 +63,7 @@ element.set(3,
 )
 
 
-function Book({ mode, stock, stocks, setStocks }) {
-
-  let bookData = sessionStorage.getItem('book.' + stock.isbn);
-
-  // if (bookData === null) {
-  //   $.ajax({
-  //     url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
-  //     async: false,
-  //     success: data => {
-  //       try {
-  //         sessionStorage
-  //           .setItem('book.' + stock.isbn,
-  //             JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
-
-  //         bookData = sessionStorage.getItem('book.' + stock.isbn)
-  //       } catch (e) { console.log(e) }
-  //     }
-  //   })
-  // }
-
-
-  // if (bookData === null) {
-  //   bookData = getBookData().then();
-
-  //   console.log(bookData);
-
-  //   //sessionStorage.setItem('book.' + stock.isbn, JSON.stringify(bookData.books.filter(book => book.isbn === stock.isbn)[0]))
-  //   //bookData = JSON.parse(bookData)
-  // }
-  
-  
+function Book({ mode, stock, stocks, setStocks }) {  
 
   function onClickListener(e) {
     let item = {};
@@ -164,17 +134,17 @@ function Book({ mode, stock, stocks, setStocks }) {
     <div className='col-lg-4 col-sm-6 book'>
       <img
         className='img-thumbnail'
-        src={bookData.thumbnail}
+        src={stock.thumbnail}
         alt='book-image-not-found'
       />      
       <p className='book-description'>
-        <strong>{bookData.book_name}</strong>
+        <strong>{stock.book_name}</strong>
       </p>
       <p className='book-description'>
 
-        <strong>{bookData.book_author}</strong>
+        <strong>{stock.book_author}</strong>
       </p>
-      <ShowMore text={bookData.description} className={element.get(mode).description.className} />
+      <ShowMore text={stock.description} className={element.get(mode).description.className} />
       <p className='book-description'>Book Quantity: {stock.qty}
       </p>
       <button onClick={onClickListener}
