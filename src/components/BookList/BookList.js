@@ -69,7 +69,7 @@ function BookList({ mode }) {
   useEffect(() => {
     if (mode < 2) {
       axios
-      .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json")
+      .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_with_books.json")
       .then(response => setStocks(response.data.stocks))
       .catch(error => console.log(error))
     }else {
