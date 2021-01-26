@@ -29,7 +29,7 @@ function RequestCheckout() {
                 <BookList key={2} mode={2} />
                 <Location key={1} locationData={location}/>
             </div>
-            <div className="space">
+            <div className="message">
                 <p><strong>Please note:</strong> Please collect your books from reception.  Please allow 24 hours and call us to verify the the book is ready for collection.</p>
             </div>
 
@@ -37,7 +37,7 @@ function RequestCheckout() {
             <button className='btn btn-primary confirmRequest cancel' onClick={onClickListener}>Cancel</button>  
         </div>
         
-
+ 
     );
 }
 

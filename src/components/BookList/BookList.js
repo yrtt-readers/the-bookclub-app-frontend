@@ -17,7 +17,7 @@ element.set(0,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center space'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )
@@ -30,7 +30,7 @@ element.set(1,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center space'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )

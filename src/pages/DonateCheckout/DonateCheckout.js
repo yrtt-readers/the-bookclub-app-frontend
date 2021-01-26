@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import BookList from '../../components/BookList/BookList';
 import Dropdown from 'react-bootstrap/Dropdown';
 //import FormControl from 'react-bootstrap/Form';
-import './DonateCheckout.css';
 
 const element = new Map()
 

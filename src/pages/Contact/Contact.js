@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import './Contact.css';
+import React, { useState } from 'react';
 
 function Contact() {
     const [state , setState] = useState({
@@ -9,7 +8,7 @@ function Contact() {
         successMessage: null
     })
     const handleChange = (e) => {
-        const {id , value} = e.target   
+        const {id , value} = e.target;   
         setState(prevState => ({
             ...prevState,
             [id] : value
@@ -18,11 +17,21 @@ function Contact() {
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
+        const name = state.name;
+        setState({
+            name : "",
+            email : "",
+            message : "",
+            successMessage: `Thank you for your message ${name}. We're going to anwser as soon as possible!`
+        })
     }
     return (
         <div className="container container-margin text-center">
             <h1 className="text-center">Contact us</h1>
             <div className="card col-12 login-card hv-center">
+                <div className="alert alert-success mt-2" style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
+                    {state.successMessage}
+                </div>
                 <form>
                     <div className="form-group text-left">
                         <label htmlFor="exampleInputName1">Name</label>
@@ -65,9 +74,6 @@ function Contact() {
                         onClick={handleSubmitClick}
                     >Send message</button>
                 </form>
-                <div className="alert alert-success mt-2" style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
-                    {state.successMessage}
-                </div>
             </div>
         </div>
     );
