@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+/* eslint-disable */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import $ from 'jquery';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
@@ -64,29 +64,25 @@ element.set(3,
 
 function BookList({ mode }) {
 
+  // const url = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
+  const url = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
   const history = useHistory()
-
-  const getInitialStock = () => {
-    if (sessionStorage.getItem(element.get(mode).key) != null)
-      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-    if (mode < 2) {
-      $.ajax({
-        url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
-        async: false,
-        dataType: 'json',
-        success: data => {
-          try {
-            sessionStorage.setItem(element.get(mode).key, JSON.stringify(data))
-          } catch (e) { console.log(e) }
-        }
-      })
-      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-    }
-  }
-
-  const [stocks, setStocks] = useState(getInitialStock)
   const [sortType, setSortType] = useState('')
-  const [bookList, setBookList] = useState([... new Set(stocks.map(v => { return v.isbn }))])
+  const [stocks, setStocks] = useState([])
+
+  useEffect(() => {
+    axios
+    .get(url)
+    .then(response => setStocks(response.data))
+    .catch(error => console.log(error))
+  }, [])
+
+  // useEffect(() => {
+  //   axios
+  //   .get(url)
+  //   .then(response => console.log(response.data))
+  //   .catch(error => console.log(error))
+  // }, [])
 
   if (stocks == null)
     element.get(mode).header.className = 'hide'
@@ -94,39 +90,33 @@ function BookList({ mode }) {
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout')
       history.push('/checkout');
-  }
-
-  const sortedList = (key) => {
-
-    let sortList = []
-
-    bookList.forEach(v => {
-      sortList.push([v,
-        document.getElementById(key + '.' + v).innerText
-        // JSON.parse(sessionStorage.getItem('book.'+v))[key]
-      ])
-    })
-
-    return [... new Set(sortList
-      .sort((a, b) => a[1].localeCompare(b[1]))
-      // .sort((a,b)=> a[1] - b[1])
-      .map(v => { return v[0] }))]
+    else if (e.target.className === 'btn btn-primary searchBook') {
+      console.log(document.getElementById("inputSearch").value)
+      let item = async () => {
+        const result = await axios(
+          'https://uu7wl2im1i.execute-api.eu-west-2.amazonaws.com/search/books/' +
+          document.getElementById("inputSearch").value,
+        )
+        return result.data
+      }
+      console.log(item)
+    }
   }
 
   function onSortListener() {
 
     switch (sortType) {
       case 'title-AZ':
-        setBookList(sortedList("book_name"))
+        setStocks(stocks.sort((a,b)=>{a.bookName.localeCompare(b.bookName)}))
         break
       case 'title-ZA':
-        setBookList(sortedList("book_name").reverse())
+        setStocks(stocks.sort((a,b)=>{b.bookName.localeCompare(a.bookName)}))
         break
       case 'author-AZ':
-        setBookList(sortedList("book_author"))
+        setStocks(stocks.sort((a,b)=>{a.bookAuthors.localeCompare(b.bookAuthors)}))
         break
       case 'author-ZA':
-        setBookList(sortedList("book_author").reverse())
+        setStocks(stocks.sort((a,b)=>{b.bookAuthors.localeCompare(a.bookAuthors)}))
         break
     }
   }
@@ -164,14 +154,14 @@ function BookList({ mode }) {
         </div>
 
         <div className='col-auto'>
-          <Button variant='primary'>Search</Button>
+          <button className='btn btn-primary searchBook' onClick={onClickListener}>Search</button>
         </div>
       </div>
       <div className='row booklist'>
-        {bookList.map(v =>
-          <Book key={v} mode={mode}
-            isbn={v}
-            stocks={stocks.filter(stock => stock.isbn === v)}
+        {stocks.map(stock =>
+          <Book key={stock.isbn} mode={mode}
+            stock={stock}
+            updateStocks={stocks}
             setStocks={setStocks} />)}
       </div>
     </section >
