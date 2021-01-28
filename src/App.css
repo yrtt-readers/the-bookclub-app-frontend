@@ -1,7 +1,4 @@
-/*.App {
-  text-align: center;
-}
-
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -48,23 +45,6 @@ img {
 /**
  * Content CSS
  */
-.container-margin {
-  margin-top: 5rem;
-}
-
-p .text-center {
-  padding: 5%;
-}
-
-.booklist {
-  background-color: grey;
-  padding: 1%;
-}
-
-.book {
-  background-color: rgb(202, 202, 202);
-  padding: 5%;
-}
 
 footer {
   display: block;
@@ -82,4 +62,9 @@ p.book-description {
 
 button.request {
   margin-top: 2%;
+}
+
+.App {
+  text-align: center;
+  min-height: 100%;
 }

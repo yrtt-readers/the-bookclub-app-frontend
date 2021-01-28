@@ -1,9 +1,11 @@
-# Getting Started with Create React App
+# Welcome to the `dev` branch!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Please merge all branches to be pushed to our dev bucket like this:
 
-## First-Time Installation
+- `git checkout dev`
+- `git merge <name-of-branch>`
 
+<<<<<<< HEAD
 Open your terminal, navigate to the correct directory and type:
 
 `git clone https://github.com/yrtt-readers/classwork-7n12Jan2021.git`
@@ -15,6 +17,9 @@ This will clone the repo onto your machine.
 `npm install`
 
 This will install dependencies and create a `node_modules` folder locally.
+=======
+This should trigger the GitHub Action workflow. If not, try `git push` to the dev branch.
+>>>>>>> test-jest
 
 ## Collaboration
 

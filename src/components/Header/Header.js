@@ -1,14 +1,14 @@
 import React from 'react';
 import './Header.css';
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <header className='header'>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
         <div className='container-fluid'>
-          <a className='navbar-brand' href='#'>
-            The BookClub
-          </a>
+          <img className="small-logo" src="assets/images/book-icon.png" alt="bookclub logo" />
+          <Link className='navbar-brand' to="/">The BookClub</Link>
           <button
             className='navbar-toggler'
             type='button'
@@ -23,39 +23,25 @@ function Header() {
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <ul className='navbar-nav me-auto mb-2 mb-lg-0 d-flex'>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Home
-                </a>
+                <Link className='nav-link' to="/">Home</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  About us
-                </a>
+                <Link className='nav-link' to="/about">About</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='/index.html'>
-                  Donate Books
-                </a>
+                <Link className='nav-link' to="/donate">Donate Book</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link activate' aria-current='page' href='#'>
-                  Request Book
-                </a>
+                <Link className='nav-link' to="/request">Request Book</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Find Event
-                </a>
+                <Link className='nav-link' to="#">Find Event</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Contact us
-                </a>
+                <Link className='nav-link' to="/contact">Contact us</Link>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' aria-current='page' href='#'>
-                  Log in / Sign up
-                </a>
+                <Link className='nav-link' to="/login">Log in / Sign up</Link>
               </li>
             </ul>
           </div>
