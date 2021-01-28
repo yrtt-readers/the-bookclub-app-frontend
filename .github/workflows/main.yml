@@ -1,8 +1,10 @@
-name: S3 Deploy
+# PLEASE DO NOT MERGE THIS FILE INTO THE MASTER BRANCH!
+
+name: S3 Dev Deploy
 on:
   push:
     branches:
-      - master
+      - development
 
 jobs:
   build:
@@ -22,6 +24,7 @@ jobs:
       - name: Install
         run: npm install
 
+      # Toggle this code to run your tests, remembering that YAML indentation is *very* strict
       # - name: Test
       #   run: npm run test
 
@@ -36,4 +39,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region eu-west-2 \
-            build s3://thebookclub.tk
+            build s3://dev-env-readers
