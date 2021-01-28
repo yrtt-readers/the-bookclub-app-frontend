@@ -4,7 +4,7 @@ name: S3 Dev Deploy
 on:
   push:
     branches:
-      - development
+      - dev
 
 jobs:
   build:
@@ -24,19 +24,19 @@ jobs:
       - name: Install
         run: npm install
 
-    # Toggle this code to run your tests, remembering that YAML indentation is *very* strict
-      # - name: Test BookList component
-      #   run: npm run test --BookList.test.js
+      # Toggle this code to run your tests, remembering that YAML indentation is *very* strict
+      # - name: Test
+      #   run: npm run test
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-    - name: Deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: |
-        aws s3 cp \
-          --recursive \
-          --region eu-west-2 \
-          build s3://dev-env-readers
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region eu-west-2 \
+            build s3://dev-env-readers
