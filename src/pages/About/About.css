@@ -1,3 +1,9 @@
 /* .functionalities {
   list-style: none;
 } */
+
+.section {
+  color: green;
+  margin-left: 300px;
+  margin-right: 70px;
+}

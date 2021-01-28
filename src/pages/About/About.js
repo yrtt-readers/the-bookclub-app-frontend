@@ -5,8 +5,8 @@ function About() {
   return (
     <div>
       <section className='container container-margin'>
-        <div className='text-justify'>
-          <h1 className='text-justify'>About us</h1>
+        <div className='text-left'>
+          <h1 className='text-left'>About us</h1>
           <p>
             According to the Literacy Trust, over <strong>380,000</strong>{' '}
             children in the UK do not own a single book, with disadvantaged
