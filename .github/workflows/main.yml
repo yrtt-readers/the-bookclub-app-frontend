@@ -24,13 +24,10 @@ jobs:
       - name: Install
         run: npm install
 
-  jest:
-    - name: Test BookList component
-      run: npm run test --BookList.test.js
 
     # Toggle this code to run your tests, remembering that YAML indentation is *very* strict
-    # - name: Test
-    #   run: npm run test
+    - name: Test BookList component
+      run: npm run test --BookList.test.js
 
     - name: Build
       run: npm run build
