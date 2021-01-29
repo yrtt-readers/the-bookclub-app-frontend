@@ -1,12 +1,3 @@
-.hide {
-  display: none;
-}
-
-.container-margin {
-    margin: 5rem 5rem;
-    width: 700rem;
- }
-  
 p .text-center {
   padding: 5%;
 }
@@ -26,7 +17,7 @@ p .text-center {
   float: right;
 }
 
-.space {
+.space_title {
   margin-bottom: 1rem;
 }
   
