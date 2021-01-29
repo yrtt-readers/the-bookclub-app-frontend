@@ -6,10 +6,6 @@ header {
   z-index: 9999;
 }
 
-header a {
-  color: rgb(34, 71, 126);
-}
-
 .small-logo {
   width: 75px;
 }

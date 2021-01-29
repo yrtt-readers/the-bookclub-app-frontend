@@ -9,17 +9,18 @@ function DonateConfirm() {
       }
 
     return (
-        <div>
-            <section className="container container-margin">
-                <div className="text-center">
-                    <h1 className="text-center">Thank you very much for your  donation. Please drop off your book at:</h1>
-                    <div className='row booklist'>
-                        <Location key={1} locationData={location}/>
-                    </div>
-                    <p><strong>Please note:</strong> Our office is open 9:00 - 15:00. Please ask for Ms Smith at reception.</p>
+        
+        <div className="container container-margin">
+            <div>
+                <h2 className="text-center">Thank you very much for your  donation.</h2>
+                <h3>Please drop off your book at:</h3>
+                <div className='row booklist'>
+                    <Location key={1} locationData={location}/>
                 </div>
-            </section>
+                <p><strong>Please note:</strong> Our office is open 9:00 - 15:00. Please ask for Ms Smith at reception.</p>
+            </div>
         </div>
+        
         
     )
 }

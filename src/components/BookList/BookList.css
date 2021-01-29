@@ -1,31 +1,23 @@
-.hide {
-  display: none;
+p .text-center {
+  padding: 5%;
 }
-.container-margin {
-    margin-top: 5rem;
-  }
-  
-  p .text-center {
-    padding: 5%;
-  }
-  
-  .booklist {
-    background-color: grey;
-    padding: 1%;
-  }
-  
-  .book {
-    background-color: rgb(202, 202, 202);
-    padding: 5%;
-  }
 
-  .left {
-    float: left;
-    text-align: left;
-    margin: auto;
-  }
+.booklist {
+  background-color: grey;
+  padding: 1rem;
+}
 
-  .right {
-    float: right;
-  }
+.left {
+  float: left;
+  text-align: left;
+  margin: auto;
+}
+
+.right {
+  float: right;
+}
+
+.space_title {
+  margin-bottom: 1rem;
+}
   

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ShowMore({ text, style, length = 150 }) {
+function ShowMore({ text, style, length = 102 }) {
    
     const [showLess, setShowLess] = useState(true);
 

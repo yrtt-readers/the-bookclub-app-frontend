@@ -17,7 +17,7 @@ element.set(0,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )
@@ -30,7 +30,7 @@ element.set(1,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )
@@ -38,7 +38,7 @@ element.set(2,
   {
     key: 'cart.request',
     header: {
-      label: 'You\'ve requested the following books',
+      label: 'You\'ve requested the following book',
       className: 'text-center'
     },
     operation: {
@@ -85,8 +85,11 @@ function BookList({ mode }) {
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout') {
+      if (mode === 0 && sessionStorage.getItem('cart.request') != null)
+        history.push('/checkout-request');
       if (mode === 1 && sessionStorage.getItem('cart.donate') != null)
         history.push('/checkout-donation');
+      
     }
   }
 
@@ -130,17 +133,20 @@ function BookList({ mode }) {
 
   return (
 
-    <section className='container container-margin'>
+    <div>
       <div className='row g-3'>
         { mode === 0 && <h1 className="text-center">Books available to request</h1> }
         { mode === 1 && <h1 className="text-center">Select the books from the list</h1> }
-        
       </div>
+
+      { mode === 0 &&
+        <p>You can only request a book at a time.</p>
+      }
     
       { mode === 1 &&
         <p>If your book is not listed below <Link to="/">click here</Link> to enter the book details</p>
       }
-      
+    
       <div className={element.get(mode).operation.className}>
         <Dropdown className='col-auto' onSelect={setSortType}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
@@ -157,7 +163,8 @@ function BookList({ mode }) {
           <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
         </div>
         
-        <div className='right'>
+        <div className='right row g-3 align-items-center'>
+          <div className='col-auto'>
             <input
               type='input'
               id='inputSearch'
@@ -180,7 +187,7 @@ function BookList({ mode }) {
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
       </div>
-    </section >
+    </div>
   );
 }
 

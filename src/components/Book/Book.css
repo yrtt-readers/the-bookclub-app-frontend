@@ -1,7 +1,18 @@
-.btn {
-  padding: 2%;
-  margin: 1%;
+img.img-thumbnail {
+  float: left;
+  margin-right: 2%;
 }
-.hide {
-  display: none;
+
+p.book-description {
+  margin-bottom: 0px;
+  padding-left: 2%;
+}
+
+button.request {
+  margin-top: 2%;
+}
+  
+.book {
+  background-color: rgb(202, 202, 202);
+  padding: 5%;
 }

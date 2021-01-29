@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import BookList from '../../components/BookList/BookList';
 import Dropdown from 'react-bootstrap/Dropdown';
 //import FormControl from 'react-bootstrap/Form';
-import './Checkout.css';
 
 const element = new Map()
 
@@ -61,7 +60,7 @@ element.set(0,
 // as={CustomToggle}
 // as={CustomMenu}
 
-function Checkout() {
+function DonateCheckout() {
 
   const history = useHistory()
   // let initList = []
@@ -84,8 +83,8 @@ function Checkout() {
   return (
     <div>
       <section className="container container-margin">
-        <div className="text-center">
-          <h2 className="text-center">Please select a drop off location and confirm that you wish to donate the following books:</h2>
+        <div>
+          <h2>Please select a drop off location and confirm that you wish to donate the following books:</h2>
           
           {/* {initList.map(v =>
             <BookList key={v} mode={v} />
@@ -94,7 +93,7 @@ function Checkout() {
         </div>
         
         <div>
-          <h2 className="text-center">Drop off location:</h2>
+          <h3>Drop off location:</h3>
           <Dropdown> 
             <Dropdown.Toggle id="dropdown-custom-components">
               Regions - Post Code
@@ -115,4 +114,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default DonateCheckout;
