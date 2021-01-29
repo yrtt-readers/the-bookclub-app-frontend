@@ -1,6 +1,5 @@
 import React from 'react';
 import BookList from '../../components/BookList/BookList';
-import './Donate.css';
 
 function Donate() {
     return (
