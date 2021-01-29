@@ -5,7 +5,7 @@ on:
       - [main,test-jest]
 
 jobs:
-  test:
+  devDeploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -19,8 +19,8 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: Test
-        run: npm run test
+      # - name: Test
+      #   run: npm run test
       - name: Build
         run: npm run build
 

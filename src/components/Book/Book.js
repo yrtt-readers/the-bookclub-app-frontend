@@ -60,24 +60,8 @@ element.set(3,
     }
   }
 )
-function Book({ mode, stock, updateStocks, setStocks }) {
+function Book({ mode, stock }) {
 
-function onClickListener(e) {
-
-    if (e.target.className === 'btn btn-primary request')
-      stock.qty -= 1
-    else if (e.target.className === 'btn btn-primary donate')
-      stock.qty += 1
-
-      updateStocks.find(v => {
-        v.isbn == stock.isbn ? v.qty = stock.qty : null
-      })
-
-    useEffect(() => {
-      setStocks(updateStocks)
-      console.log(updateStocks)
-    }, [])  
-  }
   return (
     <div className='col-lg-4 col-sm-6 book'>
       <img
@@ -91,9 +75,12 @@ function onClickListener(e) {
       <p className='book-description' data-testid='bookAuthors' id={'bookAuthors.' + stock.isbn}>
         <strong>{stock.bookAuthors}</strong>
       </p>
-      <p className='book-description'>{stock.qty}
-      </p>
-      <button onClick={onClickListener}
+      <p className='book-description'>{stock.qty}</p>
+      <button onClick={() => {
+        console.log('prev qty: ' + stock.qty)
+        stock.qty += 1
+        console.log('current qty: ' + stock.qty)
+      }}
         className={element.get(mode).button.className}>
         {element.get(mode).button.label}
       </button>
@@ -101,11 +88,5 @@ function onClickListener(e) {
   )
 
 }
-
-Book.propTypes = {
-  mode: PropTypes.number,
-  stock: PropTypes.object,
-  setStocks: PropTypes.func,
-};
 
 export default Book;

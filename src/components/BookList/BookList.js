@@ -83,13 +83,6 @@ function BookList({ mode }) {
     if (e.target.className === 'btn btn-primary checkout')
       history.push('/checkout');
     else if (e.target.className === 'btn btn-primary searchBook') {
-      const url = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
-      useEffect(() => {
-        axios
-          .get(url)
-          .then(response => setStocks(response.data))
-          .catch(error => console.log(error))
-      }, [])
     }
   }
 
@@ -149,10 +142,7 @@ function BookList({ mode }) {
       </div>
       <div className='row booklist'>
         {stocks.map(stock =>
-          <Book key={stock.isbn} mode={mode}
-            stock={stock}
-            updateStocks={stocks}
-            setStocks={setStocks} />)}
+          <Book key={stock.isbn} mode={mode} stock={stock} />)}
       </div>
     </section >
   );
