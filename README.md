@@ -7,3 +7,5 @@
 ###### AWS lambda endpoint testStock:
 ###### https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/
 
+### AWS bucket for this app
+###### http://dev-env-readers.s3-website.eu-west-2.amazonaws.com/
