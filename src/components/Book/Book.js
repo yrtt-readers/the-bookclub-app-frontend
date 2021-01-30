@@ -92,15 +92,15 @@ function Book({ mode, stock, stocks, setStocks }) {
       }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      new_stock = stocks.map((book) => {
-        if (book.isbn === stock.isbn) {
-          return {...book, qty: stock.qty + 1} 
-        } else {
-          return book;
-        }
-      });
+      // new_stock = stocks.map((book) => {
+      //   if (book.isbn === stock.isbn) {
+      //     return {...book, qty: stock.qty + 1} 
+      //   } else {
+      //     return book;
+      //   }
+      // });
 
-      setStocks(new_stock);
+      // setStocks(new_stock);
 
       item = stock;
       item.qty = 1;
@@ -139,16 +139,14 @@ function Book({ mode, stock, stocks, setStocks }) {
         alt='book-image-not-found'
       />      
       <p className='book-description'>
-        <strong>{stock.book_name}</strong>
+        <strong>{stock.title}</strong>
       </p>
       <p className='book-description' data-testid='book_author'>
 
-        <strong>{stock.book_author}</strong>
+        <strong>{stock.author}</strong>
       </p>
-    
-      <ShowMore text={stock.description} className={element.get(mode).description.className} />
-      <p className='book-description'>Book Quantity: {stock.qty}
-      </p>
+      <ShowMore text={stock.summary} className={element.get(mode).description.className} />
+      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.post_code}</strong></p> }
       <button onClick={onClickListener}
         className={element.get(mode).button.className}>
         {element.get(mode).button.label}

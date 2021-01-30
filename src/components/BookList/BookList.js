@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState } from 'react'; 
 import { useHistory, Link } from "react-router-dom";
-import axios from 'axios';
+//import axios from 'axios';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
@@ -61,21 +61,21 @@ element.set(3,
   }
 )
 
-function BookList({ mode }) {
+function BookList({ mode, stocks, setStocks }) {
 
   const history = useHistory();
   
-  const [ stocks, setStocks ] = useState([]);
-  useEffect(() => {
-    if (mode < 2) {
-      axios
-      .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_with_books.json")
-      .then(response => setStocks(response.data.stocks))
-      .catch(error => console.log(error))
-    }else {
-      setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)));
-    }
-  }, [])
+  // const [ stocks, setStocks ] = useState([]);
+  // useEffect(() => {
+  //   if (mode < 2) {
+  //     axios
+  //     .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_with_books.json")
+  //     .then(response => setStocks(response.data.stocks))
+  //     .catch(error => console.log(error))
+  //   }else {
+  //     setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)));
+  //   }
+  // }, [])
    
   
   const [sortType, setSortType] = useState('');
@@ -130,6 +130,8 @@ function BookList({ mode }) {
           break;
       }
   }
+
+  console.log(stocks);
 
   return (
 
@@ -186,6 +188,7 @@ function BookList({ mode }) {
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+      </div>
       </div>
     </div>
   );
