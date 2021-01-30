@@ -102,37 +102,30 @@ function Main() {
             </div>
             <div className='row booklist'>
                 {stocks.map(stock =>
-                    <Book key={stock.isbn} stock={stock} />)}
+                    <div key={stock.isbn} className='col-lg-4 col-sm-6 book'>
+                        <img
+                            className='img-thumbnail'
+                            src={stock.thumbnail}
+                            alt='book-image-not-found'
+                        />
+                        <p className='book-description' data-testid='bookName' id={'bookName.' + stock.isbn}>
+                            <strong>{stock.bookName}</strong>
+                        </p>
+                        <p className='book-description' data-testid='bookAuthors' id={'bookAuthors.' + stock.isbn}>
+                            <strong>{stock.bookAuthors}</strong>
+                        </p>
+                        <p className='book-description'>{stock.qty}</p>
+                            <button
+                                onClick={onClickListener}
+                                className='btn btn-primary request'
+                                id={stock.isbn}>
+                                Request
+                            </button>
+                    </div>                
+                )}
             </div>
         </section >
     )
-
-    function Book({ stock }) {
-
-        return (
-            <div className='col-lg-4 col-sm-6 book'>
-                <img
-                    className='img-thumbnail'
-                    src={stock.thumbnail}
-                    alt='book-image-not-found'
-                />
-                <p className='book-description' data-testid='bookName' id={'bookName.' + stock.isbn}>
-                    <strong>{stock.bookName}</strong>
-                </p>
-                <p className='book-description' data-testid='bookAuthors' id={'bookAuthors.' + stock.isbn}>
-                    <strong>{stock.bookAuthors}</strong>
-                </p>
-                <p className='book-description'>{stock.qty}</p>
-                <button
-                    onClick={onClickListener}
-                    className='btn btn-primary request'
-                    id={stock.isbn}>
-                    Request
-            </button>
-            </div>
-        )
-
-    }
 }
 
 export default Main;
