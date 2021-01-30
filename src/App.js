@@ -4,16 +4,15 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 
-
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <Main />
       <footer className='footer'>
         <div className='container'>
-          <span className='text-body'>  © 2021 Copyright The BookClub!</span>
-        </div>    
+          <span className='text-body'> © 2021 The BookClub!</span>
+        </div>
       </footer>
     </div>
   );
