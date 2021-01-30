@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useHistory, Link } from "react-router-dom";
-import $ from 'jquery';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
@@ -17,7 +17,7 @@ element.set(0,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center space'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )
@@ -30,7 +30,7 @@ element.set(1,
     },
     operation: {
       label: null,
-      className: 'row g-3 align-items-center space'
+      className: 'row g-3 align-items-center space_title'
     }
   }
 )
@@ -63,31 +63,23 @@ element.set(3,
 
 function BookList({ mode }) {
 
-  const history = useHistory()
-
-  const getInitialStock = () => {
-    if (sessionStorage.getItem(element.get(mode).key) != null)
-      return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-    else {
-      if (mode < 2) {
-        $.ajax({
-          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
-          async: false,
-          dataType: 'json',
-          success: data => {
-            try {
-              sessionStorage.setItem(element.get(mode).key, JSON.stringify(data.stocks))
-            } catch (e) { console.log(e) }
-          }
-        })
-        return JSON.parse(sessionStorage.getItem(element.get(mode).key))
-      }
+  const history = useHistory();
+  
+  const [ stocks, setStocks ] = useState([]);
+  useEffect(() => {
+    if (mode < 2) {
+      axios
+      .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_with_books.json")
+      .then(response => setStocks(response.data.stocks))
+      .catch(error => console.log(error))
+    }else {
+      setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)));
     }
-  }
-
-  const [stocks, setStocks] = useState(getInitialStock);
+  }, [])
+   
+  
   const [sortType, setSortType] = useState('');
-
+  
   if (stocks === null)
     element.get(mode).header.className = 'hide'
 
@@ -143,7 +135,8 @@ function BookList({ mode }) {
 
     <div>
       <div className='row g-3'>
-        <h3 className={element.get(mode).header.className}>{element.get(mode).header.label}</h3>
+        { mode === 0 && <h1 className="text-center">Books available to request</h1> }
+        { mode === 1 && <h1 className="text-center">Select the books from the list</h1> }
       </div>
 
       { mode === 0 &&
@@ -179,16 +172,14 @@ function BookList({ mode }) {
               aria-describedby='searchHelpInline'
               placeholder='Search book'
             />
-          </div>
-          <div className='col-auto'>
             <button className='btn btn-primary'>Search</button>
-          </div>
         </div>    
       </div>
-      <div className='row booklist shadow-sm p-3 mb-5 rounded'>
+    
+      <div className='row booklist'>
         { stocks != null &&
           stocks.map(b =>
-          <Book key={b.isbn} mode={mode}
+          <Book key={b.isbn} mode={mode} 
             stock={b} stocks={stocks}
             setStocks={setStocks} />)
         }

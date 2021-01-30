@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ShowMore from '../ShowMore/ShowMore';
-import $ from 'jquery';
+//import $ from 'jquery';
 import './Book.css';
 
 const element = new Map()
@@ -61,27 +61,9 @@ element.set(3,
     }
   }
 )
-function Book({ mode, stock, stocks, setStocks }) {
 
-  let bookData = sessionStorage.getItem('book.' + stock.isbn);
 
-  if (bookData === null) {
-    $.ajax({
-      url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/books_new.json',
-      async: false,
-      success: data => {
-        try {
-          sessionStorage
-            .setItem('book.' + stock.isbn,
-              JSON.stringify(data.books.filter(book => book.isbn === stock.isbn)[0]))
-
-          bookData = sessionStorage.getItem('book.' + stock.isbn)
-        } catch (e) { console.log(e) }
-      }
-    })
-  }
-  
-  bookData = JSON.parse(bookData)
+function Book({ mode, stock, stocks, setStocks }) {  
 
   function onClickListener(e) {
     let item = {};
@@ -153,25 +135,24 @@ function Book({ mode, stock, stocks, setStocks }) {
     <div className='col-lg-4 col-sm-6 book'>
       <img
         className='img-thumbnail'
-        src={bookData.thumbnail}
+        src={stock.thumbnail}
         alt='book-image-not-found'
       />      
-      <p className='book-description' data-testid='book_name'>
-        <strong>{bookData.book_name}</strong>
+      <p className='book-description'>
+        <strong>{stock.book_name}</strong>
       </p>
       <p className='book-description' data-testid='book_author'>
 
-        <strong>{bookData.book_author}</strong>
+        <strong>{stock.book_author}</strong>
       </p>
-      <ShowMore text={bookData.description} style={element.get(mode).description.className} />
-      <p className='book-description'>Book Quantity: {stock.qty} </p>
-      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.post_code}</strong></p> }
-      <div className='space'>
-        <button onClick={onClickListener}
-          className={element.get(mode).button.className}>
-          {element.get(mode).button.label}
-        </button>
-      </div>
+    
+      <ShowMore text={stock.description} className={element.get(mode).description.className} />
+      <p className='book-description'>Book Quantity: {stock.qty}
+      </p>
+      <button onClick={onClickListener}
+        className={element.get(mode).button.className}>
+        {element.get(mode).button.label}
+      </button>
     </div>
   )
 
