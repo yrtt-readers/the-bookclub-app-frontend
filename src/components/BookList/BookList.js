@@ -138,14 +138,15 @@ function BookList({ mode }) {
         { mode === 0 && <h1 className="text-center">Books available to request</h1> }
         { mode === 1 && <h1 className="text-center">Select the books from the list</h1> }
       </div>
-
-      { mode === 0 &&
-        <p>You can only request a book at a time.</p>
-      }
-    
-      { mode === 1 &&
-        <p>If your book is not listed below <Link to="/">click here</Link> to enter the book details</p>
-      }
+      <div className='row g-3'>
+        { mode === 0 &&
+          <p>You can only request a book at a time.</p>
+        }
+      
+        { mode === 1 &&
+          <p>If your book is not listed below <Link to="/"> click here </Link> to enter the book details</p>
+        }
+      </div>
     
       <div className={element.get(mode).operation.className}>
         <Dropdown className='col-auto' onSelect={setSortType}>
@@ -191,6 +192,7 @@ function BookList({ mode }) {
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
       </div>
     </div>
+    
   );
 }
 
