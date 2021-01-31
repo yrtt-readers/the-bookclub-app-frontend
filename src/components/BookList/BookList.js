@@ -172,8 +172,11 @@ function BookList({ mode }) {
               aria-describedby='searchHelpInline'
               placeholder='Search book'
             />
+          </div>
+          <div>
             <button className='btn btn-primary'>Search</button>
-        </div>    
+          </div>  
+        </div>  
       </div>
     
       <div className='row booklist'>
