@@ -129,9 +129,7 @@ function BookList({ mode, stocks, setStocks }) {
           setStocks(stocks.sort(GetSortOrder("book_author", "desc")));
           break;
       }
-  }
-
-  console.log(stocks);
+  };
 
   return (
 
@@ -174,21 +172,23 @@ function BookList({ mode, stocks, setStocks }) {
               aria-describedby='searchHelpInline'
               placeholder='Search book'
             />
+          </div>
+          <div className='col-auto'>
             <button className='btn btn-primary'>Search</button>
+          </div>
         </div>    
       </div>
     
       <div className='row booklist'>
         { stocks != null &&
           stocks.map(b =>
-          <Book key={b.isbn} mode={mode} 
+          <Book key={b.isbn+b.postCode} mode={mode} 
             stock={b} stocks={stocks}
             setStocks={setStocks} />)
         }
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
-      </div>
       </div>
     </div>
   );

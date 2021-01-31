@@ -146,7 +146,7 @@ function Book({ mode, stock, stocks, setStocks }) {
         <strong>{stock.author}</strong>
       </p>
       <ShowMore text={stock.summary} className={element.get(mode).description.className} />
-      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.post_code}</strong></p> }
+      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.postCode}</strong></p> }
       <button onClick={onClickListener}
         className={element.get(mode).button.className}>
         {element.get(mode).button.label}
