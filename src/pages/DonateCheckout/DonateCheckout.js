@@ -34,10 +34,8 @@ function DonateCheckout() {
 
     history.push({
       pathname: '/confirm-donation',
-      state: { regionId: '6' }
+      state: { regionId: regionSelected }
     });
-
-
   }
 
   return (
@@ -59,7 +57,7 @@ function DonateCheckout() {
             <Dropdown.Menu>
               { regions != null &&
                 regions.map(region =>
-                  <Dropdown.Item key={region.regionId} onMouseOut={getRegionSelected} eventKey={region.regionId}>{region.regionName} - {region.postCode}</Dropdown.Item>)
+                  <Dropdown.Item key={region.regionId} onChange={getRegionSelected} eventKey={region.regionId}>{region.regionName} - {region.postCode}</Dropdown.Item>)
               }
             </Dropdown.Menu>
           </Dropdown>

@@ -1,18 +1,24 @@
 import React from 'react';
 
-function Location({ locationData }) {
+function Location({ regionDetail }) {
 
     return (
         <div className='col-lg-4 col-sm-6 location'>
-            <img
-                className='img-thumbnail'
-                src={locationData.img}
-                alt='location-image-not-found'
-            />
+            {/* "regionName": "Idea Canary Warf",
+            "addressId": "2",
+            "houseNumber": "Churchill Place",
+            "street": "",
+            "city": "London",
+            "county": "Tower Hamlets",
+            "country": "UK",
+            "postCode": "E14 5RB" */}
             <p className='location-address'>
-                <strong>{locationData.address}</strong>
+                <strong>{regionDetail.regionName}</strong>
             </p>
-            <p className='location-postcode'>{locationData.postcode}</p>
+            <p className='location-address'>
+                {regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county}, 
+            </p>
+            <p className='location-postcode'>{regionDetail.country} - {regionDetail.postCode}</p>
         </div>
     )
 }

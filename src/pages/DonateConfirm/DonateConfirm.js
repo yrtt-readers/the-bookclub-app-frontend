@@ -1,31 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useLocation } from "react-router-dom";
 import Location from '../../components/Location/Location';
 
 function DonateConfirm() {
     const location = useLocation();
-
-    useEffect(() => {
-        console.log(location.pathname); // result: '/secondpage'
+    useEffect(function getRegionId() {
         console.log(location.state.regionId); // result: 'some_value'
-     }, [location]);
+    }[location]);
 
-    const loc = {
-        address: "Hogwarts School of Witchcraft",
-        postcode: "WD25 7LR",
-        img: "https://yrtt-readers.github.io/the-bookclub/assets/images/hogwarts.jpg"
-      }
+    const [ regionDetail, setRegionDetail ] = useState([]);    
+    useEffect(function getRegionDetail() {
+         axios
+         .get(`https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/${location.state.regionId}/details`)
+         .then(response => setRegionDetail(response.data))
+         .catch(error => console.log(error))
+    }, []);
+
+    // "bookDonationMessage": "idea_CANARY-book_donation_message",
+    
+
+    // const loc = {
+    //     address: "Hogwarts School of Witchcraft",
+    //     postcode: "WD25 7LR",
+    //     img: "https://yrtt-readers.github.io/the-bookclub/assets/images/hogwarts.jpg"
+    //   }
 
     return (
         
         <div className="container container-margin">
             <div>
                 <h2 className="text-center">Thank you very much for your  donation.</h2>
-                <h3>Please drop off your book at: {location.state.regionId} </h3>
+                <h3>Please drop off your book at: </h3>
                 <div className='row booklist'>
-                    <Location key={1} locationData={loc}/>
+                    <Location key={location.state.regionId} locationData={regionDetail} />
                 </div>
-                <p><strong>Please note:</strong> Our office is open 9:00 - 15:00. Please ask for Ms Smith at reception.</p>
+                <p><strong>Please note:</strong> {regionDetail.bookDonationMessage}</p>
             </div>
         </div>
         
