@@ -20,8 +20,11 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
       - name: Install
+        run: npm install --save-exact @babel/runtime@7.0.0-beta.55
+        run: rm ./package-lock.json
         run: npm install
-
+      
+        
       # - name: Test
       #   run: npm run test
 
