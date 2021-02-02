@@ -12,8 +12,9 @@ function Location({ regionDetail }) {
             "county": "Tower Hamlets",
             "country": "UK",
             "postCode": "E14 5RB" */}
+
             {
-                regionDetail ? <div>regionDetail.regionName</div> : <div>Loading...</div>
+                regionDetail ? <div> regionDetail.regionName</div> : <div>Loading...</div>
             }
             {/* <p className='location-address'>
                 <strong>{regionDetail.regionName}</strong>
