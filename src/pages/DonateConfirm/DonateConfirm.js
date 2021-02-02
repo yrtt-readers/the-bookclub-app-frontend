@@ -5,14 +5,15 @@ import Location from '../../components/Location/Location';
 
 function DonateConfirm() {
     const location = useLocation();
-    useEffect(function getRegionId() {
-        console.log(location.state.regionId); // result: 'some_value'
-    }[location]);
+    const [ regionId, setRegionId ] = useState("");
+    setRegionId(location.state.regionId);
+
+    console.log(regionId);
 
     const [ regionDetail, setRegionDetail ] = useState([]);    
-    useEffect(function getRegionDetail() {
+    useEffect(() => {
          axios
-         .get(`https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/${location.state.regionId}/details`)
+         .get(`https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/${regionId}/details`)
          .then(response => setRegionDetail(response.data))
          .catch(error => console.log(error))
     }, []);

@@ -24,7 +24,7 @@ function DonateCheckout() {
   const getRegionSelected = e => {
     setRegionSelected(e);
 
-    // region = regionSelected;
+    // region = regionSelected; 
     
     console.log(regionSelected);
   };

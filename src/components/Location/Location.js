@@ -12,13 +12,16 @@ function Location({ regionDetail }) {
             "county": "Tower Hamlets",
             "country": "UK",
             "postCode": "E14 5RB" */}
-            <p className='location-address'>
+            {
+                regionDetail ? <div>regionDetail.regionName</div> : <div>Loading...</div>
+            }
+            {/* <p className='location-address'>
                 <strong>{regionDetail.regionName}</strong>
             </p>
             <p className='location-address'>
                 {regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county}, 
             </p>
-            <p className='location-postcode'>{regionDetail.country} - {regionDetail.postCode}</p>
+            <p className='location-postcode'>{regionDetail.country} - {regionDetail.postCode}</p> */}
         </div>
     )
 }
