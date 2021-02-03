@@ -1,12 +1,11 @@
 import React from 'react';
-import './About.css';
 
 function About() {
   return (
     <div>
       <section className='container container-margin'>
+        <h1 className='text-center'>About us</h1>
         <div className='text-left'>
-          <h1 className='text-left'>About us</h1>
           <p>
             According to the Literacy Trust, over <strong>380,000</strong>{' '}
             children in the UK do not own a single book, with disadvantaged
@@ -26,7 +25,7 @@ function About() {
             children with no books of their own.
           </p>
           <p>
-            With The BookClub,
+            With The BookClub:
             <br />
           </p>
           <strong>An individual can:</strong>

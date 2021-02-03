@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 
-function Contact() {
-    const [state , setState] = useState({
-        name : "",
-        email : "",
-        message : "",
-        successMessage: null
-    })
-    const handleChange = (e) => {
-        const {id , value} = e.target;   
-        setState(prevState => ({
-            ...prevState,
-            [id] : value
-        }))
-    }
+ function Contact() {
+     const [state , setState] = useState({
+         name : "",
+         email : "",
+         message : "",
+         successMessage: null
+     })
+     const handleChange = (e) => {
+         const {id , value} = e.target;   
+         setState(prevState => ({
+             ...prevState,
+             [id] : value
+         }))
+     }
+
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
@@ -78,5 +79,6 @@ function Contact() {
         </div>
     );
   }
-  
-  export default Contact;
+
+ 
+export default Contact;
