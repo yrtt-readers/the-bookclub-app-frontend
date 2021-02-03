@@ -1,6 +1,5 @@
 import React, { useState } from 'react'; 
 import { useHistory, Link } from "react-router-dom";
-//import axios from 'axios';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
@@ -63,25 +62,9 @@ element.set(3,
 
 function BookList({ mode, stocks, setStocks }) {
 
-  const history = useHistory();
-  
-  // const [ stocks, setStocks ] = useState([]);
-  // useEffect(() => {
-  //   if (mode < 2) {
-  //     axios
-  //     .get("https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_with_books.json")
-  //     .then(response => setStocks(response.data.stocks))
-  //     .catch(error => console.log(error))
-  //   }else {
-  //     setStocks(JSON.parse(sessionStorage.getItem(element.get(mode).key)));
-  //   }
-  // }, [])
-   
+  const history = useHistory();   
   
   const [sortType, setSortType] = useState('');
-  
-  if (stocks === null)
-    element.get(mode).header.className = 'hide'
 
   function onClickListener(e) {
     if (e.target.className === 'btn btn-primary checkout') {
@@ -140,7 +123,7 @@ function BookList({ mode, stocks, setStocks }) {
       </div>
 
       { mode === 0 &&
-        <p>You can only request a book at a time.</p>
+        <p>You can only request one book at a time.</p>
       }
     
       { mode === 1 &&
@@ -151,7 +134,7 @@ function BookList({ mode, stocks, setStocks }) {
         <Dropdown className='col-auto' onSelect={setSortType}>
           <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
 
-          <Dropdown.Menu >
+          <Dropdown.Menu>
             <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
             <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
             <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
@@ -180,12 +163,13 @@ function BookList({ mode, stocks, setStocks }) {
       </div>
     
       <div className='row booklist'>
-        { stocks != null &&
-          stocks.map(b =>
-          <Book key={b.isbn+b.postCode} mode={mode} 
-            stock={b} stocks={stocks}
-            setStocks={setStocks} />)
-        }
+        
+          { stocks != null &&
+            stocks.map(b =>
+            <Book key={b.isbn+b.postCode} mode={mode} 
+              stock={b} stocks={stocks}
+              setStocks={setStocks} />)
+          }
       </div>
       <div className={element.get(mode).operation.className}>
         <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>

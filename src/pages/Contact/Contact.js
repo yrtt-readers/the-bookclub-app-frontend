@@ -21,7 +21,7 @@ function Contact() {
         setState({
             name : "",
             email : "",
-            message : "",
+            message : "", 
             successMessage: `Thank you for your message ${name}. We're going to anwser as soon as possible!`
         })
     }

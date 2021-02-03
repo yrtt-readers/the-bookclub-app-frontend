@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import ShowMore from '../ShowMore/ShowMore';
-//import $ from 'jquery';
 import './Book.css';
 
 const element = new Map()
@@ -65,6 +65,10 @@ element.set(3,
 
 function Book({ mode, stock, stocks, setStocks }) {  
 
+  const history = useHistory(); 
+  
+  const [ msg, setMsg ] = useState("");
+
   function onClickListener(e) {
     let item = {};
     let cart = [];
@@ -89,6 +93,13 @@ function Book({ mode, stock, stocks, setStocks }) {
           item.qty = 1;
           cart = [item];
           sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
+
+          history.push('/checkout-request');
+
+      } else {
+        setMsg("You've already selected a book. You can only choose one book at a time!");
+                
+
       }
     }
     else if (e.target.className === 'btn btn-primary donate') {
@@ -133,6 +144,9 @@ function Book({ mode, stock, stocks, setStocks }) {
 
   return (
     <div className='col-lg-4 col-sm-6 book'>
+      <div className="alert alert-success mt-2" style={{display: msg ? 'block' : 'none' }} role="alert">
+          {msg}
+      </div>
       <img
         className='img-thumbnail'
         src={stock.thumbnail}

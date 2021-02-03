@@ -6,25 +6,21 @@ function DonateConfirm() {
     const location = useLocation();
     const regionId = location?.state?.regionId;
 
-    const [ regionDetail, setRegionDetail ] = useState([]);    
-
-    useEffect(() => {
-         axios
-         .get(`https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/${regionId}/details`)
-         .then(response => setRegionDetail(response.data[0]))
-         .catch(error => console.log(error))
-    }, [location]);
-
-    console.log(regionDetail);
-
-    // "bookDonationMessage": "idea_CANARY-book_donation_message",
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ regionDetail, setRegionDetail ] = useState([]);  
     
-
-    // const loc = {
-    //     address: "Hogwarts School of Witchcraft",
-    //     postcode: "WD25 7LR",
-    //     img: "https://yrtt-readers.github.io/the-bookclub/assets/images/hogwarts.jpg"
-    //   }
+    useEffect(() => {
+        const fetchData = async () => {
+          setIsLoading(true);
+     
+          const response = await axios(`https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/${regionId}/details`);
+     
+          setRegionDetail(response.data[0]);
+          setIsLoading(false);
+        };
+     
+        fetchData();
+      }, [location]);    
 
     return (
         
@@ -33,8 +29,14 @@ function DonateConfirm() {
             <h3>Please drop off your book at: </h3>
             <div>
                 <div className="col-lg-4 col-sm-6">
-                    <strong>{regionDetail.regionName}</strong>
-                    <p>{regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county}</p>
+                { isLoading ? (
+                    <div>Loading region details ...</div>
+                ) : (
+                    <div>
+                        <strong>{regionDetail.regionName}</strong>
+                        <p>{regionDetail.houseNumber}, {regionDetail.street} {regionDetail.city} {regionDetail.county} {regionDetail.postCode} </p>
+                    </div>
+                )}
                 </div>
             </div>
             <p><strong>Please note:</strong> {regionDetail.bookDonationMessage}</p>

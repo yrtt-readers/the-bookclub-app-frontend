@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BookList from '../../components/BookList/BookList';
+// const BookList = lazy(() => import('../../components/BookList/BookList'));
 
 function Request() {
   const [ stocks, setStocks ] = useState([]);
@@ -11,14 +12,12 @@ function Request() {
       .catch(error => console.log(error))
   }, [])
 
-
-
   return (
     <div>
       <section className="container container-margin">
         <div>
-            <h1 className="text-center">Request a book for a child</h1>             
-            <BookList mode={0} stocks={stocks} setStocks={setStocks}/>             
+            <h1 className="text-center">Request a book for a child</h1>
+              <BookList mode={0} stocks={stocks} setStocks={setStocks} />
         </div>        
       </section>
     </div> 

@@ -5,37 +5,49 @@ import BookList from '../../components/BookList/BookList';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function DonateCheckout() {
-
   const history = useHistory();
 
   const donation = JSON.parse(sessionStorage.getItem('cart.donate'));
   const [ stocks, setStocks ] = useState(donation);
-  
+  const [isLoading, setIsLoading] = useState(false);
   const [ regions, setRegion ] = useState([]);
+
   useEffect(() => {
-      axios
-      .get("https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/active")
-      .then(response => setRegion(response.data))
-      .catch(error => console.log(error))
-  }, [])
+    const fetchData = async () => {
+      setIsLoading(true);
+ 
+      const response = await axios("https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/regions/active");
+ 
+      setRegion(response.data)
+      setIsLoading(false);
+    };
+ 
+    fetchData();
+  }, []);
 
   const [ regionSelected, setRegionSelected ] = useState('');
 
   const getRegionSelected = e => {
     setRegionSelected(e);
-
-    // region = regionSelected; 
-    
-    console.log(regionSelected);
   };
 
   function onClickListener() {
-    //if (e.target.className === 'btn btn-primary confirmCheckout')
+    const newTransaction = {
+      isbn: donation[0].isbn,
+      regionId: regionSelected,
+      requestType: 1
+    }
 
-    history.push({
-      pathname: '/confirm-donation',
-      state: { regionId: regionSelected }
-    });
+    //Make a post request, pass in the newTask as the body
+    axios
+    .post("https://21rr58zp55.execute-api.eu-west-2.amazonaws.com/dev/users/3/transaction", newTransaction)
+    //If error, log out the error
+    .catch(error => console.log(error))
+   
+  history.push({
+    pathname: '/confirm-donation',
+    state: { regionId: regionSelected }
+  });
   }
 
   return (
@@ -55,10 +67,13 @@ function DonateCheckout() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              { regions != null &&
+            { isLoading ? (
+                <div>Loading regions ...</div>
+              ) : (
+                regions != null &&
                 regions.map(region =>
                   <Dropdown.Item key={region.regionId} onChange={getRegionSelected} eventKey={region.regionId}>{region.regionName} - {region.postCode}</Dropdown.Item>)
-              }
+            )}
             </Dropdown.Menu>
           </Dropdown>
         </div>
