@@ -1,23 +1,23 @@
 import React from 'react';
-import Location from '../../components/Location/Location';
+import { useLocation } from "react-router-dom";
 
 function RequestConfirm() {
-    const location = {
-        address: "Hogwarts School of Witchcraft",
-        postcode: "WD25 7LR",
-        img: "https://yrtt-readers.github.io/the-bookclub/assets/images/hogwarts.jpg"
-      }
+    const location = useLocation();
+    const regionDetail = location?.state?.regionDetails;
+
 
     return (
         <div>
             <section className="container container-margin">
-                <div className="text-center">
-                    <h1 className="text-center">Thank you very much for your requests, your request ID is <strong>54358OUY</strong>.</h1>
+                <h2 className="text-center">Thank you very much for your requests.</h2>
+                <div>
+                    <p>Your request ID is <strong>54358OUY</strong>.</p>
                     <p>Please collect  your book at:</p>
+                    <p><strong>{regionDetail.regionName}</strong></p>
+                    <p>{regionDetail.houseNumber}, {regionDetail.street} {regionDetail.city} {regionDetail.county} {regionDetail.postCode} </p>
                     
-                    <Location key={1} locationData={location}/>
                     
-                    <p><strong>Please note:</strong> Please collect your book from reception.  Please allow 24 hours and call us to verify the the book is ready for collection. </p>
+                    <p><strong>Please note:</strong> {regionDetail.bookCollectionMessage} </p>
                 </div>
             </section>
         </div>

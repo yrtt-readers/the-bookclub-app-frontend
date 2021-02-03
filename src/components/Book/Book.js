@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import ShowMore from '../ShowMore/ShowMore';
-//import $ from 'jquery';
 import './Book.css';
 
 const element = new Map()
@@ -65,6 +65,10 @@ element.set(3,
 
 function Book({ mode, stock, stocks, setStocks }) {  
 
+  const history = useHistory(); 
+  
+  const [ msg, setMsg ] = useState("");
+
   function onClickListener(e) {
     let item = {};
     let cart = [];
@@ -89,18 +93,25 @@ function Book({ mode, stock, stocks, setStocks }) {
           item.qty = 1;
           cart = [item];
           sessionStorage.setItem(element.get(mode).storage.key, JSON.stringify(cart));
+
+          history.push('/checkout-request');
+
+      } else {
+        setMsg("You've already selected a book. You can only choose one book at a time!");
+                
+
       }
     }
     else if (e.target.className === 'btn btn-primary donate') {
-      new_stock = stocks.map((book) => {
-        if (book.isbn === stock.isbn) {
-          return {...book, qty: stock.qty + 1} 
-        } else {
-          return book;
-        }
-      });
+      // new_stock = stocks.map((book) => {
+      //   if (book.isbn === stock.isbn) {
+      //     return {...book, qty: stock.qty + 1} 
+      //   } else {
+      //     return book;
+      //   }
+      // });
 
-      setStocks(new_stock);
+      // setStocks(new_stock);
 
       item = stock;
       item.qty = 1;
@@ -133,22 +144,23 @@ function Book({ mode, stock, stocks, setStocks }) {
 
   return (
     <div className='col-lg-4 col-sm-6 book'>
+      <div className="alert alert-success mt-2" style={{display: msg ? 'block' : 'none' }} role="alert">
+          {msg}
+      </div>
       <img
         className='img-thumbnail'
         src={stock.thumbnail}
         alt='book-image-not-found'
       />      
       <p className='book-description'>
-        <strong>{stock.book_name}</strong>
+        <strong>{stock.title}</strong>
       </p>
       <p className='book-description' data-testid='book_author'>
 
-        <strong>{stock.book_author}</strong>
+        <strong>{stock.author}</strong>
       </p>
-    
-      <ShowMore text={stock.description} className={element.get(mode).description.className} />
-      <p className='book-description'>Book Quantity: {stock.qty}
-      </p>
+      <ShowMore text={stock.summary} className={element.get(mode).description.className} />
+      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.postCode}</strong></p> }
       <button onClick={onClickListener}
         className={element.get(mode).button.className}>
         {element.get(mode).button.label}
