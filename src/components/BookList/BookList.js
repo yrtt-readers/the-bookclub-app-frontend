@@ -72,7 +72,7 @@ function BookList({ mode }) {
     else {
       if (mode < 2) {
         $.ajax({
-          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json',
+          url: 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks_new.json',
           async: false,
           dataType: 'json',
           success: data => {
