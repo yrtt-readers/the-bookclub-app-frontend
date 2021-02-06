@@ -60,17 +60,18 @@ function DonateCheckout() {
   return (
   
       <section className="container container-margin">
-        <div>
-          <h2>Please select a drop off location and confirm that you wish to donate the following books:</h2>
-          { stocks.length > 1 && 
-            <BookList key={3} mode={3} stocks={stocks} setStocks={setStocks} />
-          }
-          <Book key={3} mode={3} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
-          
-        </div>
         
-        <div className='margin-region'>
-          <h3>Drop off location:</h3>
+        <h2 className='space-title-checkout'>Please confirm that you wish to donate the following {` ${donation.length > 1 ? 'books' : 'book'} `} :</h2>
+        
+        { stocks.length > 1 ? (
+          <BookList key={3} mode={3} stocks={stocks} setStocks={setStocks} />
+          ) : (
+            <Book key={3} mode={3} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
+        )}        
+        
+      
+        <div className={` ${donation.length > 1 ? 'margin-region-list' : 'margin-region'} `}>
+          <h2>Select a drop off location:</h2>
           <Dropdown onSelect={setRegionSelected}> 
             <Dropdown.Toggle id="dropdown-custom-components">
               Regions - Post Code
@@ -92,5 +93,7 @@ function DonateCheckout() {
       </section>
   );
 }
+
+
 
 export default DonateCheckout;

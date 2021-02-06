@@ -1,8 +1,13 @@
 .margin-region {
-    margin-top: 10rem;
-    margin-bottom: 2rem;
+    margin-top: 15rem;
+    margin-bottom: 20px;
 }
 
-.book {
-    background-color: white;
+.margin-region-list {
+    margin-top: 1rem;
+    margin-bottom: 20px;
+}
+
+.space-title-checkout {
+    padding-top: 1rem;
 }

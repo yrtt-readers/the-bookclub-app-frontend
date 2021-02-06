@@ -13,13 +13,17 @@ p.book-description {
   text-align: left;
 }
 
-.button-request {
+.button-action {
   position: absolute;
   bottom: 0rem;
 }
   
 .book {
   background-color: rgb(202, 202, 202);
-  padding: 2rem;
+  padding: 2rem; 
   text-align: left;
+}
+
+.checkout-book {
+  background-color: white;
 }

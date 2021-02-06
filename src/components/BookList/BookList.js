@@ -66,14 +66,11 @@ function BookList({ mode, stocks, setStocks }) {
   
   const [sortType, setSortType] = useState('');
 
-  function onClickListener(e) {
-    if (e.target.className === 'btn btn-primary checkout') {
-      if (mode === 0 && sessionStorage.getItem('cart.request') != null)
-        history.push('/checkout-request');
-      if (mode === 1 && sessionStorage.getItem('cart.donate') != null)
-        history.push('/checkout-donation');
-      
-    }
+  function onClickListener() {
+    if (mode === 0 && sessionStorage.getItem('cart.request') != null)
+      history.push('/checkout-request');
+    if (mode === 1 && sessionStorage.getItem('cart.donate') != null)
+      history.push('/checkout-donation');
   }
 
   function GetSortOrder(prop, order) {    
@@ -97,29 +94,28 @@ function BookList({ mode, stocks, setStocks }) {
 
   const onSortListener = e => {
       setSortType(e);
-
+      
       switch (sortType) {
         case 'title-AZ':
-          setStocks(stocks.sort(GetSortOrder("book_name", "asc")));
+          setStocks(stocks.sort(GetSortOrder("title", "asc")));
           break;
         case 'title-ZA':
-          setStocks(stocks.sort(GetSortOrder("book_name", "desc")));
+          setStocks(stocks.sort(GetSortOrder("title", "desc")));
           break;
         case 'author-AZ':
-          setStocks(stocks.sort(GetSortOrder("book_author", "asc")));
+          setStocks(stocks.sort(GetSortOrder("author", "asc")));
           break;
         case 'author-ZA':
-          setStocks(stocks.sort(GetSortOrder("book_author", "desc")));
+          setStocks(stocks.sort(GetSortOrder("author", "desc")));
           break;
       }
   };
 
   return (
-
     <div className='text-center'>
       <div className='row g-3'>
-        { mode === 0 && <h2 className="text-center">Books available to request</h2> }
-        { mode === 1 && <h2 className="text-center">Select the books from the list</h2> }
+        { mode === 0 && <h2>Books available to request</h2> }
+        { mode === 1 && <h2>Select the books from the list</h2> }
       </div>
     
       <div className='row g-3 space_title2'>
@@ -145,7 +141,7 @@ function BookList({ mode, stocks, setStocks }) {
         </Dropdown>
 
         <div className='left'>
-          <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
+          <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
         </div>
         
         <div className='right row g-3 align-items-center'>
@@ -165,16 +161,15 @@ function BookList({ mode, stocks, setStocks }) {
       </div>
     
       <div className='row booklist'>
-        
-          { stocks != null &&
-            stocks.map(b =>
-            <Book key={b.isbn+b.postCode} mode={mode} 
-              stock={b} stocks={stocks}
-              setStocks={setStocks} />)
-          }
+        { stocks != null &&
+          stocks.map(b =>
+          <Book key={b.isbn+b.postCode} mode={mode} 
+            stock={b} stocks={stocks}
+            setStocks={setStocks} />)
+        }
       </div>
       <div className={element.get(mode).operation.className}>
-        <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
+        <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
       </div>
     </div>
     
