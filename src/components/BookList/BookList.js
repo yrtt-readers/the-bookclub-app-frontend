@@ -97,16 +97,16 @@ function BookList({ mode, stocks, setStocks }) {
       
       switch (sortType) {
         case 'title-AZ':
-          setStocks(stocks.sort(GetSortOrder("book_name", "asc")));
+          setStocks(stocks.sort(GetSortOrder("title", "asc")));
           break;
         case 'title-ZA':
-          setStocks(stocks.sort(GetSortOrder("book_name", "desc")));
+          setStocks(stocks.sort(GetSortOrder("title", "desc")));
           break;
         case 'author-AZ':
-          setStocks(stocks.sort(GetSortOrder("book_author", "asc")));
+          setStocks(stocks.sort(GetSortOrder("author", "asc")));
           break;
         case 'author-ZA':
-          setStocks(stocks.sort(GetSortOrder("book_author", "desc")));
+          setStocks(stocks.sort(GetSortOrder("author", "desc")));
           break;
       }
   };

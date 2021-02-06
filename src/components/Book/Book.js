@@ -136,7 +136,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
   return (
   
-      <div className={` col-lg-6 col-sm-6 ${cart_checkout != null && cart_checkout.length === 1 ? 'checkout-book' : 'book'} `}>
+      <div className={` col-lg-6 col-sm-6 ${mode > 2 && cart_checkout != null && cart_checkout.length === 1 ? 'checkout-book' : 'book'} `}>
         { mode === 0 && 
           <div className='alert alert-warning mt-2' style={{display: msg ? 'block' : 'none' }} role="alert">
               {msg}
