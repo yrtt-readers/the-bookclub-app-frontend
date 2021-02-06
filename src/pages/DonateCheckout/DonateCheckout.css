@@ -1,5 +1,10 @@
 .margin-region {
-    margin-top: 200px;
+    margin-top: 15rem;
+    margin-bottom: 20px;
+}
+
+.margin-region-list {
+    margin-top: 1rem;
     margin-bottom: 20px;
 }
 

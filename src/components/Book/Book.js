@@ -132,11 +132,11 @@ function Book({ mode, stock, stocks, setStocks }) {
     }
   }
 
-  const cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
+  const cart_checkout = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
 
   return (
   
-      <div className={` col-lg-6 col-sm-6 ${cart != null && cart.length === 1 ? 'checkout-book' : 'book'} `}>
+      <div className={` col-lg-6 col-sm-6 ${cart_checkout != null && cart_checkout.length === 1 ? 'checkout-book' : 'book'} `}>
         { mode === 0 && 
           <div className='alert alert-warning mt-2' style={{display: msg ? 'block' : 'none' }} role="alert">
               {msg}
@@ -156,9 +156,12 @@ function Book({ mode, stock, stocks, setStocks }) {
           <strong>{stock.author}</strong>
         </p>
         <ShowMore text={stock.summary} className={element.get(mode).description.className} />
+        { mode === 3 && 
+          <p>You've selected {stock.qty} {`${stock.qty > 1 ? 'copies' : 'copy'} `} of this book </p>
+        }
         { mode === 0 && <p><strong>Postcode: {stock.postCode}</strong></p> }
         <button onClick={onClickListener}
-          className={element.get(mode).button.className} disabled={mode === 0 && cart != null}>
+          className={element.get(mode).button.className} disabled={mode === 0 && cart_checkout != null}>
           {element.get(mode).button.label}
         </button>
       </div>
