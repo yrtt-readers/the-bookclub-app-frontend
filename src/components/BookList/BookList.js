@@ -145,7 +145,7 @@ function BookList({ mode, stocks, setStocks }) {
         </Dropdown>
 
         <div className='left'>
-          <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+          <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
         </div>
         
         <div className='right row g-3 align-items-center'>
@@ -174,7 +174,7 @@ function BookList({ mode, stocks, setStocks }) {
           }
       </div>
       <div className={element.get(mode).operation.className}>
-        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+        <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
       </div>
     </div>
     

@@ -74,7 +74,7 @@ function Book({ mode, stock, stocks, setStocks }) {
     let cart = [];
     let new_stock;
 
-    if (e.target.className === 'btn btn-primary request') {
+    if (e.target.className === 'btn btn-primary button-request') {
       cart = sessionStorage.getItem(element.get(mode).storage.key)
       if (cart === null) {
         
@@ -102,7 +102,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
       }
     }
-    else if (e.target.className === 'btn btn-primary donate') {
+    else if (e.target.className === 'btn btn-primary button-donate') {
       // new_stock = stocks.map((book) => {
       //   if (book.isbn === stock.isbn) {
       //     return {...book, qty: stock.qty + 1} 
