@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import BookList from '../../components/BookList/BookList';
-// import Location from '../../components/Location/Location';
+import Book from '../../components/Book/Book';
+import './RequestCheckout.css';
 
 function RequestCheckout() {
     const history = useHistory();
@@ -50,30 +50,28 @@ function RequestCheckout() {
     }
 
     return (
-        
-        <div className="container container-margin">
-            <div>
-                <h2 className="text-center">Please confirm that you wish to request the following book located at:</h2>
-                <BookList key={2} mode={2} stocks={stocks} setStocks={setStocks}/>
-                { isLoading ? (
-                    <div>Loading region details ...</div>
-                ) : (
-                    <div>
-                        <strong>{regionDetail.regionName}</strong>
-                        <p>{regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county} {regionDetail.postCode} </p>
-                    </div>
-                )}
-            </div>
-            <div className="message">
-                <p><strong>Please note:</strong> {regionDetail.bookCollectionMessage}</p>
-            </div>
-            <div>
-                <button className='btn btn-primary confirmRequest button' onClick={handleClickConfirm}>Confirm</button>   
-                <button className='btn btn-primary confirmRequest button' onClick={onClickListener}>Cancel</button>  
-            </div>
-        </div>
-        
- 
+        <section className='container container-margin'>
+           
+            <h3 className='space_title2'>Please confirm that you wish to request the following book located at:</h3>
+            <Book key={2} mode={2} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
+            { isLoading ? (
+                <div>Loading region details ...</div>
+            ) : (
+                <div>
+                    <strong>{regionDetail.regionName}</strong>
+                    <p>{regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county} {regionDetail.postCode} </p>
+                </div>
+            )}
+            
+            <p><strong>Please note:</strong> {regionDetail.bookCollectionMessage}</p>
+            
+            <button type='button' className='btn btn-success' onClick={handleClickConfirm}>Confirm</button>   
+            
+            <button type='button' className='btn btn-danger' onClick={onClickListener}>Cancel</button>  
+                
+                
+        </section>
+                
     );
 }
 

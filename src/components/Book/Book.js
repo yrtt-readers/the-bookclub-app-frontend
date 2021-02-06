@@ -9,7 +9,7 @@ element.set(0,
   {
     button: {
       label: 'Request',
-      className: 'btn btn-primary request'
+      className: 'btn btn-primary button-request'
     },
     storage: {
       key: 'cart.request'
@@ -23,7 +23,7 @@ element.set(1,
   {
     button: {
       label: 'Donate',
-      className: 'btn btn-primary donate'
+      className: 'btn btn-primary button-request'
     },
     storage: {
       key: 'cart.donate'
@@ -74,7 +74,7 @@ function Book({ mode, stock, stocks, setStocks }) {
     let cart = [];
     let new_stock;
 
-    if (e.target.className === 'btn btn-primary request') {
+    if (e.target.className === 'btn btn-primary button-request') {
       cart = sessionStorage.getItem(element.get(mode).storage.key)
       if (cart === null) {
         
@@ -102,7 +102,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
       }
     }
-    else if (e.target.className === 'btn btn-primary donate') {
+    else if (e.target.className === 'btn btn-primary button-donate') {
       // new_stock = stocks.map((book) => {
       //   if (book.isbn === stock.isbn) {
       //     return {...book, qty: stock.qty + 1} 
@@ -143,29 +143,31 @@ function Book({ mode, stock, stocks, setStocks }) {
   }
 
   return (
-    <div className='col-lg-4 col-sm-6 book'>
-      <div className="alert alert-success mt-2" style={{display: msg ? 'block' : 'none' }} role="alert">
-          {msg}
+      <div className='col-lg-6 col-sm-6 book'>
+      
+        <div className='alert alert-success mt-2' style={{display: msg ? 'block' : 'none' }} role="alert">
+            {msg}
+        </div>
+        <img
+          className='img-thumbnail'
+          src={stock.thumbnail}
+          alt='book-image-not-found'
+        />
+          
+        <p>
+          <strong>{stock.title}</strong>
+        </p>
+        <p data-testid='book_author'>
+          <strong>{stock.author}</strong>
+        </p>
+        <ShowMore text={stock.summary} className={element.get(mode).description.className} />
+        { mode === 0 && <p><strong>Postcode: {stock.postCode}</strong></p> }
+        <button onClick={onClickListener}
+          className={element.get(mode).button.className}>
+          {element.get(mode).button.label}
+        </button>
+        <br/><br/>
       </div>
-      <img
-        className='img-thumbnail'
-        src={stock.thumbnail}
-        alt='book-image-not-found'
-      />      
-      <p className='book-description'>
-        <strong>{stock.title}</strong>
-      </p>
-      <p className='book-description' data-testid='book_author'>
-
-        <strong>{stock.author}</strong>
-      </p>
-      <ShowMore text={stock.summary} className={element.get(mode).description.className} />
-      { mode === 0 && <p className='book-description'><strong>Post Code: {stock.postCode}</strong></p> }
-      <button onClick={onClickListener}
-        className={element.get(mode).button.className}>
-        {element.get(mode).button.label}
-      </button>
-    </div>
   )
 
 }

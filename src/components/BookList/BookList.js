@@ -116,19 +116,19 @@ function BookList({ mode, stocks, setStocks }) {
 
   return (
 
-    <div>
+    <div className='text-center'>
       <div className='row g-3'>
-        { mode === 0 && <h1 className="text-center">Books available to request</h1> }
-        { mode === 1 && <h1 className="text-center">Select the books from the list</h1> }
+        { mode === 0 && <h2 className="text-center">Books available to request</h2> }
+        { mode === 1 && <h2 className="text-center">Select the books from the list</h2> }
       </div>
     
-      <div className='row g-3'>
+      <div className='row g-3 space_title2'>
         { mode === 0 &&
-          <p>You can only request a book at a time.</p>
+          <h4>You can only request one book at a time</h4>
         }
       
         { mode === 1 &&
-          <p>If your book is not listed below <Link to="/"> click here </Link> to enter the book details</p>
+          <h4>If your book is not listed below <Link to="/"> click here </Link> to enter the book details</h4>
         }
       </div>
     
@@ -145,7 +145,7 @@ function BookList({ mode, stocks, setStocks }) {
         </Dropdown>
 
         <div className='left'>
-          <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+          <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
         </div>
         
         <div className='right row g-3 align-items-center'>
@@ -174,7 +174,7 @@ function BookList({ mode, stocks, setStocks }) {
           }
       </div>
       <div className={element.get(mode).operation.className}>
-        <button className='btn btn-primary checkout' onClick={onClickListener}>Checkout</button>
+        <button className='btn btn-warning checkout' onClick={onClickListener}>Checkout</button>
       </div>
     </div>
     

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import Book from '../../components/Book/Book';
 import BookList from '../../components/BookList/BookList';
 import Dropdown from 'react-bootstrap/Dropdown';
+import './DonateCheckout.css'
 
 function DonateCheckout() {
   const history = useHistory();
@@ -31,7 +33,7 @@ function DonateCheckout() {
     setRegionSelected(e);
   };
 
-  function onClickListener() {
+  function handleDonateCheckout() {
     const newTransaction = {
       isbn: donation[0].isbn,
       regionId: regionSelected,
@@ -44,22 +46,30 @@ function DonateCheckout() {
     //If error, log out the error
     .catch(error => console.log(error))
    
-  history.push({
-    pathname: '/confirm-donation',
-    state: { regionId: regionSelected }
-  });
+    history.push({
+      pathname: '/confirm-donation',
+      state: { regionId: regionSelected }
+    });
+  }
+
+  function handleCancel() {
+    sessionStorage.removeItem('cart.donate');
+    history.push('/');            
   }
 
   return (
-    <div>
+  
       <section className="container container-margin">
         <div>
           <h2>Please select a drop off location and confirm that you wish to donate the following books:</h2>
-        
-          <BookList key={3} mode={3} stocks={stocks} setStocks={setStocks} />
+          { stocks.length > 1 && 
+            <BookList key={3} mode={3} stocks={stocks} setStocks={setStocks} />
+          }
+          <Book key={3} mode={3} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
+          
         </div>
         
-        <div>
+        <div className='margin-region'>
           <h3>Drop off location:</h3>
           <Dropdown onSelect={setRegionSelected}> 
             <Dropdown.Toggle id="dropdown-custom-components">
@@ -77,9 +87,9 @@ function DonateCheckout() {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <button className='btn btn-primary confirmCheckout' onClick={onClickListener}>Confirm</button>     
+        <button type='button' className='btn btn-success' onClick={handleDonateCheckout}>Confirm</button>
+        <button type='button' className='btn btn-danger' onClick={handleCancel}>Cancel</button>
       </section>
-    </div>
   );
 }
 

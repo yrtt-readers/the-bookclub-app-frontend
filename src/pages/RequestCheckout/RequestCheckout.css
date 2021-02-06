@@ -1,3 +1,12 @@
 .message {
-    margin: 15rem;
+    margin: 1rem;
 }
+
+.btn {
+    margin-left: 1rem;
+  }
+
+  .book {
+      background-color: white;
+  }
+  

@@ -3,16 +3,23 @@ img.img-thumbnail {
   margin-right: 2%;
 }
 
+p.book-title {
+  text-align: center;
+}
+
 p.book-description {
   margin-bottom: 0px;
   padding-left: 2%;
+  text-align: left;
 }
 
-button.request {
-  margin-top: 2%;
+.button-request {
+  position: absolute;
+  bottom: 0rem;
 }
   
 .book {
   background-color: rgb(202, 202, 202);
-  padding: 5%;
+  padding: 2rem;
+  text-align: left;
 }

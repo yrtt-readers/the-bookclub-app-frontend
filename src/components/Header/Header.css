@@ -7,5 +7,13 @@ header {
 }
 
 .small-logo {
-  width: 75px;
+  width: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .small-logo {
+    width: 3rem;
+
+  }
+
 }

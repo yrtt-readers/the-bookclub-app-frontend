@@ -2,7 +2,6 @@ import React from 'react';
 
 function About() {
   return (
-    <div>
       <section className='container container-margin'>
         <h1 className='text-center'>About us</h1>
         <div className='text-left'>
@@ -48,7 +47,7 @@ function About() {
           </ul>
         </div>
       </section>
-    </div>
+  
   );
 }
 
