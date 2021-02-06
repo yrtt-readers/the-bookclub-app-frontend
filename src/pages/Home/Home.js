@@ -16,9 +16,8 @@ function Home() {
             />
           </Link>
           <Carousel.Caption bsPrefix="carousel-caption text-caption">
-            <h3>Donate books to children</h3>
-            
-            <p>Sign up to donate to local organisations</p>
+            <h1 className='title-carousel'>Donate books to children</h1>
+            <h3 className='sub-title-carousel'>Sign up to donate to local organisations</h3>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -31,8 +30,8 @@ function Home() {
             />
           </Link>
           <Carousel.Caption bsPrefix="carousel-caption text-caption">
-            <h3>Request a book</h3>
-            <p>Sign up to see what’s available in your local area</p>
+            <h1 className='title-carousel'>Request a book</h1>
+            <h3 className='sub-title-carousel'>Sign up to see what’s available in your local area</h3>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -45,8 +44,8 @@ function Home() {
             />
           </Link>
           <Carousel.Caption bsPrefix="carousel-caption text-caption">
-            <h3>Find nearest events</h3>
-            <p>Making reading fun for everyone</p>
+            <h1 className='title-carousel'>Find nearest events</h1>
+            <h3 className='sub-title-carousel'>Making reading fun for everyone</h3>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -58,8 +57,8 @@ function Home() {
             />
           </Link>
           <Carousel.Caption bsPrefix="carousel-caption text-caption">
-            <h3>Contact us</h3>
-            <p>Send us a message</p>
+            <h1 className='title-carousel'>Contact us</h1>
+            <h3 className='sub-title-carousel'>Send us a message</h3>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
