@@ -1,6 +1,6 @@
 # The BookClub Application - Frontend
 
-This is the front end of our application, built throughout the [Tech Returners](https://techreturners.com/) _Your Journey Into Tech_ course. It integrates with a backend, available here, and here.
+This is the front end of our application, built throughout the [Tech Returners](https://techreturners.com/) _Your Return To Tech_ course. It integrates with a backend, available here, and here.
 
 The hosted version of the application is available here: https://thebookclub.tk/
 
