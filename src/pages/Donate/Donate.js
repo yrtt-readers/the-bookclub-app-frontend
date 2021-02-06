@@ -15,15 +15,13 @@ function Donate() {
   }, [])
 
   return (
-    <div className="container container-margin">
-        <div>
-            <h1 className="text-center">Donate a book to a child</h1>
-            {isLoading ? (
-              <div>Loading ...</div>
-            ) : (
-              <BookList mode={1} stocks={stocks} setStocks={setStocks} />
-            )}            
-        </div>        
+    <div className="container container-margin text-center">
+      <h1 className="text-center">Donate a book to a child</h1>
+      {isLoading ? (
+        <div>Loading ...</div>
+      ) : (
+        <BookList mode={1} stocks={stocks} setStocks={setStocks} />
+      )}            
     </div>
   );
 }

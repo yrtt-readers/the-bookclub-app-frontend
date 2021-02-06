@@ -52,19 +52,21 @@ function RequestCheckout() {
     return (
         <section className='container container-margin'>
            
-            <h3 className='space_title2'>Please confirm that you wish to request the following book located at:</h3>
+            <h3 className='space-title-checkout'>Please confirm that you wish to request the following book located at:</h3>
             <Book key={2} mode={2} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
-            { isLoading ? (
-                <div>Loading region details ...</div>
-            ) : (
-                <div>
-                    <strong>{regionDetail.regionName}</strong>
-                    <p>{regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county} {regionDetail.postCode} </p>
-                </div>
-            )}
             
-            <p><strong>Please note:</strong> {regionDetail.bookCollectionMessage}</p>
-            
+            <div className='margin-region'>
+                { isLoading ? (
+                    <div>Loading region details ...</div>
+                    ) : (
+                    <div>
+                        <strong>{regionDetail.regionName}</strong>
+                        <p>{regionDetail.houseNumber}, {regionDetail.street} - {regionDetail.city}, {regionDetail.county} {regionDetail.postCode} </p>
+                    </div>
+                )}
+                
+                <p><strong>Please note:</strong> {regionDetail.bookCollectionMessage}</p>
+            </div>
             <button type='button' className='btn btn-success' onClick={handleClickConfirm}>Confirm</button>   
             
             <button type='button' className='btn btn-danger' onClick={onClickListener}>Cancel</button>  

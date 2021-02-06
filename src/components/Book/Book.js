@@ -9,7 +9,7 @@ element.set(0,
   {
     button: {
       label: 'Request',
-      className: 'btn btn-primary button-request'
+      className: 'btn btn-primary button-action'
     },
     storage: {
       key: 'cart.request'
@@ -23,7 +23,7 @@ element.set(1,
   {
     button: {
       label: 'Donate',
-      className: 'btn btn-primary button-request'
+      className: 'btn btn-primary button-action'
     },
     storage: {
       key: 'cart.donate'
@@ -69,12 +69,13 @@ function Book({ mode, stock, stocks, setStocks }) {
   
   const [ msg, setMsg ] = useState("");
 
-  function onClickListener(e) {
+  function onClickListener() {
     let item = {};
     let cart = [];
     let new_stock;
 
-    if (e.target.className === 'btn btn-primary button-request') {
+    if (mode === 0) {
+    // if (e.target.className === 'btn btn-primary button-request') {
       cart = sessionStorage.getItem(element.get(mode).storage.key)
       if (cart === null) {
         
@@ -102,17 +103,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
       }
     }
-    else if (e.target.className === 'btn btn-primary button-donate') {
-      // new_stock = stocks.map((book) => {
-      //   if (book.isbn === stock.isbn) {
-      //     return {...book, qty: stock.qty + 1} 
-      //   } else {
-      //     return book;
-      //   }
-      // });
-
-      // setStocks(new_stock);
-
+    else if (mode === 1) {
       item = stock;
       item.qty = 1;
       
@@ -137,17 +128,21 @@ function Book({ mode, stock, stocks, setStocks }) {
       }
 
       sessionStorage.setItem(element.get(mode).storage.key,
-        JSON.stringify(cart))
+        JSON.stringify(cart));
     }
-
   }
 
+  const cart = JSON.parse(sessionStorage.getItem(element.get(mode).storage.key));
+
   return (
-      <div className='col-lg-6 col-sm-6 book'>
-      
-        <div className='alert alert-success mt-2' style={{display: msg ? 'block' : 'none' }} role="alert">
-            {msg}
-        </div>
+  
+      <div className={` col-lg-6 col-sm-6 ${cart != null && cart.length === 1 ? 'checkout-book' : 'book'} `}>
+        { mode === 0 && 
+          <div className='alert alert-warning mt-2' style={{display: msg ? 'block' : 'none' }} role="alert">
+              {msg}
+          </div>
+        }
+
         <img
           className='img-thumbnail'
           src={stock.thumbnail}
@@ -163,13 +158,11 @@ function Book({ mode, stock, stocks, setStocks }) {
         <ShowMore text={stock.summary} className={element.get(mode).description.className} />
         { mode === 0 && <p><strong>Postcode: {stock.postCode}</strong></p> }
         <button onClick={onClickListener}
-          className={element.get(mode).button.className}>
+          className={element.get(mode).button.className} disabled={mode === 0 && cart != null}>
           {element.get(mode).button.label}
         </button>
-        <br/><br/>
       </div>
   )
-
 }
 
 Book.propTypes = {
