@@ -5,61 +5,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import './BookList.css';
 import Book from '../Book/Book';
 
-const element = new Map()
-
-element.set(0,
-  {
-    key: 'stocks',
-    header: {
-      label: 'Books available to request',
-      className: 'text-center'
-    },
-    operation: {
-      label: null,
-      className: 'row g-3 align-items-center space_title'
-    }
-  }
-)
-element.set(1,
-  {
-    key: 'stocks',
-    header: {
-      label: 'Select a book from the list',
-      className: 'text-center'
-    },
-    operation: {
-      label: null,
-      className: 'row g-3 align-items-center space_title'
-    }
-  }
-)
-element.set(2,
-  {
-    key: 'cart.request',
-    header: {
-      label: 'You\'ve requested the following book',
-      className: 'text-center'
-    },
-    operation: {
-      label: null,
-      className: 'hide'
-    }
-  }
-)
-element.set(3,
-  {
-    key: 'cart.donate',
-    header: {
-      label: 'You\'ve donated the following books',
-      className: 'text-center'
-    },
-    operation: {
-      label: null,
-      className: 'hide'
-    }
-  }
-)
-
 function BookList({ mode, stocks, setStocks }) {
 
   const history = useHistory();   
@@ -118,7 +63,7 @@ function BookList({ mode, stocks, setStocks }) {
         { mode === 1 && <h2>Select the books from the list</h2> }
       </div>
     
-      <div className='row g-3 space_title2'>
+      <div className='row g-3 space-title-bottom'>
         { mode === 0 &&
           <h4>You can only request one book at a time</h4>
         }
@@ -127,25 +72,26 @@ function BookList({ mode, stocks, setStocks }) {
           <h4>If your book is not listed below <Link to="/"> click here </Link> to enter the book details</h4>
         }
       </div>
-    
-      <div className={element.get(mode).operation.className}>
-        <Dropdown className='col-auto' onSelect={setSortType}>
-          <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
+      
+      { mode < 2 && 
+        <div className='row space-title'>
+          <div className='col left'>
+            <Dropdown className='col-auto' onSelect={setSortType}>
+              <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>Sort by</Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
-            <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
-            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
-            <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <div className='left'>
-          <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
-        </div>
+              <Dropdown.Menu>
+                <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
+                <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
+                <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
+                <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div className='col left'>
+            <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
+          </div>
         
-        <div className='right row g-3 align-items-center'>
-          <div className='col-auto'>
+          <div className='col'>
             <input
               type='input'
               id='inputSearch'
@@ -158,7 +104,7 @@ function BookList({ mode, stocks, setStocks }) {
             <button className='btn btn-primary'>Search</button>
           </div>
         </div>    
-      </div>
+      }
     
       <div className='row booklist'>
         { stocks != null &&
@@ -168,9 +114,12 @@ function BookList({ mode, stocks, setStocks }) {
             setStocks={setStocks} />)
         }
       </div>
-      <div className={element.get(mode).operation.className}>
-        <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
-      </div>
+      {
+        mode < 2 &&
+        <div className='space-title'>
+          <button className='btn btn-success checkout' onClick={onClickListener}>Checkout</button>
+        </div>
+      }
     </div>
     
   );
