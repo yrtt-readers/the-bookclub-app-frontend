@@ -52,10 +52,14 @@ function RequestCheckout() {
     return (
         <section className='container container-margin'>
            
-            <h3 className='space-title-checkout'>Please confirm that you wish to request the following book located at:</h3>
+            <h3 className='space-title-checkout'>Please confirm that you wish to request the following book:</h3>
             <Book key={2} mode={2} stock={stocks[0]} stocks={stocks} setStocks={setStocks} />
             
+
             <div className='margin-region'>
+                <h3>
+                    Located at:
+                </h3>
                 { isLoading ? (
                     <div>Loading region details ...</div>
                     ) : (

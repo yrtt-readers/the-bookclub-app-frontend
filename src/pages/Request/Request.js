@@ -13,14 +13,10 @@ function Request() {
   }, [])
 
   return (
-    <div>
-      <section className="container container-margin">
-        <div>
-            <h1 className="text-center space_title">Request a book for a child</h1>
-              <BookList mode={0} stocks={stocks} setStocks={setStocks} />
-        </div>        
-      </section>
-    </div> 
+    <div className="container container-margin text-center">
+        <h1 className="space-title">Request a book for a child</h1>
+        <BookList mode={0} stocks={stocks} setStocks={setStocks} />
+    </div>        
   );
 }
   

@@ -61,7 +61,7 @@ function DonateCheckout() {
   
       <section className="container container-margin">
         
-        <h2 className='space-title-checkout'>Please confirm that you wish to donate the following {` ${donation.length > 1 ? 'books' : 'book'} `} :</h2>
+        <h2 className='space-title-checkout'>Please confirm that you wish to donate the following {` ${donation.length > 1 ? 'books:' : 'book:'} `}</h2>
         
         { stocks.length > 1 ? (
           <BookList key={3} mode={3} stocks={stocks} setStocks={setStocks} />
