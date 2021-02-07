@@ -2,7 +2,7 @@ name: Jest - unsorted book names and authors
 on:
   push:
     branches:
-      - master
+      - test-jest
 
 jobs:
   jest:
