@@ -4,53 +4,66 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import './BookList.css';
 
+
 function Main() {
 
     const [stocks, setStocks] = useState([])
-    // const url = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
-    const url = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
+    const searchUrl = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
+    const initUrl = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(url)
-            setStocks(result.data)
+    function loadStocks(e) {
+
+        if (e === null || e.target.className === 'btn btn-primary searchBook') {
+            let url = (e === null) ? initUrl : searchUrl
+            useEffect(() => {
+                const fetchData = async () => {
+                    const result = await axios(url)
+                    setStocks(result.data)
+                }
+                fetchData()
+            }, [])
         }
-        fetchData()
-    }, [])
-
-    function onClickListener(e) {
-
-        if (e.target.className === 'btn btn-primary donate') 
-            stocks.map(v => { v.isbn === e.target.id ? v.qty += 1 : null })
-        else if (e.target.className === 'btn btn-primary request') 
-            stocks.map(v => { v.isbn === e.target.id ? v.qty -= 1 : null })
-        else if (e.target.id === 'title-AZ') 
-            stocks.sort((a, b) => { a.bookName.localeCompare(b.bookName) })
-        else if (e.target.id === 'title-ZA') 
-            stocks.sort((a, b) => { b.bookName.localeCompare(a.bookName) })
-        else if (e.target.id === 'author-AZ') 
-            stocks.sort((a, b) => { a.bookAuthors.localeCompare(b.bookAuthors) })
-        else if (e.target.id === 'author-ZA') 
-            stocks.sort((a, b) => { b.bookAuthors.localeCompare(a.bookAuthors) })
-        
-        setStocks([...stocks])
+        else {
+            switch (e.target.className) {
+                case 'btn btn-primary donate':
+                    stocks.map(v => { v.isbn === e.target.id ? v.qty += 1 : null })
+                    break
+                case 'btn btn-primary request':
+                    stocks.map(v => { v.isbn === e.target.id ? v.qty -= 1 : null })
+                    break
+                case 'title-AZ dropdown-item':
+                    stocks.sort((a, b) => { return a.bookName.localeCompare(b.bookName)})
+                    break
+                case 'title-ZA dropdown-item':
+                    stocks.sort((a, b) => {  return b.bookName.localeCompare(a.bookName) })
+                    break
+                case 'author-AZ dropdown-item':
+                    stocks.sort((a, b) => {  return a.bookAuthors.localeCompare(b.bookAuthors) })
+                    break
+                case 'author-ZA dropdown-item':
+                    stocks.sort((a, b) => {  return b.bookAuthors.localeCompare(a.bookAuthors) })
+                    break
+            }
+            setStocks([...stocks])
+        }
     }
 
+    loadStocks(null)
     return (
         <section className='container container-margin'>
             <div className='row g-3'>
                 <h1 className='text-center'>Books available to request</h1>
             </div>
             <div className='row g-3 align-items-center'>
-                <Dropdown data-testid='sort' className='col-auto' onClick={onClickListener}>
+                <Dropdown data-testid='sort' className='col-auto' onClick={loadStocks}>
                     <Dropdown.Toggle variant='primary'>
                         Sort by
             </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item id='title-AZ'>Title A-Z</Dropdown.Item>
-                        <Dropdown.Item id='title-ZA'>Title Z-A</Dropdown.Item>
-                        <Dropdown.Item id='author-AZ'>Author A-Z</Dropdown.Item>
-                        <Dropdown.Item id='author-ZA'>Author Z-A</Dropdown.Item>
+                        <Dropdown.Item className='title-AZ'>Title A-Z</Dropdown.Item>
+                        <Dropdown.Item className='title-ZA'>Title Z-A</Dropdown.Item>
+                        <Dropdown.Item className='author-AZ'>Author A-Z</Dropdown.Item>
+                        <Dropdown.Item className='author-ZA'>Author Z-A</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className='col-auto'>
@@ -66,7 +79,7 @@ function Main() {
                 </div>
 
                 <div className='col-auto'>
-                    <button className='btn btn-primary searchBook' onClick={onClickListener}>Search</button>
+                    <button className='btn btn-primary searchBook' onClick={loadStocks}>Search</button>
                 </div>
             </div>
             <div className='row booklist'>
@@ -77,21 +90,23 @@ function Main() {
                             src={stock.thumbnail}
                             alt='book-image-not-found'
                         />
-                        <p className='book-description' data-testid='bookName' id={'bookName.' + stock.isbn}>
+                        <p className='book-description' data-testid='bookName'
+                           id={'bookName.' + stock.isbn}>
                             <strong>{stock.bookName}</strong>
                         </p>
-                        <p className='book-description' data-testid='bookAuthors' id={'bookAuthors.' + stock.isbn}>
+                        <p className='book-description' data-testid='bookAuthors'
+                           id={'bookAuthors.' + stock.isbn}>
                             <strong>{stock.bookAuthors}</strong>
                         </p>
                         <p className='book-description'>{stock.qty}</p>
                         <button
-                            onClick={onClickListener}
+                            onClick={loadStocks}
                             className='btn btn-primary request'
                             id={stock.isbn}>
                             Request
                         </button>
                         <button
-                            onClick={onClickListener}
+                            onClick={loadStocks}
                             className='btn btn-primary donate'
                             id={stock.isbn}>
                             Donate
