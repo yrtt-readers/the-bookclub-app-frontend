@@ -1,4 +1,4 @@
-name: Jest - unsorted book names and authors
+name: Test book list onLoad
 on:
   push:
     branches:
