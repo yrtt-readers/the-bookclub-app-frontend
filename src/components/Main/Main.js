@@ -7,8 +7,8 @@ import './BookList.css';
 function Main() {
 
     const [stocks, setStocks] = useState([])
-    const url = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
-    // const initUrl = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
+    // const url = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
+    const url = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,55 +16,24 @@ function Main() {
             setStocks(result.data)
         }
         fetchData()
-    }, [stocks])
+    }, [])
 
     function onClickListener(e) {
 
-        console.log(e.target.id)
-
-        if (e.target.className === 'btn btn-primary donate') {
+        if (e.target.className === 'btn btn-primary donate') 
             stocks.map(v => { v.isbn === e.target.id ? v.qty += 1 : null })
-            setStocks(stocks)
-            console.log(stocks)
-        }
-        else if (e.target.className === 'btn btn-primary request') {
+        else if (e.target.className === 'btn btn-primary request') 
             stocks.map(v => { v.isbn === e.target.id ? v.qty -= 1 : null })
-            setStocks(stocks)
-            console.log(stocks)
-        }
-        else if (e.target.className === 'btn btn-primary searchBook') {
-            console.log(stocks)
-        }
-        else if (e.target.className === 'btn btn-primary checkout')
-            history.push('/checkout')
-    }
-
-    function onSortListener(e) {
-
-        console.log(e.target)
-
-        switch (sortType) {
-            case 'title-AZ':
-                stocks.sort((a, b) => { a.bookName.localeCompare(b.bookName) })
-                setStocks(stocks)
-                console.log(stocks)
-                break
-            case 'title-ZA':
-                stocks.sort((a, b) => { b.bookName.localeCompare(a.bookName) })
-                setStocks(stocks)
-                console.log(stocks)
-                break
-            case 'author-AZ':
-                stocks.sort((a, b) => { a.bookAuthors.localeCompare(b.bookAuthors) })
-                setStocks(stocks)
-                console.log(stocks)
-                break
-            case 'author-ZA':
-                stocks.sort((a, b) => { b.bookAuthors.localeCompare(a.bookAuthors) })
-                setStocks(stocks)
-                console.log(stocks)
-                break
-        }
+        else if (e.target.id === 'title-AZ') 
+            stocks.sort((a, b) => { a.bookName.localeCompare(b.bookName) })
+        else if (e.target.id === 'title-ZA') 
+            stocks.sort((a, b) => { b.bookName.localeCompare(a.bookName) })
+        else if (e.target.id === 'author-AZ') 
+            stocks.sort((a, b) => { a.bookAuthors.localeCompare(b.bookAuthors) })
+        else if (e.target.id === 'author-ZA') 
+            stocks.sort((a, b) => { b.bookAuthors.localeCompare(a.bookAuthors) })
+        
+        setStocks([...stocks])
     }
 
     return (
@@ -73,15 +42,15 @@ function Main() {
                 <h1 className='text-center'>Books available to request</h1>
             </div>
             <div className='row g-3 align-items-center'>
-                <Dropdown data-testid='sort' className='col-auto' onSelect={onSortListener}>
-                    <Dropdown.Toggle variant='primary' id='dropdown-basic-button'>
+                <Dropdown data-testid='sort' className='col-auto' onClick={onClickListener}>
+                    <Dropdown.Toggle variant='primary'>
                         Sort by
             </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item onMouseOut={onSortListener} eventKey="title-AZ">Title A-Z</Dropdown.Item>
-                        <Dropdown.Item onMouseOut={onSortListener} eventKey="title-ZA">Title Z-A</Dropdown.Item>
-                        <Dropdown.Item onMouseOut={onSortListener} eventKey="author-AZ">Author A-Z</Dropdown.Item>
-                        <Dropdown.Item onMouseOut={onSortListener} eventKey="author-ZA">Author Z-A</Dropdown.Item>
+                        <Dropdown.Item id='title-AZ'>Title A-Z</Dropdown.Item>
+                        <Dropdown.Item id='title-ZA'>Title Z-A</Dropdown.Item>
+                        <Dropdown.Item id='author-AZ'>Author A-Z</Dropdown.Item>
+                        <Dropdown.Item id='author-ZA'>Author Z-A</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className='col-auto'>
@@ -115,13 +84,19 @@ function Main() {
                             <strong>{stock.bookAuthors}</strong>
                         </p>
                         <p className='book-description'>{stock.qty}</p>
-                            <button
-                                onClick={onClickListener}
-                                className='btn btn-primary request'
-                                id={stock.isbn}>
-                                Request
-                            </button>
-                    </div>                
+                        <button
+                            onClick={onClickListener}
+                            className='btn btn-primary request'
+                            id={stock.isbn}>
+                            Request
+                        </button>
+                        <button
+                            onClick={onClickListener}
+                            className='btn btn-primary donate'
+                            id={stock.isbn}>
+                            Donate
+                        </button>
+                    </div>
                 )}
             </div>
         </section >
