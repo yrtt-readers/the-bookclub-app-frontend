@@ -5,7 +5,7 @@ import axios from 'axios';
 import './BookList.css';
 
 
-function Main() {
+function BookList() {
 
     const [stocks, setStocks] = useState([])
     const searchUrl = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
@@ -118,4 +118,4 @@ function Main() {
     )
 }
 
-export default Main;
+export default BookList;
