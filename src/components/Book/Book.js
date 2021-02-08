@@ -70,7 +70,7 @@ function Book({ mode, stock, stocks, setStocks }) {
 
   let cart_checkout = null;
   
-  if (mode === 2) 
+  if (mode === 0 || mode === 2) 
     cart_checkout = JSON.parse(sessionStorage.getItem('cart.request'));
   else if (mode === 3)
     cart_checkout = JSON.parse(sessionStorage.getItem('cart.donate'));
