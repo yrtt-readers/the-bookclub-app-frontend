@@ -9,23 +9,23 @@ function BookList() {
 
     const [stocks, setStocks] = useState([])
     const [param, setParam] = useState('')
-    const searchUrl = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
+    const searchUrl = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/search/books/'
     const initUrl = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
 
     function loadStocks(e) {
 
-        let isLoading = (e === null)
-        let url = isLoading?initUrl:searchUrl+param
+        let url = (e === null)?initUrl:searchUrl+param
 
         const fetchData = async () => {
             const result = await axios(url)
             setStocks(result.data)
         }
 
-        if(isLoading){
+        if(e === null){
             useEffect(() => {fetchData()},[])
         }
         else if (e.target.className === 'btn btn-primary searchBook') {
+            setStocks([])
             fetchData()
         }
         else {
@@ -91,7 +91,7 @@ function BookList() {
                 </div>
             </div>
             <div className='row booklist'>
-                {stocks.map(stock =>
+                {(stocks === undefined)?'Loading...':stocks.map(stock =>
                     <div key={stock.isbn} className='col-lg-4 col-sm-6 book'>
                         <img
                             className='img-thumbnail'
