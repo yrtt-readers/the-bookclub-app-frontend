@@ -8,20 +8,25 @@ import './BookList.css';
 function BookList() {
 
     const [stocks, setStocks] = useState([])
+    const [param, setParam] = useState('')
     const searchUrl = 'https://croxqcg4a2.execute-api.eu-west-2.amazonaws.com/test/stock/'
     const initUrl = 'https://yrtt-readers.github.io/the-bookclub/assets/data/stocks.json'
 
     function loadStocks(e) {
 
-        if (e === null || e.target.className === 'btn btn-primary searchBook') {
-            let url = (e === null) ? initUrl : searchUrl
-            useEffect(() => {
-                const fetchData = async () => {
-                    const result = await axios(url)
-                    setStocks(result.data)
-                }
-                fetchData()
-            }, [])
+        let isLoading = (e === null)
+        let url = isLoading?initUrl:searchUrl+param
+
+        const fetchData = async () => {
+            const result = await axios(url)
+            setStocks(result.data)
+        }
+
+        if(isLoading){
+            useEffect(() => {fetchData()},[])
+        }
+        else if (e.target.className === 'btn btn-primary searchBook') {
+            fetchData()
         }
         else {
             switch (e.target.className) {
@@ -52,7 +57,7 @@ function BookList() {
     return (
         <section className='container container-margin'>
             <div className='row g-3'>
-                <h1 className='text-center'>Books available to request</h1>
+                <h1 className='text-center'>Books available</h1>
             </div>
             <div className='row g-3 align-items-center'>
                 <Dropdown data-testid='sort' className='col-auto' onClick={loadStocks}>
@@ -75,11 +80,14 @@ function BookList() {
                         id='inputSearch'
                         className='form-control'
                         aria-describedby='searchHelpInline'
+                        value={param}
+                        onChange={e => setParam(e.target.value)}
                     />
                 </div>
 
                 <div className='col-auto'>
-                    <button className='btn btn-primary searchBook' onClick={loadStocks}>Search</button>
+                    <button className='btn btn-primary searchBook'
+                            onClick={loadStocks}>Search</button>
                 </div>
             </div>
             <div className='row booklist'>
@@ -102,15 +110,11 @@ function BookList() {
                         <button
                             onClick={loadStocks}
                             className='btn btn-primary request'
-                            id={stock.isbn}>
-                            Request
-                        </button>
+                            id={stock.isbn}>Request</button>
                         <button
                             onClick={loadStocks}
                             className='btn btn-primary donate'
-                            id={stock.isbn}>
-                            Donate
-                        </button>
+                            id={stock.isbn}>Donate</button>
                     </div>
                 )}
             </div>
