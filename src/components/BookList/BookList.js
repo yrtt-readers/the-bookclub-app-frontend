@@ -69,7 +69,7 @@ function BookList({ mode, stocks, setStocks }) {
         }
       
         { mode === 1 &&
-          <h4>If your book is not listed below <Link to="/"> click here </Link> to enter the book details</h4>
+          <h4>If your book is not listed below <Link to="/add-book"> click here </Link> to enter the book details</h4>
         }
       </div>
       
