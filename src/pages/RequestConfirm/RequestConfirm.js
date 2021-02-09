@@ -9,10 +9,10 @@ function RequestConfirm() {
     return (
         <div>
             <section className="container container-margin">
-                <h2 className="text-center">Thank you very much for your requests.</h2>
+                <h2 className="text-center">Thank you very much for your request</h2>
                 <div>
                     <p>Your request ID is <strong>54358OUY</strong>.</p>
-                    <p>Please collect  your book at:</p>
+                    <p>Please collect your book at:</p>
                     <p><strong>{regionDetail.regionName}</strong></p>
                     <p>{regionDetail.houseNumber}, {regionDetail.street} {regionDetail.city} {regionDetail.county} {regionDetail.postCode} </p>
                     
