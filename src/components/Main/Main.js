@@ -7,6 +7,7 @@ import Donate from '../../pages/Donate/Donate';
 import Request from '../../pages/Request/Request';
 import DonateCheckout from '../../pages/DonateCheckout/DonateCheckout';
 import RequestCheckout from '../../pages/RequestCheckout/RequestCheckout';
+import AddBook from '../../pages/AddBook/AddBook';
 import Contact from '../../pages/Contact/Contact';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
@@ -28,6 +29,7 @@ function Main() {
             <Route exact path='/confirm-donation' component={DonateConfirm}></Route>
             <Route exact path='/checkout-request' component={RequestCheckout}></Route>
             <Route exact path='/confirm-request' component={RequestConfirm}></Route>
+            <Route exact path='/add-book' component={AddBook}></Route>
         </Switch>
         
     );
