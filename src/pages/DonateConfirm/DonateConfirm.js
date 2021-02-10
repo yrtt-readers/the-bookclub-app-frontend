@@ -8,6 +8,8 @@ function DonateConfirm() {
 
     const [ isLoading, setIsLoading ] = useState(false);
     const [ regionDetail, setRegionDetail ] = useState([]);  
+
+    sessionStorage.removeItem('cart.donate');
     
     useEffect(() => {
         const fetchData = async () => {

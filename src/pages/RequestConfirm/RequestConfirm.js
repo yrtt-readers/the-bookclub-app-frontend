@@ -5,6 +5,7 @@ function RequestConfirm() {
     const location = useLocation();
     const regionDetail = location?.state?.regionDetails;
 
+    sessionStorage.removeItem('cart.request');
 
     return (
         <div>
